@@ -14,7 +14,9 @@
 
   #   - clicking a user's rating should take me to all of their shift reviews
 
-  #   - 
+  #   - a volunteer should not see their own ratings - at least initially
+
+  #   - could be displayed with an animation
 
 
 
