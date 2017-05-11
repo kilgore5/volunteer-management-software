@@ -26,10 +26,21 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
-  # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  #Paperclip
+  Paperclip.options[:command_path] = "/usr/local/bin/"
 
-  config.action_mailer.perform_caching = false
+  # Don't care if the mailer can't send.
+  config.action_mailer.raise_delivery_errors = true
+
+  config.action_mailer.perform_caching = true
+  config.action_mailer.default_url_options = { :host => "http://localhost:3000" }
+
+  # Images in emails
+  config.action_mailer.asset_host = ENV["site_url"]  
+
+  # MailCatcher: http://www.rubydoc.info/gems/mailcatcher
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
