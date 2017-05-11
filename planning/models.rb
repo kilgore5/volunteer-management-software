@@ -84,6 +84,7 @@ class Shift < ApplicationRecord
 
   belongs_to :event
   belongs_to :job
+  belongs_to :event_day
   belongs_to :volunteer, class_name: 'User'
   has_one    :shift_rating
 
@@ -157,10 +158,38 @@ class Event < ApplicationRecord
   # event_length      :float
   # ticket_price      :money
 
-  has_many    :shifts
+  has_many    :shifts, through: :event_days # Unsure of this - should it just have_many jobs, which have shifts?
+  # or even has many days, which has jobs, and shifts in turn?
+  has_many    :jobs
   has_many    :users, through: :shifts
   has_many    :volunteer_applications
   has_many    :volunteer_contracts
+  has_many    :event_days
   belongs_to  :event_client, class_name: 'User'
+
+  ## Indexes
+
+  add_index :events, :volunteer, class_name: 'User'
+
+  ## Notes 
+
+  # => The calendaring functionality will get pretty complex. 
+    # => Thoughts - when creating event, pick initial volunteer day, and all volunteer days needed, off of a simple calendar
+
+end
+
+class EventDay < ApplicationRecord
+
+  # accepted          :boolean, default: false
+
+  belongs_to  :event
+  has_many    :jobs, through: :event
+  has_many    :shifts
+
+
+  ## Notes
+
+
+  # =>  Day starts at 12:00 AM  -> 11.59 PM
 
 end
