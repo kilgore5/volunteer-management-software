@@ -12,11 +12,12 @@ class User < ApplicationRecord
   # shifts_missed     :integer
   # apps_accepted     :integer
   # hours_worked      :float   
-  # rating            :float  
+  # rating            :float 
 
 
   has_many :roles
   has_many :events
+  has_many :skills
   has_many :event_interests, class_name: 'Event'
   has_many :shifts, through: :events
   has_many :volunteer_applications
@@ -49,6 +50,27 @@ class Job < ApplicationRecord
 
   belongs_to :event
   has_many   :shifts
+  has_many   :skill_requirements
+
+end
+
+class SkillRequirement < ApplicationRecord
+
+  # title             :string
+  # description       :text
+
+
+  belongs_to :job
+
+end
+
+class Skill < ApplicationRecord
+
+  # skill_name        :string
+  # proof_document    :paperclip
+
+
+  belongs_to :volunteer, class_name: 'User'
 
 end
 
