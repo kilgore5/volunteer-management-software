@@ -37,6 +37,8 @@
 
 * Database creation
 
+  -rails db:create
+
 * Testing
 
   - Rspec - `rspec` to run the tests
