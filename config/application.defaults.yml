@@ -1,0 +1,21 @@
+gmail_username: email
+gmail_password: pass
+google_maps_key: blank
+time_zone: Melbourne
+mailer_email: email
+
+development:
+  STRIPE_PUBLISHABLE_KEY: pk_test_
+  STRIPE_SECRET_KEY: sk_test_
+  site_url: http://localhost:3000
+  gmail_username: email
+
+test: 
+
+production:
+  STRIPE_PUBLISHABLE_KEY: pk_live_
+  STRIPE_SECRET_KEY: sk_live_
+  gmail_username: email
+  gmail_password: pass
+  site_url: https://myapp.herokuapp.com
+  SECRET_KEY_BASE: `rake secret`
