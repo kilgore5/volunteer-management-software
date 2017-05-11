@@ -37,6 +37,10 @@
 
 * Database creation
 
+* Testing
+
+  - Rspec - `rspec` to run the tests
+
 * Database initialization
 
 * How to run the test suite
