@@ -1,8 +1,8 @@
 ### Pseudocode for feature planning
 
-## Search for users by:
+## Search for volunteers by:
 
-#   - Rating
+#   - Rating - i.e. 3 star & up
 
 #   - Shifts completed %
 
