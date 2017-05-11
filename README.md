@@ -24,3 +24,29 @@
 
     - 'Shift_Manager' : A paid employee of the festival, who manages volunteers
 
+* Ruby version
+  - ruby 2.4.0p0 (2016-12-24 revision 57164)
+
+* System dependencies
+  - paperclip needs Imagemagick installed
+
+* Configuration
+
+  - ENV variables use Figaro gem.
+  - access them through `ENV['my_variable']`
+
+* Database creation
+
+* Database initialization
+
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+  - Deployments are through Mina
+  - Requires Mina gem
+  - edit `config/deploy.rb` to change deployment settings
+
+* ...

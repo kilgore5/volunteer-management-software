@@ -1,63 +1,63 @@
-# # DB
+# # # DB
 
-# gem 'mysql2'
+# # gem 'mysql2'
 
-# USERS // USER MANAGEMENT
+# # USERS // USER MANAGEMENT
 
-gem 'devise'
-gem 'rolify'
+# gem 'devise'
+# gem 'rolify'
 
-# ADMIN SECTION
+# # ADMIN SECTION
 
-gem 'administrate' # (maybe)
+# gem 'administrate' # (maybe)
 
-# Images
+# # Images
 
-gem 'paperclip'
-gem 'delayed-paperclip' # think that's the name
+# gem 'paperclip'
+# gem 'delayed-paperclip' # think that's the name
 
-# Content Editing
+# # Content Editing
 
-gem 'ckeditor' # Make sure to use a sanitizer
+# gem 'ckeditor' # Make sure to use a sanitizer
 
-# Testing
+# # Testing
 
-gem 'rspec-rails'
-gem 'capybara'
-gem 'cucumber'
+# gem 'rspec-rails'
+# gem 'capybara'
+# gem 'cucumber'
 
-# Forms
+# # Forms
 
-gem 'simple form'
+# gem 'simple form'
 
-# Styling
+# # Styling
 
-gem 'bootstrap', '~> 4.0.0.alpha6'
-gem 'rails-assets-tether', '>= 1.3.3', source: 'https://rails-assets.org'
-gem 'autoprefixer-rails'
-gem 'haml-rails'
+# gem 'bootstrap', '~> 4.0.0.alpha6'
+# gem 'rails-assets-tether', '>= 1.3.3', source: 'https://rails-assets.org'
+# gem 'autoprefixer-rails'
+# gem 'haml-rails'
 
-# Routes / URLs
+# # Routes / URLs
 
-gem 'friendly_id'
+# gem 'friendly_id'
 
-# Secrets
+# # Secrets
 
-gem 'figaro'
+# gem 'figaro'
 
-# Job Worker
+# # Job Worker
 
-gem 'whenever'
+# gem 'whenever'
 
-# Documentation
+# # Documentation
 
-  # RDOC ? better alternative?
+#   # RDOC ? better alternative?
 
 
-# Development
+# # Development
 
-group :development do
-  gem 'web-console'
-  gem 'better-errors'
-  gem 'pry'
-end
+# group :development do
+#   gem 'web-console'
+#   gem 'better-errors'
+#   gem 'pry'
+# end

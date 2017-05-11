@@ -174,7 +174,7 @@ class Event < ApplicationRecord
   ## Notes 
 
   # => The calendaring functionality will get pretty complex. 
-    # => Thoughts - when creating event, pick initial volunteer day, and all volunteer days needed, off of a simple calendar
+    # => Thoughts - when creating event, pick initial volunteer day, and all volunteer days needed, off of a simple calendar, attach each to the Event object
 
 end
 
