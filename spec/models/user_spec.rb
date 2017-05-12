@@ -39,5 +39,18 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before do
+    @user = FactoryGirl.create(:user)
+  end
+
+  describe "creation" do
+    it "can be created if valid" do
+      expect(@user).to be_valid
+    end
+
+    it "will not be created if no password given" do
+      @user.password = nil
+      expect(@user).to_not be_valid
+    end
+  end
 end

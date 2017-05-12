@@ -42,10 +42,23 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  # Actions to take when saving User
+  before_save :set_full_name
+
+  # Model validations
+  validates_presence_of :password, :email
+
   # Sets the user's avatar from Paperclip gem
   has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   # Validates that the avatar is a real image when uploaded
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
   # Process the avatar as a background job, to not slow the user creation process.  delayed_paperclip gem
-  process_in_background :avatar      
+  process_in_background :avatar
+
+  protected
+
+    # Sets the user's full name on save
+    def set_full_name
+      self.full_name = "#{self.first_name} #{self.last_name}"
+    end
 end

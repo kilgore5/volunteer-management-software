@@ -3,9 +3,8 @@ require 'rails_helper'
 RSpec.describe "users/show", type: :view do
   before(:each) do
     @user = assign(:user, User.create!(
-      :first_name => "First Name",
-      :last_name => "Last Name",
-      :full_name => "Full Name",
+      :first_name => "First",
+      :last_name => "Last",
       :email => "aisudgf@asjdfdsah.online",
       :mobile_number => "Mobile Number",
       :password => "p864c5apiostvnot7rw3x4",
@@ -20,9 +19,9 @@ RSpec.describe "users/show", type: :view do
 
   it "renders attributes in <p>" do
     render
-    expect(rendered).to match(/First Name/)
-    expect(rendered).to match(/Last Name/)
-    expect(rendered).to match(/Full Name/)
+    expect(rendered).to match(/First/)
+    expect(rendered).to match(/Last/)
+    expect(rendered).to match(/First Last/)
     expect(rendered).to match(/Email/)
     expect(rendered).to match(/Mobile Number/)
     expect(rendered).to match(/Slug/)
