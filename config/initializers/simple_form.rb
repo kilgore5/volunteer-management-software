@@ -1,93 +1,154 @@
 # Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
-  # Components used by the form builder to generate a complete input. You can remove
-  # any of them, change the order, or even add your own components to the stack.
-  # config.components = [ :placeholder, :label_input, :hint, :error ]
+  config.error_notification_class = 'alert alert-danger'
+  config.button_class = 'btn btn-default'
+  config.boolean_label_class = nil
 
-  # Default tag used on hints.
-  # config.hint_tag = :span
+  config.wrappers :vertical_form, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
+    b.use :html5
+    b.use :placeholder
+    b.optional :maxlength
+    b.optional :minlength
+    b.optional :pattern
+    b.optional :min_max
+    b.optional :readonly
+    b.use :label, class: 'control-label'
 
-  # CSS class to add to all hint tags.
-  # config.hint_class = :hint
+    b.use :input, class: 'form-control'
+    b.use :error, wrap_with: { tag: 'span', class: 'help-block' }
+    b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
+  end
 
-  # CSS class used on errors.
-  # config.error_class = :error
+  config.wrappers :vertical_file_input, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
+    b.use :html5
+    b.use :placeholder
+    b.optional :maxlength
+    b.optional :minlength
+    b.optional :readonly
+    b.use :label, class: 'control-label'
 
-  # Default tag used on errors.
-  # config.error_tag = :span
+    b.use :input
+    b.use :error, wrap_with: { tag: 'span', class: 'help-block' }
+    b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
+  end
 
-  # Method used to tidy up errors.
-  # config.error_method = :first
+  config.wrappers :vertical_boolean, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
+    b.use :html5
+    b.optional :readonly
 
-  # Default tag used for error notification helper.
-  # config.error_notification_tag = :p
+    b.wrapper tag: 'div', class: 'checkbox' do |ba|
+      ba.use :label_input
+    end
 
-  # CSS class to add for error notification helper.
-  # config.error_notification_class = :error_notification
+    b.use :error, wrap_with: { tag: 'span', class: 'help-block' }
+    b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
+  end
 
-  # ID to add for error notification helper.
-  # config.error_notification_id = nil
+  config.wrappers :vertical_radio_and_checkboxes, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
+    b.use :html5
+    b.optional :readonly
+    b.use :label, class: 'control-label'
+    b.use :input
+    b.use :error, wrap_with: { tag: 'span', class: 'help-block' }
+    b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
+  end
 
-  # You can wrap all inputs in a pre-defined tag.
-  # config.wrapper_tag = :div
+  config.wrappers :horizontal_form, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
+    b.use :html5
+    b.use :placeholder
+    b.optional :maxlength
+    b.optional :minlength
+    b.optional :pattern
+    b.optional :min_max
+    b.optional :readonly
+    b.use :label, class: 'col-sm-3 control-label'
 
-  # CSS class to add to all wrapper tags.
-  # config.wrapper_class = :input
+    b.wrapper tag: 'div', class: 'col-sm-9' do |ba|
+      ba.use :input, class: 'form-control'
+      ba.use :error, wrap_with: { tag: 'span', class: 'help-block' }
+      ba.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
+    end
+  end
 
-  # CSS class to add to the wrapper if the field has errors.
-  # config.wrapper_error_class = :field_with_errors
+  config.wrappers :horizontal_file_input, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
+    b.use :html5
+    b.use :placeholder
+    b.optional :maxlength
+    b.optional :minlength
+    b.optional :readonly
+    b.use :label, class: 'col-sm-3 control-label'
 
-  # You can wrap a collection of radio/check boxes in a pre-defined tag, defaulting to none.
-  # config.collection_wrapper_tag = nil
+    b.wrapper tag: 'div', class: 'col-sm-9' do |ba|
+      ba.use :input
+      ba.use :error, wrap_with: { tag: 'span', class: 'help-block' }
+      ba.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
+    end
+  end
 
-  # You can wrap each item in a collection of radio/check boxes with a tag, defaulting to span.
-  # config.item_wrapper_tag = :span
+  config.wrappers :horizontal_boolean, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
+    b.use :html5
+    b.optional :readonly
 
-  # Series of attempts to detect a default label method for collection.
-  # config.collection_label_methods = [ :to_label, :name, :title, :to_s ]
+    b.wrapper tag: 'div', class: 'col-sm-offset-3 col-sm-9' do |wr|
+      wr.wrapper tag: 'div', class: 'checkbox' do |ba|
+        ba.use :label_input
+      end
 
-  # Series of attempts to detect a default value method for collection.
-  # config.collection_value_methods = [ :id, :to_s ]
+      wr.use :error, wrap_with: { tag: 'span', class: 'help-block' }
+      wr.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
+    end
+  end
 
-  # How the label text should be generated altogether with the required text.
-  # config.label_text = lambda { |label, required| "#{required} #{label}" }
+  config.wrappers :horizontal_radio_and_checkboxes, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
+    b.use :html5
+    b.optional :readonly
 
-  # You can define the class to use on all labels. Default is nil.
-  # config.label_class = nil
+    b.use :label, class: 'col-sm-3 control-label'
 
-  # You can define the class to use on all forms. Default is simple_form.
-  # config.form_class = :simple_form
+    b.wrapper tag: 'div', class: 'col-sm-9' do |ba|
+      ba.use :input
+      ba.use :error, wrap_with: { tag: 'span', class: 'help-block' }
+      ba.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
+    end
+  end
 
-  # Whether attributes are required by default (or not). Default is true.
-  # config.required_by_default = true
+  config.wrappers :inline_form, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
+    b.use :html5
+    b.use :placeholder
+    b.optional :maxlength
+    b.optional :minlength
+    b.optional :pattern
+    b.optional :min_max
+    b.optional :readonly
+    b.use :label, class: 'sr-only'
 
-  # Tell browsers whether to use default HTML5 validations (novalidate option).
-  # Default is enabled.
-  # config.browser_validations = true
+    b.use :input, class: 'form-control'
+    b.use :error, wrap_with: { tag: 'span', class: 'help-block' }
+    b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
+  end
 
-  # Determines whether HTML5 types (:email, :url, :search, :tel) and attributes
-  # (e.g. required) are used or not. True by default.
-  # Having this on in non-HTML5 compliant sites can cause odd behavior in
-  # HTML5-aware browsers such as Chrome.
-  # config.html5 = true
-
-  # Custom mappings for input types. This should be a hash containing a regexp
-  # to match as key, and the input type that will be used when the field name
-  # matches the regexp as value.
-  # config.input_mappings = { /count/ => :integer }
-
-  # Collection of methods to detect if a file type was given.
-  # config.file_methods = [ :mounted_as, :file?, :public_filename ]
-
-  # Default priority for time_zone inputs.
-  # config.time_zone_priority = nil
-
-  # Default priority for country inputs.
-  # config.country_priority = nil
-
-  # Default size for text inputs.
-  # config.default_input_size = 50
-
-  # When false, do not use translations for labels, hints or placeholders.
-  # config.translate = true
+  config.wrappers :multi_select, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
+    b.use :html5
+    b.optional :readonly
+    b.use :label, class: 'control-label'
+    b.wrapper tag: 'div', class: 'form-inline' do |ba|
+      ba.use :input, class: 'form-control'
+      ba.use :error, wrap_with: { tag: 'span', class: 'help-block' }
+      ba.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
+    end
+  end
+  # Wrappers for forms and inputs using the Bootstrap toolkit.
+  # Check the Bootstrap docs (http://getbootstrap.com)
+  # to learn about the different styles for forms and inputs,
+  # buttons and other elements.
+  config.default_wrapper = :vertical_form
+  config.wrapper_mappings = {
+    check_boxes: :vertical_radio_and_checkboxes,
+    radio_buttons: :vertical_radio_and_checkboxes,
+    file: :vertical_file_input,
+    boolean: :vertical_boolean,
+    datetime: :multi_select,
+    date: :multi_select,
+    time: :multi_select
+  }
 end

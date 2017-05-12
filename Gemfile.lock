@@ -1,6 +1,15 @@
 GIT
+  remote: https://github.com/elsurudo/simple_form.git
+  revision: a1faca93ed39c0f54055890578307bdbade3de0b
+  branch: rails-5.1.0
+  specs:
+    simple_form (3.4.0)
+      actionpack (> 4, < 5.2)
+      activemodel (> 4, < 5.2)
+
+GIT
   remote: https://github.com/plataformatec/devise.git
-  revision: ee01bac8b0b828b3da0d79c46115ba65c433d6c8
+  revision: 5e014ab6072551f6c39c391340e6b2089c849d00
   branch: master
   specs:
     devise (4.3.0)
@@ -53,9 +62,9 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
-    annotate (2.6.5)
-      activerecord (>= 2.3.0)
-      rake (>= 0.8.7)
+    annotate (2.7.1)
+      activerecord (>= 3.2, < 6.0)
+      rake (>= 10.4, < 12.0)
     arel (8.0.0)
     autoprefixer-rails (7.0.1)
       execjs
@@ -198,7 +207,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     raindrops (0.18.0)
-    rake (12.0.0)
+    rake (11.3.0)
     rb-fsevent (0.9.8)
     rb-inotify (0.9.8)
       ffi (>= 0.5.0)
@@ -239,7 +248,6 @@ GEM
       rubyzip (~> 1.0)
       websocket (~> 1.0)
     sexp_processor (4.9.0)
-    simple_form (1.4.1)
     spring (2.0.1)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -268,7 +276,7 @@ GEM
       raindrops (~> 0.7)
     warden (1.2.7)
       rack (>= 1.0)
-    web-console (3.5.0)
+    web-console (3.5.1)
       actionview (>= 5.0)
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
@@ -316,7 +324,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 5.0)
   selenium-webdriver
-  simple_form
+  simple_form!
   spring
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5)

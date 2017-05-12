@@ -2,9 +2,31 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title VolunteerManagementPlatform
+    %title Volunteer Management Platform
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-    = yield
+    .container
+      .header.clearfix
+        %nav
+          %ul.nav.nav-pills.float-right
+            %li.nav-item
+              %a.nav-link.active{:href => "#"}
+                Home
+                %span.sr-only (current)
+            %li.nav-item
+              %a.nav-link{:href => "#"} About
+            %li.nav-item
+              %a.nav-link{:href => "#"} Contact
+        %h3.text-muted Volunteer Management
+      .jumbotron
+        %h1.display-3 Manage Volunteers
+        %p.lead Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+        %p
+          %a.btn.btn-lg.btn-success{:href => "#", :role => "button"} Sign up today
+      .row.marketing
+        .col-lg-12
+          = yield
+      %footer.footer
+        %p © Company 2017

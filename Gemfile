@@ -48,7 +48,9 @@ gem 'delayed_paperclip' # think that's the name
 gem 'ckeditor' # Make sure to use a sanitizer
 
 # Forms
-gem 'simple_form'
+# TODO - look for newer official version that doesn't break with Rails 5.1
+  # https://github.com/plataformatec/simple_form/issues/1485
+gem 'simple_form', github: 'elsurudo/simple_form', branch: 'rails-5.1.0'
 
 # Styling
 gem 'bootstrap', '~> 4.0.0.alpha6'

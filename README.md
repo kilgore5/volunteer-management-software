@@ -44,7 +44,8 @@
 
   - Docs are generated through [Yard](https://github.com/lsegal/yard)
   - create docs via `yardoc`
-  - view docs via `yard server` => navigate to localhost:8808 to view
+  - view docs via `yard server -r` => navigate to localhost:8808 to view
+    - will reload on changes with `-r` command modifier
 
 * Testing
 
@@ -62,4 +63,3 @@
   - Requires Mina gem
   - edit `config/deploy.rb` to change deployment settings
 
-* ...
