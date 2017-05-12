@@ -15,10 +15,8 @@
               %a.nav-link.active{:href => "#"}
                 Home
                 %span.sr-only (current)
-            %li.nav-item
-              %a.nav-link{:href => "#"} About
-            %li.nav-item
-              %a.nav-link{:href => "#"} Contact
+            = render 'devise/menu/registration_items'
+            = render 'devise/menu/login_items'                
         %h3.text-muted Volunteer Management
       .jumbotron
         %h1.display-3 Manage Volunteers
