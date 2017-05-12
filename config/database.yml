@@ -1,25 +1,17 @@
 default: &default
-  adapter: mysql2
-  encoding: utf8
+  adapter: postgresql
+  user: volunteer
+  password: 
+  pool: 5
+  timeout: 5000
 
 development:
   <<: *default
-  database: volunteer_development
-  username: root
-  password: 
-  host: 127.0.0.1
-  port: 3306
+  database: volunteer_dev
 
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
 test:
   <<: *default
   database: volunteer_test
-  username: root
-  password: 
-  host: 127.0.0.1
-  port: 3306  
 
 production:
   <<: *default

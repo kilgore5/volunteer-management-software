@@ -1,0 +1,42 @@
+%p#notice= notice
+
+%p
+  %b First name:
+  = @user.first_name
+%p
+  %b Last name:
+  = @user.last_name
+%p
+  %b Full name:
+  = @user.full_name
+%p
+  %b Email:
+  = @user.email
+%p
+  %b Birthday:
+  = @user.birthday
+%p
+  %b Mobile number:
+  = @user.mobile_number
+%p
+  %b Slug:
+  = @user.slug
+%p
+  %b Shifts made:
+  = @user.shifts_made
+%p
+  %b Shifts missed:
+  = @user.shifts_missed
+%p
+  %b Apps accepted:
+  = @user.apps_accepted
+%p
+  %b Hours worked:
+  = @user.hours_worked
+%p
+  %b Rating:
+  = @user.rating
+
+= link_to 'Edit', edit_user_path(@user)
+\|
+= link_to 'Back', users_path

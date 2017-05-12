@@ -38,6 +38,7 @@
 * Database creation
 
   -rails db:create
+  -rails db:migrate
 
 * Testing
 

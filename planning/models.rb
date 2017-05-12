@@ -5,7 +5,7 @@ class User < ApplicationRecord
   # stripe_account    :string
   # stripe_token      :string
   # avatar            :paperclip_image
-  # birthday          :datetime
+  # birthday          :date
   # mobile_number     :string
   # email             :string
   # shifts_made       :integer
