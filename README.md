@@ -40,6 +40,12 @@
   -rails db:create
   -rails db:migrate
 
+* Documentation
+
+  - Docs are generated through [Yard](https://github.com/lsegal/yard)
+  - create docs via `yardoc`
+  - view docs via `yard server` => navigate to localhost:8808 to view
+
 * Testing
 
   - Rspec - `rspec` to run the tests

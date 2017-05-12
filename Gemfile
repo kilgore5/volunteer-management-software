@@ -31,6 +31,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
+gem 'annotate'
 
 # USERS // USER MANAGEMENT
 gem 'devise', git: 'https://github.com/plataformatec/devise.git', branch: 'master'
@@ -66,7 +67,7 @@ gem 'whenever'
 
 # Documentation
 
-  # RDOC ? better alternative?
+gem 'yard'
 
 group :production do
   gem 'unicorn'
