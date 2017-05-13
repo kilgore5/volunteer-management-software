@@ -15,9 +15,10 @@
               %a.nav-link.active{:href => "#"}
                 Home
                 %span.sr-only (current)
-            = render 'devise/menu/registration_items'
-            = render 'devise/menu/login_items'                
+            = render 'users/menu/registration_items'
+            = render 'users/menu/login_items'                
         %h3.text-muted Volunteer Management
+      = flash_messages
       .jumbotron
         %h1.display-3 Manage Volunteers
         %p.lead Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
