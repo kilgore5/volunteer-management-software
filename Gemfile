@@ -34,7 +34,10 @@ gem 'jbuilder', '~> 2.5'
 gem 'annotate'
 
 # USERS // USER MANAGEMENT
+  # Authentication
 gem 'devise', git: 'https://github.com/plataformatec/devise.git', branch: 'master'
+  # Authorization
+gem 'cancancan', '~> 1.10'
 gem 'rolify'
 
 # ADMIN SECTION

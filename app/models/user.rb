@@ -37,6 +37,7 @@
 #
 
 class User < ApplicationRecord
+  rolify
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -44,6 +45,7 @@ class User < ApplicationRecord
 
   # Actions to take when saving User
   before_save :set_full_name
+  after_create :assign_default_role
 
   # Model validations
   validates_presence_of :password, :email
@@ -55,10 +57,22 @@ class User < ApplicationRecord
   # Process the avatar as a background job, to not slow the user creation process.  delayed_paperclip gem
   process_in_background :avatar
 
+
+  # send Devise emails through your existing queue by overriding the 
+  # send_devise_notification method in your model
+  def send_devise_notification(notification, *args)
+    devise_mailer.send(notification, self, *args).deliver_later
+  end
+
   protected
 
     # Sets the user's full name on save
     def set_full_name
       self.full_name = "#{self.first_name} #{self.last_name}"
     end
+
+    # Assigns default role of :volunteer when user is created (Rollify gem + CanCanCan)
+    def assign_default_role
+      self.add_role(:volunteer) if self.roles.blank?
+    end  
 end
