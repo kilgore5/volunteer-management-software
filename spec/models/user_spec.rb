@@ -9,10 +9,10 @@
 #  birthday               :date
 #  mobile_number          :string
 #  slug                   :string
-#  shifts_made            :integer          default("0")
-#  shifts_missed          :integer          default("0")
-#  apps_accepted          :integer          default("0")
-#  hours_worked           :integer          default("0")
+#  shifts_made            :integer          default(0)
+#  shifts_missed          :integer          default(0)
+#  apps_accepted          :integer          default(0)
+#  hours_worked           :integer          default(0)
 #  rating                 :float
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
@@ -21,7 +21,7 @@
 #  reset_password_token   :string
 #  reset_password_sent_at :datetime
 #  remember_created_at    :datetime
-#  sign_in_count          :integer          default("0"), not null
+#  sign_in_count          :integer          default(0), not null
 #  current_sign_in_at     :datetime
 #  last_sign_in_at        :datetime
 #  current_sign_in_ip     :inet
@@ -34,6 +34,12 @@
 #  avatar_content_type    :string
 #  avatar_file_size       :integer
 #  avatar_updated_at      :datetime
+#
+# Indexes
+#
+#  index_users_on_email                 (email) UNIQUE
+#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_users_on_slug                  (slug) UNIQUE
 #
 
 require 'rails_helper'

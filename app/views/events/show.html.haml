@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Start time:
+  = @event.start_time
+%p
+  %b End time:
+  = @event.end_time
+%p
+  %b Event length:
+  = @event.event_length
+%p
+  %b Ticket price cents:
+  = @event.ticket_price_cents
+%p
+  %b User:
+  = @event.client_owner
+
+= link_to 'Edit', edit_event_path(@event)
+\|
+= link_to 'Back', events_path
