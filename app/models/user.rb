@@ -43,18 +43,24 @@
 #
 
 class User < ApplicationRecord
+
+  # Enables roles for Users via the Rolify gem and CanCanCan gem
   rolify
+
+  has_many :skills
+  accepts_nested_attributes_for :skills, :reject_if => :all_blank, :allow_destroy => true  
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   # Actions to take when saving User
-  before_save :set_full_name
+  before_create :set_full_name
   after_create :assign_default_role
 
   # Model validations
-  validates_presence_of :password, :email
+  validates_presence_of :email
 
   # Sets the user's avatar from Paperclip gem
   has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"

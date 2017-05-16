@@ -1,14 +1,5 @@
-%p#notice= notice
-
-%p
-  %b First name:
-  = @user.first_name
-%p
-  %b Last name:
-  = @user.last_name
-%p
-  %b Full name:
-  = @user.full_name
+%h1
+  = "#{@user.full_name}'s details"
 %p
   %b Email:
   = @user.email
@@ -37,6 +28,9 @@
   %b Rating:
   = @user.rating
 
-= link_to 'Edit', edit_user_path(@user)
-\|
-= link_to 'Back', users_path
+= link_to 'Edit details', edit_user_path(@user)
+- if user_signed_in?
+  \|
+  = link_to('Edit login info', edit_user_registration_path)
+
+

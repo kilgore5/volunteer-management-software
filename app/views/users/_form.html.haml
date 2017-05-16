@@ -4,16 +4,15 @@
   .inputs
     = f.input :first_name
     = f.input :last_name
-    = f.input :full_name
     = f.input :email
     = f.input :birthday
     = f.input :mobile_number
-    = f.input :slug
-    = f.input :shifts_made
-    = f.input :shifts_missed
-    = f.input :apps_accepted
-    = f.input :hours_worked
-    = f.input :rating
+  / %h3 Skills
+  / #skills
+  /   = f.simple_fields_for :skills do |skill|
+  /     = render 'skill_fields', f: skill
+  /   .links
+  /     = link_to_add_association 'add skill', f, :skills    
 
   .actions
     = f.button :submit

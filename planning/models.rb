@@ -15,7 +15,7 @@ class User < ApplicationRecord
   # rating            :float 
 
 
-  has_many :roles
+  # has_many :roles
   has_many :events
   has_many :skills
   has_many :event_interests, class_name: 'Event'

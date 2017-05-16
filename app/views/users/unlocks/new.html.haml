@@ -2,8 +2,8 @@
 = simple_form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f|
   = f.error_notification
   = f.full_error :unlock_token
-  .form-inputs
+  .inputs
     = f.input :email, required: true, autofocus: true
-  .form-actions
+  .actions
     = f.button :submit, "Resend unlock instructions"
 = render "users/shared/links"
