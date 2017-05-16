@@ -2,9 +2,10 @@
   = f.error_notification
 
   .inputs
+    = f.input :name
     = f.input :start_time
     = f.input :end_time
-    = f.input :event_length
+    / = f.input :event_length
     = f.input :ticket_price_cents
     = f.association :client_owner
 
