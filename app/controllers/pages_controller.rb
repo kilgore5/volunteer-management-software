@@ -1,5 +1,7 @@
 class PagesController < ApplicationController
+
   def home
-    @events = Event.all.includes(:client_owner)
+    @events = Event.includes(:client_owner, :event_days, :jobs).order('start_time ASC')
   end
+
 end

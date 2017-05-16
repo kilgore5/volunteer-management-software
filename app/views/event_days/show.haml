@@ -1,0 +1,10 @@
+%h2
+  %b Date:
+  = "#{@event_day.date.strftime("%A")}, #{@event_day.date.strftime("%d/%m/%Y")}"
+%p
+  %b Event:
+  = @event_day.event
+
+/ = link_to 'Edit', edit_event_path(@event)
+/ \|
+/ = link_to 'Back', events_path

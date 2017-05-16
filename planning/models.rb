@@ -42,17 +42,17 @@ class User < ApplicationRecord
 
 end
  
-class Job < ApplicationRecord
+# class Job < ApplicationRecord
 
-  # title             :string
-  # description       :text
+#   # title             :string
+#   # description       :text
 
 
-  belongs_to :event
-  has_many   :shifts
-  has_many   :skill_requirements
+#   belongs_to :event
+#   has_many   :shifts
+#   has_many   :skill_requirements
 
-end
+# end
 
 class SkillRequirement < ApplicationRecord
 
@@ -161,7 +161,7 @@ class Event < ApplicationRecord
   has_many    :shifts, through: :event_days # Unsure of this - should it just have_many jobs, which have shifts?
   # or even has many days, which has jobs, and shifts in turn?
   has_many    :jobs
-  has_many    :users, through: :shifts
+  has_many    :volunteers, class_name: 'User', through: :shifts
   has_many    :volunteer_applications
   has_many    :volunteer_contracts
   has_many    :event_days
@@ -178,18 +178,18 @@ class Event < ApplicationRecord
 
 end
 
-class EventDay < ApplicationRecord
+# class EventDay < ApplicationRecord
 
-  # accepted          :boolean, default: false
+#   # accepted          :boolean, default: false
 
-  belongs_to  :event
-  has_many    :jobs, through: :event
-  has_many    :shifts
-
-
-  ## Notes
+#   belongs_to  :event
+#   has_many    :jobs, through: :event
+#   has_many    :shifts
 
 
-  # =>  Day starts at 12:00 AM  -> 11.59 PM
+#   ## Notes
 
-end
+
+#   # =>  Day starts at 12:00 AM  -> 11.59 PM
+
+# end

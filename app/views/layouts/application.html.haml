@@ -21,14 +21,18 @@
       = flash_messages
       .jumbotron
         %h1.display-3 Manage Volunteers
-        %p.lead Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+        %p.lead Alpha version of volunteer management application.  Please direct any questions to hello@builtincode.com
         %p
-          %a.btn.btn-lg.btn-success{:href => "#", :role => "button"} Sign up today
+          - if user_signed_in?
+            = link_to('Edit your account', edit_user_registration_path, class: 'btn btn-lg btn-success')
+          - else
+            = link_to('Become a volunteer', new_user_registration_path, class: 'btn btn-lg btn-success')
       .row.marketing
         .col-lg-12
           = yield
       %footer.footer
-        %p © Company 2017
+        %p 
+          = "© Volunteer Management Platform #{Time.now.year}"
 
       - if Rails.env == 'development'
         = console          

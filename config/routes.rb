@@ -2,7 +2,13 @@ Rails.application.routes.draw do
 
   get 'pages/home'
 
-  resources :events
+  # Gets all events, and their associated nested resources
+  resources :events do
+    resources :jobs
+    resources :event_days
+  end
+
+  
   devise_for :users, controllers: {
     sessions: 'users/sessions'
   }
