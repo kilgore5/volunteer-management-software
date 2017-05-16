@@ -1,4 +1,13 @@
-%h1 Pages#home
-%p Find me in app/views/pages/home.html.haml
-- @events.each do |event|
-  = event
+%h1 List of all Events and Client Owners
+%ul
+  - @events.each do |event|
+    %li
+      %ul
+        %h3
+          = link_to(event.name, event_path(event))
+        %li
+          = "Start date: "
+          = event.start_time        
+        %li
+          = "Owner: "
+          = link_to(event.client_owner.full_name, user_path(event.client_owner))

@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
   def home
-    @events = Event.all
+    @events = Event.all.includes(:client_owner)
   end
 end

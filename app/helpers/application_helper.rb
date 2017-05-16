@@ -16,4 +16,10 @@ module ApplicationHelper
     end
     nil
   end
+
+  # Creates active class for menu links
+  def active_class(link_path)
+    current_page?(link_path) ? "active" : ""
+  end   
+  
 end

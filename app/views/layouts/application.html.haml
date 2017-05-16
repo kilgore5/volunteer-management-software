@@ -12,9 +12,9 @@
         %nav
           %ul.nav.nav-pills.float-right
             %li.nav-item
-              %a.nav-link.active{:href => "#"}
-                Home
-                %span.sr-only (current)
+              =link_to("Home", root_path, class: "nav-link #{active_class(root_path)}")
+            %li.nav-item
+              =link_to("Events", events_path, class: "nav-link #{active_class(events_path)}")
             = render 'users/menu/registration_items'
             = render 'users/menu/login_items'                
         %h3.text-muted Volunteer Management
@@ -29,3 +29,6 @@
           = yield
       %footer.footer
         %p © Company 2017
+
+      - if Rails.env == 'development'
+        = console          
