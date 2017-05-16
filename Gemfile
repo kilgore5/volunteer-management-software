@@ -43,6 +43,9 @@ gem 'rolify'
 # ADMIN SECTION
 # gem 'administrate' # (maybe)
 
+# Nested Models Help
+gem "cocoon"
+
 # Images
 gem 'paperclip'
 gem 'delayed_paperclip' # think that's the name

@@ -1,0 +1,9 @@
+.nested-fields
+  = f.input :title
+  = f.input :description
+  .skill_requirements
+    = f.simple_fields_for :skill_requirements, :wrapper => 'inline_form' do |requirement|
+      = render 'skill_requirement_fields', :f => requirement
+    .links
+      = link_to_add_association 'add requirement', f, :skill_requirements, :render_options => { :wrapper => 'inline_form' }
+  = link_to_remove_association "remove job", f

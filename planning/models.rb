@@ -54,15 +54,15 @@ end
 
 # end
 
-class SkillRequirement < ApplicationRecord
+# class SkillRequirement < ApplicationRecord
 
-  # title             :string
-  # description       :text
+#   # title             :string
+#   # description       :text
 
 
-  belongs_to :job
+#   belongs_to :job
 
-end
+# end
 
 class Skill < ApplicationRecord
 

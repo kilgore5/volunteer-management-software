@@ -20,10 +20,13 @@
 class Event < ApplicationRecord
   belongs_to              :client_owner, class_name: "User"
   has_many                :event_days
+
+  # Allows nested forms to add jobs for an event
   has_many                :jobs
+  accepts_nested_attributes_for :jobs, :reject_if => :all_blank, :allow_destroy => true
   validates_presence_of   :name, :start_time, :end_time, :ticket_price_cents
-  before_save             :set_event_length
-  after_save              :create_event_days
+  before_create             :set_event_length
+  after_create              :create_event_days
 
   private
 
