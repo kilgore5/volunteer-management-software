@@ -1,0 +1,13 @@
+.header.clearfix
+  %nav
+    %ul.nav.nav-pills.float-right
+      %li.nav-item
+        =link_to("Home", root_path, class: "nav-link #{active_class(root_path)}")
+      %li.nav-item
+        =link_to("Events", events_path, class: "nav-link #{active_class(events_path)}")
+      %li.nav-item
+        =link_to("Volunteers", users_path, class: "nav-link #{active_class(users_path)}")              
+      = render 'users/menu/registration_items'
+      = render 'users/menu/login_items'                
+  %h3.text-muted Volunteer Management
+= flash_messages          

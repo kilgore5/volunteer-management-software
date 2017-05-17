@@ -1,0 +1,39 @@
+%h3
+  = "Current Information"
+
+%p
+  = image_tag @user.avatar.url(:thumb)
+= simple_form_for @user, :html => { :class => 'form-horizontal' } do |f|
+  = f.error_notification
+
+  .inputs
+    = f.input :avatar
+  .actions
+    = f.button :submit
+= @user.email
+%br
+= @user.birthday
+%br
+%b Mobile number:
+= @user.mobile_number
+/ %br
+/ %b Shifts made:
+/ = @user.shifts_made
+/ %br
+/ %b Shifts missed:
+/ = @user.shifts_missed
+/ %br
+/ %b Apps accepted:
+/ = @user.apps_accepted
+/ %br
+/ %b Hours worked:
+/ = @user.hours_worked
+/ %br
+/ %p
+/   %b Rating:
+/   = @user.rating
+
+/ - if user_signed_in?
+/   = link_to('Edit login info', edit_user_registration_path)
+
+

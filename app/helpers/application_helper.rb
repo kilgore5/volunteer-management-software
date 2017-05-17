@@ -21,5 +21,21 @@ module ApplicationHelper
   def active_class(link_path)
     current_page?(link_path) ? "active" : ""
   end   
+
+
+  # Adds Devise resource to each controller / view
+  def resource_name
+    :user
+  end
+
+  # Adds Devise resource to each controller / view
+  def resource
+    @resource ||= User.new
+  end
+
+  # Adds Devise resource to each controller / view
+  def devise_mapping
+    @devise_mapping ||= Devise.mappings[:user]
+  end  
   
 end

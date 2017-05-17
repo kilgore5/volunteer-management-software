@@ -64,15 +64,15 @@ end
 
 # end
 
-class Skill < ApplicationRecord
+# class Skill < ApplicationRecord
 
-  # skill_name        :string
-  # proof_document    :paperclip
+#   # skill_name        :string
+#   # proof_document    :paperclip
 
 
-  belongs_to :volunteer, class_name: 'User'
+#   belongs_to :volunteer, class_name: 'User'
 
-end
+# end
 
 class Shift < ApplicationRecord
 
