@@ -1,0 +1,17 @@
+.col-md-4.col-sm-6.col-xs-12.event_day
+  .panel.default
+    .top-key-factor
+      .badge-container
+        %span.badge.excellent EXCELLENT
+      .centerify-icon
+        %span.icon
+          %img{:alt => "icon", "ng-src" => "images/icons/payment-history.svg", :src => "images/icons/payment-history.svg"}/
+      .title
+        = day.date.strftime("%A")
+    / .description To lenders, your history of on-time payments indicates whether you'll make payments on-time in the future.
+    / .group-bottom
+    /   .value
+    /     100
+    /     %sup %
+    /   .container-legend
+    /     .legend OF PAYMENTS MADE ON-TIME

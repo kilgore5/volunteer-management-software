@@ -1,0 +1,16 @@
+.row
+  %ul
+    %h3
+      = link_to(event.name, event_path(event))
+    %li
+      = "Start date: "
+      = event.start_time        
+    %li
+      = "Owner: "
+      = link_to(event.client_owner.full_name, user_path(event.client_owner))
+    %li
+      = "Schedule Shifts: "
+      - event.event_days.each do |day|  
+        = link_to(day.date.strftime("%A"), event_event_day_path(event,day.id))
+    %li
+      = link_to("List Jobs", event_jobs_path(event))    

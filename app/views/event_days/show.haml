@@ -3,7 +3,13 @@
   = "#{@event_day.date.strftime("%A")}, #{@event_day.date.strftime("%d/%m/%Y")}"
 %p
   %b Event:
-  = @event_day.event
+  = @event_day.event.name
+%p
+  %b Jobs:
+  %ul
+    - @event_day.event.jobs.each do |job|
+      %li
+        = job.title
 
 / = link_to 'Edit', edit_event_path(@event)
 / \|

@@ -1,3 +1,8 @@
+- content_for :hero_title do
+  = @event.name
+
+.row
+  = render partial: "event_days/day", collection: @event_days
 %p
   %b Start time:
   = @event.start_time
@@ -11,8 +16,8 @@
   %b Ticket price cents:
   = @event.ticket_price_cents
 %p
-  %b User:
-  = @event.client_owner
+  %b Event Manager:
+  = @event.client_owner.full_name
 
 = link_to 'Edit', edit_event_path(@event)
 \|

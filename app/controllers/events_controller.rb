@@ -10,6 +10,7 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
+    @event_days = @event.event_days
   end
 
   # GET /events/new
@@ -63,8 +64,9 @@ class EventsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    # Get all the event_days as well for each request
     def set_event
-      @event = Event.find(params[:id])
+      @event = Event.includes(:event_days).find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
