@@ -2,12 +2,15 @@
 #
 # Table name: jobs
 #
-#  id          :uuid             not null, primary key
-#  title       :string
-#  description :text
-#  event_id    :uuid
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id                      :uuid             not null, primary key
+#  title                   :string
+#  description             :text
+#  event_id                :uuid
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  workers_per_shift       :integer
+#  hours_per_shift         :integer
+#  shifts_required_per_day :integer
 #
 # Indexes
 #

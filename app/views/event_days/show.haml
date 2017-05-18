@@ -1,15 +1,45 @@
-%h2
-  %b Date:
-  = "#{@event_day.date.strftime("%A")}, #{@event_day.date.strftime("%d/%m/%Y")}"
-%p
-  %b Event:
-  = @event_day.event.name
-%p
-  %b Jobs:
-  %ul
-    - @event_day.event.jobs.each do |job|
-      %li
-        = job.title
+/ # = render partial: "event_days/day_full", locals: {day: @event_day}
+- content_for :hero_title do
+  = "#{@event_day.event.name}: #{@event_day.date.strftime("%A")}, #{@event_day.date.strftime("%d/%m/%Y")}"
+
+- day = @event_day
+.row 
+  .col-md-12.col-xs-12.event_day
+    .panel.default
+      .top-key-factor
+        .badge-container
+          %span.badge.excellent EXCELLENT
+        .centerify-icon
+          %span.icon
+            / %img{:alt => "icon", "ng-src" => "images/icons/payment-history.svg", :src => "images/icons/payment-history.svg"}/
+        .event_day__title
+          = day.date.strftime("%A")
+        .event_day__jobs
+          = "Jobs assigned: #{day.jobs.count}"   
+        %table.table
+          %thead.thead-default
+            %tr
+              %th #
+              %th Job
+              %th Workers / Shift
+              %th Shifts / shift
+              %th Shift Length (hrs)
+              %th Action
+          %tbody
+            - @event_day.event.jobs.each_with_index do |job, i|
+              %tr
+                %th{:scope => "row"} #{i+1}
+                %td
+                  = job.title
+                %td
+                  = job.title
+                %td
+                  = job.title
+                %td
+                  = job.title
+                %td
+                  = job.title                                                                        
+
 
 / = link_to 'Edit', edit_event_path(@event)
 / \|

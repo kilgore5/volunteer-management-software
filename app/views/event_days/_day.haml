@@ -14,14 +14,7 @@
 
     %button.btn.btn-primary{"data-target" => "##{day.date}", "data-toggle" => "modal", :type => "button"}
       Add jobs
-
-    / .description To lenders, your history of on-time payments indicates whether you'll make payments on-time in the future.
-    / .group-bottom
-    /   .value
-    /     100
-    /     %sup %
-    /   .container-legend
-    /     .legend OF PAYMENTS MADE ON-TIME
+    = link_to "View full day", event_event_day_path(@event, day), class: "btn btn-primary"
 .modal.fade{:id =>  day.date }
   .modal-dialog{:role => "document"}
     .modal-content

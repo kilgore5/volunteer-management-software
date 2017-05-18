@@ -13,4 +13,4 @@
       - event.event_days.each do |day|  
         = link_to(day.date.strftime("%A"), event_event_day_path(event,day.id))
     %li
-      = link_to("List Jobs", event_jobs_path(event))    
+      = link_to("Jobs: #{event.jobs.count}", event_jobs_path(event))    

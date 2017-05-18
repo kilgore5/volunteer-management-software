@@ -21,6 +21,8 @@
               = link_to('Edit your account', edit_user_registration_path, class: 'btn btn-lg btn-success')
             - else
               = link_to('Become a volunteer', new_user_registration_path, class: 'btn btn-lg btn-success')
+          .row
+            = yield :hero_content
       .container      
         .row.marketing
           .col-lg-12

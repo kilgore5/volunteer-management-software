@@ -1,3 +1,10 @@
+= simple_form_for @event do |f|
+  #jobs
+    = f.simple_fields_for :jobs do |job|
+      / = render 'job_fields', f: job
+    .links
+      = link_to_add_association 'Add a Job', f, :jobs, class: "btn"
+  = f.submit "Save"
 - @jobs.each do |job|
   %b 
     = job.title
@@ -9,11 +16,15 @@
       - job.skill_requirements.each do |req|
         %li
           = "#{req.title}: #{req.description}"
-= simple_form_for @event do |f|
-  %h3 Jobs
-  #jobs
-    = f.simple_fields_for :jobs do |job|
-      / = render 'job_fields', f: job
-    .links
-      = link_to_add_association 'add job', f, :jobs
-  = f.submit "Save Jobs"
+  %table.table
+    %tbody
+      %tr
+        = simple_form_for job, url: event_job_path(@event, job)  do |f|
+          %td
+            = f.input :shifts_required_per_day
+          %td
+            = f.input :workers_per_shift         
+          %td
+            = f.input :hours_per_shift
+          %td
+            = f.submit "Update Job"

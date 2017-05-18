@@ -1,6 +1,9 @@
 .nested-fields
   = f.input :title
   = f.input :description
+  = f.input :shifts_required_per_day
+  = f.input :workers_per_shift         
+  = f.input :hours_per_shift  
   .skill_requirements
     = f.simple_fields_for :skill_requirements, :wrapper => 'inline_form' do |requirement|
       = render 'skill_requirement_fields', :f => requirement

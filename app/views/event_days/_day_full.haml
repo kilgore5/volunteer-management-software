@@ -1,0 +1,13 @@
+- @day = day
+.col-md-4.col-sm-6.col-xs-12.event_day
+  .panel.default
+    .top-key-factor
+      .badge-container
+        %span.badge.excellent EXCELLENT
+      .centerify-icon
+        %span.icon
+          / %img{:alt => "icon", "ng-src" => "images/icons/payment-history.svg", :src => "images/icons/payment-history.svg"}/
+      .event_day__title
+        = day.date.strftime("%A")
+      .event_day__jobs
+        = "Jobs assigned: #{day.jobs.count}"  
