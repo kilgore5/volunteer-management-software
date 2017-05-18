@@ -47,6 +47,11 @@ class User < ApplicationRecord
   # Enables roles for Users via the Rolify gem and CanCanCan gem
   rolify
 
+  has_and_belongs_to_many :accepted_events, class_name: "Event"
+  has_and_belongs_to_many :applied_events, class_name: "Event"
+
+  has_many :applications, class_name: "ApplicationForEvent"
+
   has_many :skills
   accepts_nested_attributes_for :skills, :reject_if => :all_blank, :allow_destroy => true  
 

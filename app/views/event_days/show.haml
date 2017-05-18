@@ -4,41 +4,68 @@
 
 - day = @event_day
 .row 
-  .col-md-12.col-xs-12.event_day
+  .col-md-4.col-sm-6.col-xs-12.event_day.event_day
     .panel.default
       .top-key-factor
         .badge-container
           %span.badge.excellent EXCELLENT
         .centerify-icon
           %span.icon
-            / %img{:alt => "icon", "ng-src" => "images/icons/payment-history.svg", :src => "images/icons/payment-history.svg"}/
         .event_day__title
-          = day.date.strftime("%A")
+          %h5
+            Jobs
+        %hr    
         .event_day__jobs
-          = "Jobs assigned: #{day.jobs.count}"   
-        %table.table
-          %thead.thead-default
-            %tr
-              %th #
-              %th Job
-              %th Workers / Shift
-              %th Shifts / shift
-              %th Shift Length (hrs)
-              %th Action
-          %tbody
-            - @event_day.event.jobs.each_with_index do |job, i|
+          = "Jobs assigned: #{day.jobs.count}"
+          %br
+          %table{class: "table table-sm"}
+            %thead
               %tr
-                %th{:scope => "row"} #{i+1}
-                %td
-                  = job.title
-                %td
-                  = job.title
-                %td
-                  = job.title
-                %td
-                  = job.title
-                %td
-                  = job.title                                                                        
+                %th
+                  Job
+                %th
+                  Shifts
+                %th
+                  Shifts                  
+            %tbody
+              - day.jobs.each do |job|
+                %tr
+                  %td
+                    = job.title
+                  %td
+                  %td
+          %br
+  .col-md-4.col-sm-6.col-xs-12.event_day.event_day
+    .panel.default
+      .top-key-factor
+        .badge-container
+          %span.badge.excellent EXCELLENT
+        .centerify-icon
+          %span.icon       
+        .event_day__title
+          %h5
+            Volunteers
+        %hr    
+        .event_day__workers
+          = "Volunteers needed: #{day.total_workers_needed}"
+          %br     
+  .col-md-4.col-sm-6.col-xs-12.event_day.event_day
+    .panel.default
+      .top-key-factor
+        .badge-container
+          %span.badge.excellent EXCELLENT
+        .centerify-icon
+          %span.icon
+        .event_day__title
+          %h5
+            Shifts
+        %hr    
+        .event_day__workers
+          = "Total Shifts: #{day.total_shifts}"
+          %br                                         
+        / - @event_day.event.jobs.each do |job|
+        /   = job.
+                                                                     
 
 
 / = link_to 'Edit', edit_event_path(@event)

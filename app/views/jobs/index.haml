@@ -1,3 +1,5 @@
+- content_for :hero_title do
+  = "#{@event.name}: Jobs"
 = simple_form_for @event do |f|
   #jobs
     = f.simple_fields_for :jobs do |job|

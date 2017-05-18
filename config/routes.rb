@@ -14,7 +14,11 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
   
-  resources :users
+  resources :users  do
+    resources :events do
+      resources :application_for_events
+    end
+  end
 
   root to: "pages#home"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

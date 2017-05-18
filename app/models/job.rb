@@ -8,9 +8,9 @@
 #  event_id                :uuid
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
-#  workers_per_shift       :integer
-#  hours_per_shift         :integer
-#  shifts_required_per_day :integer
+#  workers_per_shift       :integer          default(0)
+#  hours_per_shift         :integer          default(0)
+#  shifts_required_per_day :integer          default(0)
 #
 # Indexes
 #
@@ -25,4 +25,5 @@ class Job < ApplicationRecord
 
   # Create validations for the model
   validates_presence_of :title, :description, :event_id
+
 end

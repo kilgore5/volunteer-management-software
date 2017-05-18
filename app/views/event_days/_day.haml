@@ -9,11 +9,13 @@
           / %img{:alt => "icon", "ng-src" => "images/icons/payment-history.svg", :src => "images/icons/payment-history.svg"}/
       .event_day__title
         = day.date.strftime("%A")
+        %hr
       .event_day__jobs
         = "Jobs assigned: #{day.jobs.count}"
 
     %button.btn.btn-primary{"data-target" => "##{day.date}", "data-toggle" => "modal", :type => "button"}
       Add jobs
+    %hr
     = link_to "View full day", event_event_day_path(@event, day), class: "btn btn-primary"
 .modal.fade{:id =>  day.date }
   .modal-dialog{:role => "document"}

@@ -3,7 +3,7 @@ class JobsController < ApplicationController
   before_action :set_job, only: [:update]  
 
   def index
-    @jobs = Job.where(event_id: params[:event_id]).includes(:event, :skill_requirements)
+    @jobs = Job.where(event_id: params[:event_id]).includes(:event, :skill_requirements).order(:title)
     @event = Event.find(params[:event_id])
   end
 

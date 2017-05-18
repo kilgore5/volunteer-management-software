@@ -10,11 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170518164232) do
+ActiveRecord::Schema.define(version: 20170518195106) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "pgcrypto"
+
+  create_table "application_for_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "event_id"
+    t.uuid "volunteer_id"
+    t.boolean "accepted", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_application_for_events_on_event_id"
+    t.index ["volunteer_id"], name: "index_application_for_events_on_volunteer_id"
+  end
+
+  create_table "event_accepted_volunteers", id: false, force: :cascade do |t|
+    t.uuid "event_id"
+    t.uuid "user_id"
+    t.index ["event_id"], name: "index_event_accepted_volunteers_on_event_id"
+    t.index ["user_id"], name: "index_event_accepted_volunteers_on_user_id"
+  end
+
+  create_table "event_applied_volunteers", id: false, force: :cascade do |t|
+    t.uuid "event_id"
+    t.uuid "user_id"
+    t.index ["event_id"], name: "index_event_applied_volunteers_on_event_id"
+    t.index ["user_id"], name: "index_event_applied_volunteers_on_user_id"
+  end
 
   create_table "event_days", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "event_id"
@@ -61,9 +85,9 @@ ActiveRecord::Schema.define(version: 20170518164232) do
     t.uuid "event_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "workers_per_shift"
-    t.integer "hours_per_shift"
-    t.integer "shifts_required_per_day"
+    t.integer "workers_per_shift", default: 0
+    t.integer "hours_per_shift", default: 0
+    t.integer "shifts_required_per_day", default: 0
     t.index ["event_id"], name: "index_jobs_on_event_id"
   end
 

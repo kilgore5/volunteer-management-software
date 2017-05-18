@@ -1,0 +1,2 @@
+module ApplicationForEventsHelper
+end
