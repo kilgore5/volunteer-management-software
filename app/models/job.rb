@@ -16,7 +16,7 @@
 
 class Job < ApplicationRecord
   belongs_to :event
-  # has_many   :shifts
+  has_and_belongs_to_many :days, class_name: "EventDay"
   has_many   :skill_requirements
   accepts_nested_attributes_for :skill_requirements, :reject_if => :all_blank, :allow_destroy => true
 

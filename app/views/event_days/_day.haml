@@ -1,3 +1,4 @@
+- @day = day
 .col-md-4.col-sm-6.col-xs-12.event_day
   .panel.default
     .top-key-factor
@@ -5,9 +6,15 @@
         %span.badge.excellent EXCELLENT
       .centerify-icon
         %span.icon
-          %img{:alt => "icon", "ng-src" => "images/icons/payment-history.svg", :src => "images/icons/payment-history.svg"}/
-      .title
+          / %img{:alt => "icon", "ng-src" => "images/icons/payment-history.svg", :src => "images/icons/payment-history.svg"}/
+      .event_day__title
         = day.date.strftime("%A")
+      .event_day__jobs
+        = "Jobs assigned: #{day.jobs.count}"
+
+    %button.btn.btn-primary{"data-target" => "##{day.date}", "data-toggle" => "modal", :type => "button"}
+      Add jobs
+
     / .description To lenders, your history of on-time payments indicates whether you'll make payments on-time in the future.
     / .group-bottom
     /   .value
@@ -15,3 +22,22 @@
     /     %sup %
     /   .container-legend
     /     .legend OF PAYMENTS MADE ON-TIME
+.modal.fade{:id =>  day.date }
+  .modal-dialog{:role => "document"}
+    .modal-content
+      .modal-header
+        %h5.modal-title Add jobs for #{day.date.strftime("%A")}
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} ×
+      = simple_form_for day, url: event_event_day_path(@event, day) do |f|
+        .modal-body
+
+          = f.association :jobs
+
+
+        .modal-footer
+          = f.button :submit
+          %button.btn.btn-secondary{"data-dismiss" => "modal", :type => "button"} Close    
+
+/ :javascript
+/   $('#myModal').modal('toggle')        
