@@ -1,7 +1,7 @@
 class ApplicationForEventsController < ApplicationController
 
   before_action :set_event
-  before_action :set_application, only: [:show, :update, :index]
+  before_action :set_application, only: [:show, :update]
   before_action :set_user, only: [:new, :create, :update]
 
   def new
@@ -43,6 +43,7 @@ class ApplicationForEventsController < ApplicationController
   end
 
   def index
+    @applications = ApplicationForEvent.where(event_id: params[:event_id]).includes(:event, :volunteer)
   end
 
   private

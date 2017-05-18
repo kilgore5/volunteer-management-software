@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :events do
     resources :jobs
     resources :event_days
+    resources :application_for_events
   end
 
   

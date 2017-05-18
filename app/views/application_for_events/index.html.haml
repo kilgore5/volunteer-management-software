@@ -1,2 +1,11 @@
-%h1 ApplicationForEvents#index
-%p Find me in app/views/application_for_events/index.html.haml
+.row
+  .col-md-12
+    %table.table.table-hover
+      %thead
+        %tr
+          %th #
+          %th First Name
+          %th Last Name
+          %th Username
+      %tbody
+        = render partial: "application", collection: @applications
