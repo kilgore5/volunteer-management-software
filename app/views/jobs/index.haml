@@ -23,10 +23,10 @@
       %tr
         = simple_form_for job, url: event_job_path(@event, job)  do |f|
           %td
-            = f.input :shifts_required_per_day
+            = f.input :rotations_required_per_day
           %td
-            = f.input :workers_per_shift         
+            = f.input :workers_per_rotation         
           %td
-            = f.input :hours_per_shift
+            = f.input :hours_per_rotation
           %td
             = f.submit "Update Job"

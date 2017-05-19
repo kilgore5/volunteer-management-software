@@ -4,7 +4,7 @@
 
 - day = @event_day
 .row 
-  .col-md-4.col-sm-6.col-xs-12.event_day.event_day
+  .col-sm-6.col-xs-12.event_day.event_day
     .panel.default
       .top-key-factor
         .badge-container
@@ -24,7 +24,7 @@
                 %th
                   Job
                 %th
-                  Shifts
+                  Rotations
                 %th
                   Shifts                  
             %tbody
@@ -33,9 +33,11 @@
                   %td
                     = job.title
                   %td
+                    = job.rotations.count
                   %td
+                    = job.total_shifts(day)
           %br
-  .col-md-4.col-sm-6.col-xs-12.event_day.event_day
+  .col-sm-6.col-xs-12.event_day.event_day
     .panel.default
       .top-key-factor
         .badge-container
@@ -48,23 +50,10 @@
         %hr    
         .event_day__workers
           = "Volunteers needed: #{day.total_workers_needed}"
-          %br     
-  .col-md-4.col-sm-6.col-xs-12.event_day.event_day
-    .panel.default
-      .top-key-factor
-        .badge-container
-          %span.badge.excellent EXCELLENT
-        .centerify-icon
-          %span.icon
-        .event_day__title
-          %h5
-            Shifts
-        %hr    
+          %br 
         .event_day__workers
-          = "Total Shifts: #{day.total_shifts}"
-          %br                                         
-        / - @event_day.event.jobs.each do |job|
-        /   = job.
+          = "Total Rotations: #{day.total_rotations}"
+          %br                       
                                                                      
 
 

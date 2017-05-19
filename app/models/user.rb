@@ -52,6 +52,9 @@ class User < ApplicationRecord
 
   has_many :applications, class_name: "ApplicationForEvent"
 
+  # Allows a shift_manager role to be in charge of a specific rotation
+  has_many :rotations
+
   has_many :skills
   accepts_nested_attributes_for :skills, :reject_if => :all_blank, :allow_destroy => true  
 

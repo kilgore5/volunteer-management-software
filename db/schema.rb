@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170518195106) do
+ActiveRecord::Schema.define(version: 20170519153000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,9 +85,9 @@ ActiveRecord::Schema.define(version: 20170518195106) do
     t.uuid "event_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "workers_per_shift", default: 0
-    t.integer "hours_per_shift", default: 0
-    t.integer "shifts_required_per_day", default: 0
+    t.integer "workers_per_rotation", default: 0
+    t.integer "hours_per_rotation", default: 0
+    t.integer "rotations_required_per_day", default: 0
     t.index ["event_id"], name: "index_jobs_on_event_id"
   end
 
@@ -99,6 +99,31 @@ ActiveRecord::Schema.define(version: 20170518195106) do
     t.datetime "updated_at", null: false
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
     t.index ["name"], name: "index_roles_on_name"
+  end
+
+  create_table "rotations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "shift_manager_id"
+    t.uuid "day_id"
+    t.uuid "job_id"
+    t.integer "length", default: 1
+    t.datetime "start_time"
+    t.integer "count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["day_id"], name: "index_rotations_on_day_id"
+    t.index ["job_id"], name: "index_rotations_on_job_id"
+    t.index ["shift_manager_id"], name: "index_rotations_on_shift_manager_id"
+  end
+
+  create_table "shifts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "rotation_id"
+    t.uuid "volunteer_id"
+    t.integer "length", default: 1
+    t.integer "start_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rotation_id"], name: "index_shifts_on_rotation_id"
+    t.index ["volunteer_id"], name: "index_shifts_on_volunteer_id"
   end
 
   create_table "skill_requirements", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

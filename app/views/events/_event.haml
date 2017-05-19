@@ -2,7 +2,9 @@
   %ul
     %h3
       = link_to(event.name, event_path(event))
-    = link_to "Apply to volunteer", new_user_event_application_for_event_path(current_user.id, event.id), class: "btn btn-primary"
+    - if user_signed_in?
+      =  current_user.applications
+      = link_to "Apply to volunteer", new_user_event_application_for_event_path(current_user.id, event.id), class: "btn btn-primary"
     %li
       = "Start date: "
       = event.start_time        
