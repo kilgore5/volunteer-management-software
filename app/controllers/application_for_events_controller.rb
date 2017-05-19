@@ -1,7 +1,7 @@
 class ApplicationForEventsController < ApplicationController
 
-  before_action :set_event
-  before_action :set_application, only: [:show, :update]
+  before_action :set_event, except: [:approve]
+  before_action :set_application, only: [:show, :update, :approve]
   before_action :set_user, only: [:new, :create, :update]
 
   def new
@@ -44,6 +44,13 @@ class ApplicationForEventsController < ApplicationController
 
   def index
     @applications = ApplicationForEvent.where(event_id: params[:event_id]).includes(:event, :volunteer)
+  end
+
+  def approve
+    @application.update_attributes(:accepted => true)
+    respond_to do |format|
+        format.js
+    end    
   end
 
   private

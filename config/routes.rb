@@ -21,6 +21,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :application_for_events do
+    get 'approve', on: :member
+  end
+
   root to: "pages#home"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
