@@ -1,26 +1,34 @@
-.row
-  %ul
-    %h3
-      = link_to(event.name, event_path(event))
-    - if user_signed_in?
-      =  current_user.applications
-      = link_to "Apply to volunteer", new_user_event_application_for_event_path(current_user.id, event.id), class: "btn btn-primary"
-    %li
-      = "Start date: "
-      = event.start_time        
-    %li
-      = "Owner: "
-      = link_to(event.client_owner.full_name, user_path(event.client_owner))
-    %li
-      = "Schedule Shifts: "
-      - event.event_days.each do |day|  
-        = link_to(day.date.strftime("%A"), event_event_day_path(event,day.id))
-    %li
-      = link_to("Jobs: #{event.jobs.count}", event_jobs_path(event))
-    %li
-      = link_to("Applications Received: #{event.applications.count}", event_application_for_events_path(event))      
-    %li
-      = "Shifts Filled: #{}  "    
+.col-md-4.col-sm-6.col-xs-12.event_day
+  .panel.default
+    .top-key-factor
+      .badge-container
+        %span.badge.excellent EXCELLENT
+      .centerify-icon
+        %span.icon
+          / %img{:alt => "icon", "ng-src" => "images/icons/payment-history.svg", :src => "images/icons/payment-history.svg"}/
+      .event_day__title
+        = link_to(event.name, event_path(event))
+        %hr
+      .event_day__inner        
+        - if user_signed_in?
+          / =  current_user.applications
+          = link_to "Apply to volunteer", new_user_event_application_for_event_path(current_user.id, event.id), class: "btn btn-primary"
+      .event_day__inner
+        = "Start date: "
+        = event.start_time        
+      .event_day__inner
+        = "Owner: "
+        = link_to(event.client_owner.full_name, user_path(event.client_owner))
+      .event_day__inner
+        = "Schedule Shifts: "
+        - event.event_days.each do |day|  
+          = link_to(day.date.strftime("%A"), event_event_day_path(event,day.id))
+      .event_day__inner
+        = link_to("Jobs: #{event.jobs.count}", event_jobs_path(event))
+      .event_day__inner
+        = link_to("Applications Received: #{event.applications.count}", event_application_for_events_path(event))      
+      .event_day__inner
+        = "Shifts Filled: #{}  "    
 
 /     %button.btn.btn-primary{"data-target" => "##{event.name.downcase.delete(' ')}", "data-toggle" => "modal", :type => "button"}
 /       Apply to event

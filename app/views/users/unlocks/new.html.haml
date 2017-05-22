@@ -4,6 +4,6 @@
   = f.full_error :unlock_token
   .inputs
     = f.input :email, required: true, autofocus: true
-  .actions
+  .actions.text-right
     = f.button :submit, "Resend unlock instructions"
 = render "users/shared/links"

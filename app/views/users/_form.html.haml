@@ -1,12 +1,19 @@
 = simple_form_for(@user) do |f|
   = f.error_notification
 
-  .inputs
-    = f.input :first_name
-    = f.input :last_name
-    = f.input :email
-    = f.input :birthday
-    = f.input :mobile_number
+  %h5
+    Contact Details
+  .inputs.row
+    .col-md-6
+      = f.input :first_name
+    .col-md-6
+      = f.input :last_name
+    .col-md-6
+      = f.input :email
+    .col-md-6
+      = f.input :mobile_number      
+    .col-md-6
+      = f.input :birthday
   / %h3 Skills
   / #skills
   /   = f.simple_fields_for :skills do |skill|
@@ -14,5 +21,5 @@
   /   .links
   /     = link_to_add_association 'add skill', f, :skills    
 
-  .actions
+  .actions.text-right
     = f.button :submit

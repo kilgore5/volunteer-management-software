@@ -1,18 +1,12 @@
 %h1 Listing users
 
-%table
+%table.table
   %thead
     %tr
-      %th First name
-      %th Last name
       %th Full name
       %th Email
-      %th Birthday
+      %th Age
       %th Mobile number
-      %th Slug
-      %th Shifts made
-      %th Shifts missed
-      %th Apps accepted
       %th Hours worked
       %th Rating
       %th
@@ -22,16 +16,10 @@
   %tbody
     - @users.each do |user|
       %tr
-        %td= user.first_name
-        %td= user.last_name
         %td= user.full_name
         %td= user.email
-        %td= user.birthday
+        %td= user.age
         %td= user.mobile_number
-        %td= user.slug
-        %td= user.shifts_made
-        %td= user.shifts_missed
-        %td= user.apps_accepted
         %td= user.hours_worked
         %td= user.rating
         %td= link_to 'Show', user

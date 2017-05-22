@@ -4,6 +4,6 @@
   = f.full_error :confirmation_token
   .inputs
     = f.input :email, required: true, autofocus: true
-  .actions
+  .actions.text-right
     = f.button :submit, "Resend confirmation instructions"
 = render "users/shared/links"

@@ -7,22 +7,24 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-    .container
-      / Renders the global header
-      = render "layouts/header"
-      / Mastead - Title & subtitle
-      .row
-        .col-lg-3
-          = yield :page_title
-        .col-lg-9
-          = yield :page_sub_title
-      .row
-        .col-lg-3
-          = yield :profile
-        .col-lg-9
-          = yield
-      / Renders the global footer          
-      = render "layouts/footer"
+    / Renders the global header
+    = render "layouts/header"
+    / Mastead - Title & subtitle
+    %main#login
+      .container
+        .user-header
+          .row
+            .col-lg-4
+              = yield :page_title
+            .col-lg-8
+              = yield :page_sub_title
+        .row
+          .col-lg-4
+            = yield :profile
+          .col-lg-8
+            = yield
+    / Renders the global footer          
+    = render "layouts/footer"
 
-      - if Rails.env == 'development'
-        = console          
+    - if Rails.env == 'development'
+      = console          

@@ -2,24 +2,27 @@
 - content_for :page_title do
   %h1 Manage Your Account
 - content_for :page_sub_title do
-  %h5 It's easy to manage your account.  Quickly access or update your information.
+  %p It's easy to manage your account.  Quickly access or update your information.
 
 / Renders the user's details
 - content_for :profile do
   = render "user_details"
 
-= render 'form'
+.user-row
+  = render 'form'
 
 %hr
 
-= render 'users/registrations/edit'
+.user-row
+  = render 'users/registrations/edit'
 
 %hr
 
-= render 'users/registrations/cancel_account'
+.user-row
+  = render 'users/registrations/cancel_account'
 
-%hr
+/ %hr
 
-= link_to 'Show', @user
-\|
-= link_to 'Back', users_path
+/ = link_to 'Show', @user
+/ \|
+/ = link_to 'Back', users_path

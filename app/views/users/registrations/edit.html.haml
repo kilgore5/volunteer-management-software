@@ -5,7 +5,7 @@
   .row
     .col-md-4.offset-md-4
       = f.error_notification
-      = resource.errors.full_messages
+      / = resource.errors.full_messages
       .inputs
         = f.input :email, required: true, autofocus: true
         - if devise_mapping.confirmable? && resource.pending_reconfirmation?
@@ -13,9 +13,10 @@
             Currently waiting confirmation for: #{resource.unconfirmed_email}
         = f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false
         = f.input :password_confirmation, required: false
-      .actions
-        = f.button :submit, "Update"
-    %h3 Cancel my account
-    %p
-      Unhappy? #{link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete}
-    = link_to "Back", :back
+      .actions.text-right
+        = f.button :submit, "Update", class: "signin-button"
+      .login-links.row
+        .col-sm-12
+          = link_to "Back", :back      
+        .col-sm-12
+          Unhappy? #{link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete}

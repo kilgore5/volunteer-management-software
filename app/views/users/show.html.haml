@@ -1,32 +1,42 @@
-%h1
-  = "#{@user.full_name}'s details"
-%p
-  %b Email:
-  = @user.email
-%p
-  %b Birthday:
-  = @user.birthday
-%p
-  %b Mobile number:
-  = @user.mobile_number
-%p
-  %b Slug:
-  = @user.slug
-%p
-  %b Shifts made:
-  = @user.shifts_made
-%p
-  %b Shifts missed:
-  = @user.shifts_missed
-%p
-  %b Apps accepted:
-  = @user.apps_accepted
-%p
-  %b Hours worked:
-  = @user.hours_worked
-%p
-  %b Rating:
-  = @user.rating
+/ Renders the header section content
+- content_for :page_title do
+  %h1
+    = "#{@user.full_name}'s details"
+- content_for :page_sub_title do
+  %p It's easy to manage your account.  Quickly access or update your information.
+
+/ Renders the user's details
+- content_for :profile do
+  = render "user_details"
+
+%table.table
+  %thead
+    %tr
+      %td
+        Shifts made:
+      %td
+        Shifts missed:
+      %td
+        Apps accepted:
+      %td
+        Hours worked:      
+      %td
+        Rating:
+  %tbody
+    %tr
+      %td
+        = @user.shifts_made
+      %td
+        = @user.shifts_missed         
+      %td
+        = @user.apps_accepted
+      %td
+        = @user.hours_worked
+      %td
+        = @user.rating        
+
+%hr
+
 
 = link_to 'Edit details', edit_user_path(@user)
 - if user_signed_in?

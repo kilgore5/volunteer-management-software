@@ -84,6 +84,17 @@ class User < ApplicationRecord
     devise_mailer.send(notification, self, *args).deliver_later
   end
 
+  def age
+    if self.birthday?
+      dob = self.birthday
+      now = Time.now.utc.to_date
+      now.year - dob.year - ((now.month > dob.month || (now.month == dob.month && now.day >= dob.day)) ? 0 : 1)
+    else
+      "-"
+    end
+
+  end
+
   protected
 
     # Sets the user's full name on save

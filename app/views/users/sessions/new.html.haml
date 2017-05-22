@@ -8,6 +8,6 @@
         = f.input :email, required: false, autofocus: true, input_html: { class: "signin-text", autocomplete: 'off' }
         = f.input :password, required: false, input_html: { class: "signin-text-password", autocomplete: 'off' }
         = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
-      .actions
+      .actions.text-right
         = f.button :submit, "Log in", class: "signin-button"
       = render "users/shared/links"

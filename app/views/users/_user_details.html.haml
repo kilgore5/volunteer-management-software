@@ -1,23 +1,31 @@
-%h3
+%h5
   = "Current Information"
 
-%p
-  = image_tag @user.avatar.url(:thumb)
-= simple_form_for @user, :html => { :class => 'form-horizontal' } do |f|
-  = f.error_notification
+.user-details
+  .row
+    .col-md-3
+      = image_tag @user.avatar.url(:thumb)
+    .col-md-9
+      = simple_form_for @user, :html => { :class => 'form-horizontal' } do |f|
+        = f.error_notification
 
-  .inputs
-    = f.input :avatar
-  .actions
-    = f.button :submit
-= @user.full_name
-%br
-= @user.email
-%br
-= @user.birthday
-%br
-%b Mobile number:
-= @user.mobile_number
+        .inputs
+          = f.input :avatar, label: false
+        .actions.text-right
+          = f.button :submit
+.user-details
+  .row
+    .col-md-12        
+      = @user.full_name
+      %br
+      = @user.email
+      %br
+      = @user.mobile_number
+      %hr      
+  .row
+    .col-md-12         
+      %br
+      = @user.birthday
 / %br
 / %b Shifts made:
 / = @user.shifts_made
