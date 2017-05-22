@@ -34,5 +34,21 @@ class Job < ApplicationRecord
     6
   end
 
+  def total_rotations_by_day(job, day)
+
+    rotations = Rotation.where(job_id: job.id, day_id: day.id)
+
+    
+
+    total = 0
+
+    rotations.each do |rotation|
+      total += rotation.shifts.count
+    end
+
+    return total
+
+  end  
+
 
 end

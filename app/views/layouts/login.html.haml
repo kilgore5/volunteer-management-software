@@ -7,18 +7,18 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
+    / Renders the global header
+    = render "layouts/header"
     %main#login
-      / Renders the global header
-      = render "layouts/header"
-      .container      
-        .row.marketing
+      .container.login
+        .row
           .col-md-8.offset-md-2
             .title-wrap
               = yield :login_title
           .col-lg-12
             = yield
-        / Renders the global footer          
-      = render "layouts/footer"
+    / Renders the global footer          
+    = render "layouts/footer"
 
-      - if Rails.env == 'development'
-        = console          
+    - if Rails.env == 'development'
+      = console          

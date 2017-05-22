@@ -5,6 +5,7 @@ class CreateShifts < ActiveRecord::Migration[5.1]
       t.belongs_to :volunteer, type: :uuid, index: true
       t.integer :length, default: 1
       t.integer :start_time
+      t.integer :count
 
       t.timestamps
     end

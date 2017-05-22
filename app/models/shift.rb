@@ -7,6 +7,7 @@
 #  volunteer_id :uuid
 #  length       :integer          default(1)
 #  start_time   :integer
+#  count        :integer
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
@@ -17,7 +18,10 @@
 #
 
 class Shift < ApplicationRecord
+
   belongs_to :rotation
-  belongs_to :volunteer, class_name: 'User'
+
+  # Allows optional volunteer owner, as this will not not set when created
+  belongs_to :volunteer, class_name: 'User', optional: true
   # has_one    :shift_rating  
 end

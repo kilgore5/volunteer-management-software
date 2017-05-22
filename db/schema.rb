@@ -120,6 +120,7 @@ ActiveRecord::Schema.define(version: 20170519153000) do
     t.uuid "volunteer_id"
     t.integer "length", default: 1
     t.integer "start_time"
+    t.integer "count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["rotation_id"], name: "index_shifts_on_rotation_id"

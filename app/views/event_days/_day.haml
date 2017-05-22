@@ -10,7 +10,7 @@
       .event_day__title
         = day.date.strftime("%A")
         %hr
-      .event_day__jobs
+      .event_day__inner
         = "Jobs assigned: #{day.jobs.count}"
 
     %button.btn.btn-primary{"data-target" => "##{day.date}", "data-toggle" => "modal", :type => "button"}

@@ -19,7 +19,7 @@ class EventDay < ApplicationRecord
   has_many                    :rotations, through: :jobs
 
   # Actions when saving
-  after_save                  :create_rotation
+  after_save                  :create_rotations
 
   # Calculates the total shifts to be filled for the day
   def total_rotations
@@ -62,37 +62,32 @@ class EventDay < ApplicationRecord
 
   private
 
-  def create_rotations
+    def create_rotations
 
-    @jobs = self.jobs
+      @jobs = self.jobs
 
-    # Need to set the shift manager
-    # current_user = User.last
+      # Loop through jobs assigned to that day
+      @jobs.each do |job|
+        # Set count based on rotations
+        rotation_count = job.rotations_required_per_day
 
-    # Loop through jobs assigned to that day
-    @jobs.each do |job|
-      # Set count based on rotations
-      rotation_count = job.rotations_required_per_day
+        # create one rotation for each count
+        i = 1
+        rotation_count.times do |rotation|
+          Rotation.where(job_id: job.id, day_id: self.id, count: i).first_or_create   
+          i += 1
+        end
 
-      # create one rotation for each count
-      i = 1
-      rotation_count.times do |rotation|
-        Rotation.where(job_id: job.id, day_id: self.id, count: i).first_or_create   
-        i += 1
+        # For pry testing ONLY
+        # i = 1
+        # rotation_count.times do |rotation|
+        #   Rotation.where(job_id: job.id, day_id: e.id, count: i).first_or_create 
+        #   i += 1
+        # end      
+
       end
 
-      # For pry testing ONLYe
-      i = 1
-      rotation_count.times do |rotation|
-        Rotation.where(job_id: job.id, day_id: e.id, count: i).first_or_create 
-        i += 1
-      end      
-    end
-
-         
-
-
-  end  
+    end  
 
 
 end

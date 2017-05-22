@@ -13,12 +13,11 @@
           %span.icon
         .event_day__title
           %h5
-            Jobs
+            Jobs Assigned [#{day.jobs.count}]
         %hr    
-        .event_day__jobs
-          = "Jobs assigned: #{day.jobs.count}"
+        .event_day__inner
           %br
-          %table{class: "table table-sm"}
+          %table{class: "table table-sm table-bordered"}
             %thead
               %tr
                 %th
@@ -33,9 +32,18 @@
                   %td
                     = job.title
                   %td
-                    = job.rotations.count
+                    = job.rotations_required_per_day
                   %td
-                    = job.total_shifts(day)
+                    / # TODO get this logic out of view
+                    = job.rotations_required_per_day * job.workers_per_rotation
+              %tr.table-info
+                %td
+                  Daily Totals
+                %td
+                  = day.total_rotations
+                %td
+                  = day.total_workers_needed                    
+
           %br
   .col-sm-6.col-xs-12.event_day.event_day
     .panel.default
@@ -48,10 +56,10 @@
           %h5
             Volunteers
         %hr    
-        .event_day__workers
+        .event_day__inner
           = "Volunteers needed: #{day.total_workers_needed}"
           %br 
-        .event_day__workers
+        .event_day__inner
           = "Total Rotations: #{day.total_rotations}"
           %br                       
                                                                      

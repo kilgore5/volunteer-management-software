@@ -9,5 +9,5 @@
           / %img{:alt => "icon", "ng-src" => "images/icons/payment-history.svg", :src => "images/icons/payment-history.svg"}/
       .event_day__title
         = day.date.strftime("%A")
-      .event_day__jobs
+      .event_day__inner
         = "Jobs assigned: #{day.jobs.count}"  
