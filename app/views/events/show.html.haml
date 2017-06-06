@@ -1,7 +1,13 @@
 - content_for :hero_title do
   = @event.name
-- content_for :hero_content do
-  = render partial: "events/event", locals: {event: @event}
+- content_for :cta do
+  = link_to('Create jobs for this event', event_jobs_path(@event), class: 'btn btn-lg btn-success')
+  = link_to("Manage applications", event_application_for_events_path(@event), class: 'btn btn-lg btn-success')
+  - if user_signed_in?
+    / =  current_user.applications
+    = link_to "Apply to volunteer", new_user_event_application_for_event_path(current_user.id, @event.id), class: "btn btn-primary btn-lg"  
+.row
+  = render partial: "events/event_header", locals: {event: @event}
 
 .row
   = render partial: "event_days/day", collection: @event_days

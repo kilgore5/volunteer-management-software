@@ -21,10 +21,11 @@
 
 class Rotation < ApplicationRecord
   # Allows optional manager owner, as this will not not set when created
-  belongs_to                  :shift_manager, class_name: "User", optional: true
-  belongs_to                  :day, class_name: "EventDay"
-  belongs_to                  :job
-  has_many                    :shifts
+  belongs_to                    :shift_manager, class_name: "User", optional: true
+  belongs_to                    :day, class_name: "EventDay"
+  belongs_to                    :job
+  has_many                      :shifts
+  accepts_nested_attributes_for :shifts, :reject_if => :all_blank, :allow_destroy => true
 
   # Actions when saving
   after_save                  :create_shifts

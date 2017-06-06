@@ -3,9 +3,10 @@
     %nav
       %ul.nav.nav-pills.float-right
         %li.nav-item
-          =link_to("Events", root_path, class: "nav-link #{active_class(root_path)}")
+          =link_to("Home", @current_event, class: "nav-link #{active_class(@current_event)}")
         %li.nav-item
           =link_to("Volunteers", users_path, class: "nav-link #{active_class(users_path)}")              
         = render 'users/menu/registration_items'
-        = render 'users/menu/login_items'                
-    %h3.text-muted Volunteer Management         
+        = render 'users/menu/login_items'
+    =link_to root_path, class: "nav-link #{active_class(root_path)}" do                     
+      = image_tag("logos/strawberry-fields.png", class: "header-logo")

@@ -1,10 +1,19 @@
-.event_day .panel {
+.event_day .panel, .event_header .panel {
     margin-bottom: 20px;
     background-color: #fff;
-    height: 370px;
+    min-height: 370px;
     color: #687680;
     border: 0;
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
     border-radius: 3px;
     text-align: center;
+}
+
+.event_header {
+    margin: 3em auto;
+
+    .panel {
+        min-height: auto;
+        padding: 3em;
+    }
 }

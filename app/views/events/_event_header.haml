@@ -1,0 +1,48 @@
+.col-md-10.offset-md-1.event_header
+  .panel.default
+    .top-key-factor
+      .event_day__inner
+        %table.table
+          %thead
+            %tr
+              %td
+                Start date 
+              %td
+                Owner 
+              %td
+                Jobs (#{event.jobs.count})
+              %td
+                Applicants (#{event.applications.count})
+              %td 
+                Shifts
+          %tbody 
+            %tr
+              %td
+                = "#{event.start_time.strftime("%A")}, #{event.start_time.strftime("%d/%m/%Y")}"
+              %td
+                = link_to(event.client_owner.full_name, user_path(event.client_owner))
+              %td   
+                = link_to("View / Add", event_jobs_path(event), class: "btn btn-sm btn-secondary")  
+              %td
+                = link_to("Review / Aprove", event_application_for_events_path(event), class: "btn btn-sm btn-secondary") 
+              %td   
+                TODO                 
+
+/     %button.btn.btn-primary{"data-target" => "##{event.name.downcase.delete(' ')}", "data-toggle" => "modal", :type => "button"}
+/       Apply to event
+/ .modal.fade{:id => event.name.downcase.delete(' ') }
+/   .modal-dialog{:role => "document"}
+/     .modal-content
+/       .modal-header
+/         %h5.modal-title Apply to volunteer at #{event.name}
+/         %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+/           %span{"aria-hidden" => "true"} ×
+/       / = simple_form_for day, url: event_event_day_path(@event, day) do |f|
+/       /   .modal-body
+
+/       /     = f.association :jobs
+
+
+/       .modal-footer
+/         / = f.button :submit
+/         %button.btn.btn-secondary{"data-dismiss" => "modal", :type => "button"} Close          

@@ -1,8 +1,13 @@
-/ # = render partial: "event_days/day_full", locals: {day: @event_day}
+- day = @event_day
+
 - content_for :hero_title do
   = "#{@event_day.event.name}: #{@event_day.date.strftime("%A")}, #{@event_day.date.strftime("%d/%m/%Y")}"
+- content_for :cta do
+  %button.btn.btn-lg.btn-primary{"data-target" => "##{@event_day.date}", "data-toggle" => "modal", :type => "button"}
+    Add jobs +
+  %button.btn.btn-lg.btn-primary{"data-target" => "##{@event_day.date}", "data-toggle" => "modal", :type => "button"}
+    Add jobs +    
 
-- day = @event_day
 .row 
   .col-sm-6.col-xs-12.event_day.event_day
     .panel.default
@@ -32,7 +37,7 @@
                   %td
                     = job.title
                   %td
-                    = job.rotations_required_per_day
+                    = link_to job.rotations_required_per_day, event_day_rotations_path(day, job_id: job.id) 
                   %td
                     / # TODO get this logic out of view
                     = job.rotations_required_per_day * job.workers_per_rotation
@@ -64,7 +69,19 @@
           %br                       
                                                                      
 
+.modal.fade{:id =>  day.date }
+  .modal-dialog{:role => "document"}
+    .modal-content
+      .modal-header
+        %h5.modal-title Add jobs for #{day.date.strftime("%A")}
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} ×
+      = simple_form_for day, url: event_event_day_path(@event, day) do |f|
+        .modal-body
 
-/ = link_to 'Edit', edit_event_path(@event)
-/ \|
-/ = link_to 'Back', events_path
+          = f.association :jobs
+
+
+        .modal-footer
+          = f.button :submit
+          %button.btn.btn-secondary{"data-dismiss" => "modal", :type => "button"} Close 

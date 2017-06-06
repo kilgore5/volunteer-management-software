@@ -1,0 +1,5 @@
+.nested-fields
+  / .small
+  /   = f.count
+  = f.association :volunteer, label_method: :full_name
+  = link_to_remove_association "remove shift", f

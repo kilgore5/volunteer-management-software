@@ -1,0 +1,47 @@
+- content_for :hero_title do
+  = @job.title
+%table.table
+  %thead
+    %tr
+      %td
+        Start Time
+      %td
+        Duration
+      %td
+        Shift Manager        
+      %td
+  %tbody
+    - @rotations.each do |rotation|
+      %tr
+        %td
+          = rotation.start_time
+        %td
+          = rotation.length
+        %td
+          = rotation.shift_manager          
+        %td
+          %button.btn.btn-lg.btn-primary{"data-target" => "##{rotation.id}", "data-toggle" => "modal", :type => "button"}
+            Assign shifts +
+
+      / Adds a modal for each rotation, to add shifts to
+      .modal.fade{:id =>  rotation.id }
+        .modal-dialog{:role => "document"}
+          .modal-content
+            .modal-header
+              %h5.modal-title Assign volunteers for this rotation
+              %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+                %span{"aria-hidden" => "true"} ×
+            = simple_form_for rotation, url: event_day_rotation_path(@day, rotation) do |f|
+              .modal-body
+                #jobs
+                  = f.simple_fields_for :shifts do |shift|
+                    = render 'shift_fields', f: shift
+                  .links
+                    = link_to_add_association 'Add a Shift', f, :shifts, class: "btn btn-success btn-sm"
+
+                / = f.association :shifts
+
+
+              .modal-footer
+                = f.button :submit
+                %button.btn.btn-secondary{"data-dismiss" => "modal", :type => "button"} Close 

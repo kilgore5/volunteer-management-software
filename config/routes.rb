@@ -9,6 +9,10 @@ Rails.application.routes.draw do
     resources :application_for_events
   end
 
+  resources :event_days do
+    resources :rotations
+  end
+
   
   devise_for :users, controllers: {
     sessions: 'users/sessions',

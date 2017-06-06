@@ -17,7 +17,7 @@ class EventDay < ApplicationRecord
   belongs_to                  :event
   has_and_belongs_to_many     :jobs
   has_many                    :rotations, through: :jobs
-
+  has_many                    :shifts
   # Actions when saving
   after_save                  :create_rotations
 
