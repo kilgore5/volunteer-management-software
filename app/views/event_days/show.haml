@@ -37,7 +37,7 @@
                   %td
                     = job.title
                   %td
-                    = link_to job.rotations_required_per_day, event_day_rotations_path(day, job_id: job.id) 
+                    = link_to job.rotations_required_per_day, event_day_rotations_path(day.id, job_id: job.id) 
                   %td
                     / # TODO get this logic out of view
                     = job.rotations_required_per_day * job.workers_per_rotation

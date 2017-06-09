@@ -12,7 +12,7 @@ class RotationsController < ApplicationController
       @rotations = Rotation.where(:job_id => params[:job_id]).where(:day_id => params[:event_day_id]).includes(:job, :day)
       @job = @rotations.first.job
       @day = @rotations.first.day
-      flash[:notice] = "There are <b>#{@rotations.count}</b>  rotations for this job".html_safe
+      flash[:notice] = "There are <b>#{@rotations.count}</b> rotations for this job".html_safe
     else
       @rotations = Rotation.all
     end

@@ -11,10 +11,12 @@
 #  workers_per_rotation       :integer          default(0)
 #  hours_per_rotation         :integer          default(0)
 #  rotations_required_per_day :integer          default(0)
+#  slug                       :string
 #
 # Indexes
 #
 #  index_jobs_on_event_id  (event_id)
+#  index_jobs_on_slug      (slug)
 #
 
 class Job < ApplicationRecord
@@ -24,6 +26,16 @@ class Job < ApplicationRecord
   has_many   :skill_requirements
   accepts_nested_attributes_for :skill_requirements, :reject_if => :all_blank, :allow_destroy => true
 
+  # Allows 'friendly' slugs
+  extend FriendlyId
+  friendly_id :slug_candidates, use: :slugged  
+  # Try building a slug based on the following fields in
+  # increasing order of specificity.
+  def slug_candidates
+    [
+      [:title, self.event.slug]
+    ]
+  end
 
   # Create validations for the model
   validates_presence_of :title, :description, :event_id

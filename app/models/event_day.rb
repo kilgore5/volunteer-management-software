@@ -7,10 +7,12 @@
 #  date       :date
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  slug       :string
 #
 # Indexes
 #
 #  index_event_days_on_event_id  (event_id)
+#  index_event_days_on_slug      (slug)
 #
 
 class EventDay < ApplicationRecord
@@ -20,6 +22,17 @@ class EventDay < ApplicationRecord
   has_many                    :shifts
   # Actions when saving
   after_save                  :create_rotations
+
+  # Allows 'friendly' slugs
+  extend FriendlyId
+  friendly_id :slug_candidates, use: :slugged  
+  # Try building a slug based on the following fields in
+  # increasing order of specificity.
+  def slug_candidates
+    [
+      [:date, self.event.slug]
+    ]
+  end 
 
   # Calculates the total shifts to be filled for the day
   def total_rotations

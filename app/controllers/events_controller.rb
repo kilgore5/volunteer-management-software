@@ -66,7 +66,7 @@ class EventsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     # Get all the event_days as well for each request
     def set_event
-      @event = Event.includes(:event_days).find(params[:id])
+      @event = Event.includes(:event_days).friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

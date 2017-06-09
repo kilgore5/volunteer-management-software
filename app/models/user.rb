@@ -44,13 +44,17 @@
 
 class User < ApplicationRecord
 
-  # Enables roles for Users via the Rolify gem and CanCanCan gem
-  rolify
-
   has_and_belongs_to_many :accepted_events, class_name: "Event"
   has_and_belongs_to_many :applied_events, class_name: "Event"
 
   has_many :applications, class_name: "ApplicationForEvent"
+
+  # Enables roles for Users via the Rolify gem and CanCanCan gem
+  rolify
+
+  # Allows 'friendly' slugs
+  extend FriendlyId
+  friendly_id :full_name, use: :slugged  
 
   # Allows a shift_manager role to be in charge of a specific rotation
   has_many :rotations

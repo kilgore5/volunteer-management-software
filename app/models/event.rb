@@ -11,18 +11,25 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  name               :string
+#  slug               :string
 #
 # Indexes
 #
 #  index_events_on_client_owner_id  (client_owner_id)
+#  index_events_on_slug             (slug)
 #
 
 class Event < ApplicationRecord
+
   belongs_to              :client_owner, class_name: "User"
   has_many                :event_days
   has_many                :accepted_volunteers, class_name: "User"
   has_many                :applied_volunteers, class_name: "User"
   has_many                :applications, class_name: "ApplicationForEvent"
+
+  # Allows 'friendly' slugs
+  extend FriendlyId
+  friendly_id :name, use: :slugged
 
   # Allows nested forms to add jobs for an event
   has_many                :jobs
