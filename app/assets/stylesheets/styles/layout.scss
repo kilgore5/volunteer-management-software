@@ -9,8 +9,10 @@ main{
 
 .jumbotron{
   background-image: url("main-bg.jpg");
-  background-position: center center;
+  background-position: center 85%;
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 0;
+  color: #f4f2f3;
+  min-height: 20rem;
 }

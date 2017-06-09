@@ -33,10 +33,14 @@ if Rails.env == "development"
   vol2.skip_confirmation!
   vol2.add_role :volunteer
   vol2.save
+  vol2 = User.new( first_name: 'Tom', last_name: 'Volunteer', email: "tom@volunteer.com", password: "password" )
+  vol2.skip_confirmation!
+  vol2.add_role :volunteer
+  vol2.save  
 
   # Creates an example event
   event = Event.create!(
-    :name => "Test Event",
+    :name => "Strawberry Fields",
     :start_time => DateTime.now + 30.days,
     :end_time => DateTime.now + 33.days,        
     :ticket_price_cents => 3000,
