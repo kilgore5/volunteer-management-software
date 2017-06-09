@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170519153000) do
+ActiveRecord::Schema.define(version: 20170609232611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,7 +45,9 @@ ActiveRecord::Schema.define(version: 20170519153000) do
     t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug"
     t.index ["event_id"], name: "index_event_days_on_event_id"
+    t.index ["slug"], name: "index_event_days_on_slug"
   end
 
   create_table "event_days_jobs", id: false, force: :cascade do |t|
@@ -64,7 +66,9 @@ ActiveRecord::Schema.define(version: 20170519153000) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
+    t.string "slug"
     t.index ["client_owner_id"], name: "index_events_on_client_owner_id"
+    t.index ["slug"], name: "index_events_on_slug"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -88,7 +92,9 @@ ActiveRecord::Schema.define(version: 20170519153000) do
     t.integer "workers_per_rotation", default: 0
     t.integer "hours_per_rotation", default: 0
     t.integer "rotations_required_per_day", default: 0
+    t.string "slug"
     t.index ["event_id"], name: "index_jobs_on_event_id"
+    t.index ["slug"], name: "index_jobs_on_slug"
   end
 
   create_table "roles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

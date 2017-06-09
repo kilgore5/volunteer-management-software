@@ -53,7 +53,7 @@ class JobsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_job
-      @job = Job.includes(:event).find(params[:id])
+      @job = Job.includes(:event).friendly.find(params[:id])
       @event = @job.event
     end    
 
