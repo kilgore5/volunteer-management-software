@@ -1,5 +1,8 @@
 - content_for :hero_title do
-  Volunteers
+  = "Volunteers & Managers"
+  %br
+  %h3= "for: #{@current_event.name}"
+
 .col-md-10.offset-md-1.event_header
   .panel.default
     .top-key-factor

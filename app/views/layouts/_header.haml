@@ -5,6 +5,8 @@
         %li.nav-item
           =link_to("Home", @current_event, class: "nav-link #{active_class(@current_event)}")
         %li.nav-item
+          = link_to("Applications", event_application_for_events_path(@current_event), class: "nav-link #{active_class(event_application_for_events_path(@current_event))}")           
+        %li.nav-item
           =link_to("Volunteers", users_path, class: "nav-link #{active_class(users_path)}")              
         = render 'users/menu/registration_items'
         = render 'users/menu/login_items'
