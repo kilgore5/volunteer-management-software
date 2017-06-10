@@ -11,22 +11,30 @@
         Shift Manager        
       %td
         Shifts
+      %td
+        Cover      
   %tbody
     - @rotations.each do |rotation|
-      %tr
+      - classes = rotation.covered_percent >= 100 ? "table-success" : "table-warning"
+      %tr{class: classes}
         %td
           = rotation.start_time
         %td
           = "#{rotation.length} hrs"
         %td
           - if rotation.shift_manager
-            = link_to(rotation.shift_manager.select_label, rotation.shift_manager)
+            = link_to(rotation.shift_manager.full_name, rotation.shift_manager)
+            %button.close{"aria-label" => "Change", "data-target" => "#manager-#{rotation.id}", "data-toggle" => "modal", :type => "button"}
+              %span{"aria-hidden" => "true"} ×
           - else
-            %button.btn.btn-lg.btn-primary{"data-target" => "#manager-#{rotation.id}", "data-toggle" => "modal", :type => "button"}
+            %button.btn.btn-md.btn-primary{"data-target" => "#manager-#{rotation.id}", "data-toggle" => "modal", :type => "button"}
               Assign manager +            
         %td
-          %button.btn.btn-lg.btn-primary{"data-target" => "#shifts-#{rotation.id}", "data-toggle" => "modal", :type => "button"}
+          %button.btn.btn-md.btn-primary{"data-target" => "#shifts-#{rotation.id}", "data-toggle" => "modal", :type => "button"}
             Assign volunteers +
+        %td
+          = "#{rotation.covered_shifts}/#{rotation.total_shifts}"
+          = "#{number_to_percentage(rotation.covered_percent, precision: 0)}"
 
       / Adds a modal for each rotation, to add shift managers to
       .modal.fade{:id =>  "manager-" + rotation.id }

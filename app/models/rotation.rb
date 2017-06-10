@@ -35,6 +35,21 @@ class Rotation < ApplicationRecord
     self.shifts.count
   end
 
+  # calculate the shifts covered in this rotation instance
+  def covered_shifts
+    self.shifts.where.not(volunteer_id: nil).count
+  end
+
+  # Calculate precentage of shits covered for a given rotation
+  def covered_percent
+    ( self.covered_shifts / self.total_shifts ) * 100
+  end
+
+  # calculate the shifts remaining to be covered in this rotation instance
+  def remaining_shifts
+    self.total_shifts - self.covered_shifts
+  end  
+
   private
 
     def create_shifts
