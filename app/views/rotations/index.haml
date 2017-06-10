@@ -1,5 +1,8 @@
 - content_for :hero_title do
-  = @job.title
+  = "#{@day.date.strftime("%A")}, #{@day.date.strftime("%d/%m/%Y")}"
+  %br
+  %h3= "Rotations for: #{@job.title}"
+  
 %table.table
   %thead
     %tr
@@ -34,7 +37,8 @@
             Assign volunteers +
         %td
           = "#{rotation.covered_shifts}/#{rotation.total_shifts}"
-          = "#{number_to_percentage(rotation.covered_percent, precision: 0)}"
+          = "#{number_to_percentage(rotation.covered_percent, precision: 3)}"
+          = "#{rotation.covered_percent}"
 
       / Adds a modal for each rotation, to add shift managers to
       .modal.fade{:id =>  "manager-" + rotation.id }
