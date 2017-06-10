@@ -5,8 +5,14 @@ class ApplicationForEventsController < ApplicationController
   before_action :set_user, only: [:new, :create, :update]
 
   def new
-    @application = @event.applications.build(volunteer_id: @current_user.id)
-    @application.save
+    # proceed to creating application if user exists, otherwise signup with Devise
+    if @current_user
+      @application = @event.applications.build(volunteer_id: @current_user.id)
+      @application.save
+    else
+      # @application = @event.applications.build()
+      @application = ApplicationForEvent.new(event_id: @current_event.id)
+    end
   end
 
   def show
@@ -15,7 +21,8 @@ class ApplicationForEventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
-    @application = @event.applications.build(volunteer_id: @current_user.id)
+    # @application = @event.applications.build(volunteer_id: @current_user.id)
+    @application = @event.applications.build()
 
     respond_to do |format|
       if @application.save
@@ -60,7 +67,7 @@ class ApplicationForEventsController < ApplicationController
     end  
 
     def set_event
-      @event = Event.find(params[:event_id])
+      @event = params[:event_id] ? Event.find(params[:event_id]) : @current_event
     end
 
     def set_application
@@ -69,7 +76,16 @@ class ApplicationForEventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def application_params
-      params.permit(:name, :start_time, :end_time, :event_length, :ticket_price_cents, :client_owner_id)
+      params.permit(  :name,
+                      :start_time,
+                      :end_time,
+                      :event_length,
+                      :ticket_price_cents,
+                      :client_owner_id,
+                      volunteer_attributes: [ :id,
+                                              :title,
+                                              :description,
+                                              :_destroy])
     end    
 
 end

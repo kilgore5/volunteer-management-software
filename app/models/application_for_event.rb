@@ -18,4 +18,6 @@
 class ApplicationForEvent < ApplicationRecord
   belongs_to :event
   belongs_to :volunteer, class_name: "User"
+
+  accepts_nested_attributes_for :volunteer
 end

@@ -3,10 +3,12 @@
 - content_for :cta do
   = link_to('Create jobs for this event', event_jobs_path(@event), class: 'btn btn-lg btn-success')
   = link_to("Manage applications", event_application_for_events_path(@event), class: 'btn btn-lg btn-success')
-  - if user_signed_in?
-    = link_to "Apply to volunteer", new_user_event_application_for_event_path(current_user.id, @event.id), class: "btn btn-primary btn-lg" 
-  - else
-    = link_to "Log in to apply", new_session_path(resource_name), class: "btn btn-primary btn-lg" 
+  = link_to "Apply to volunteer", new_event_application_for_event_path(@event.id), class: "btn btn-primary btn-lg" 
+  / Old method
+  / # - if user_signed_in?
+  /   # = link_to "Apply to volunteer", new_user_event_application_for_event_path(current_user.id, @event.id), class: "btn btn-primary btn-lg" 
+  / # - else
+  /   # = link_to "Log in to apply", new_session_path(resource_name), class: "btn btn-primary btn-lg" 
 .row
   = render partial: "events/event_header", locals: {event: @event}
 
