@@ -5,7 +5,9 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    # @users = User.all
+    @managers = User.with_role(:shift_manager)
+    @volunteers = User.with_role(:volunteer)
   end
 
   # GET /users/1

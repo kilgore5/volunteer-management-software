@@ -25,7 +25,7 @@ class Rotation < ApplicationRecord
   belongs_to                    :day, class_name: "EventDay"
   belongs_to                    :job
   has_many                      :shifts
-  accepts_nested_attributes_for :shifts, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :shifts, :shift_manager, :reject_if => :all_blank, :allow_destroy => true
 
   # Actions when saving
   after_save                  :create_shifts
@@ -34,6 +34,21 @@ class Rotation < ApplicationRecord
   def total_shifts
     self.shifts.count
   end
+
+  # calculate the shifts covered in this rotation instance
+  def covered_shifts
+    self.shifts.where.not(volunteer_id: nil).count
+  end
+
+  # Calculate precentage of shits covered for a given rotation
+  def covered_percent
+    ( self.covered_shifts / self.total_shifts ) * 100
+  end
+
+  # calculate the shifts remaining to be covered in this rotation instance
+  def remaining_shifts
+    self.total_shifts - self.covered_shifts
+  end  
 
   private
 

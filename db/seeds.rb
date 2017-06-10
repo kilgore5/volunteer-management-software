@@ -33,10 +33,16 @@ if Rails.env == "development"
   vol2.skip_confirmation!
   vol2.add_role :volunteer
   vol2.save
-  vol2 = User.new( first_name: 'Tom', last_name: 'Volunteer', email: "tom@volunteer.com", password: "password" )
-  vol2.skip_confirmation!
-  vol2.add_role :volunteer
-  vol2.save  
+  vol3 = User.new( first_name: 'Tom', last_name: 'Volunteer', email: "tom@volunteer.com", password: "password" )
+  vol3.skip_confirmation!
+  vol3.add_role :volunteer
+  vol3.save  
+
+  # Creates an example shift_manager
+  man = User.new( first_name: 'Steve', last_name: 'Manager', email: "steve@manager.com", password: "password" )
+  man.skip_confirmation!
+  man.add_role :shift_manager
+  man.save  
 
   # Creates an example event
   event = Event.create!(

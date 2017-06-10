@@ -1,5 +1,8 @@
 - content_for :hero_title do
-  = @job.title
+  = "#{@day.date.strftime("%A")}, #{@day.date.strftime("%d/%m/%Y")}"
+  %br
+  %h3= "Rotations for: #{@job.title}"
+  
 %table.table
   %thead
     %tr
@@ -10,21 +13,56 @@
       %td
         Shift Manager        
       %td
+        Shifts
+      %td
+        Cover      
   %tbody
     - @rotations.each do |rotation|
-      %tr
+      - classes = rotation.covered_percent >= 100 ? "table-success" : "table-warning"
+      %tr{class: classes}
         %td
           = rotation.start_time
         %td
-          = rotation.length
+          = "#{rotation.length} hrs"
         %td
-          = rotation.shift_manager          
+          - if rotation.shift_manager
+            = link_to(rotation.shift_manager.full_name, rotation.shift_manager)
+            %button.close{"aria-label" => "Change", "data-target" => "#manager-#{rotation.id}", "data-toggle" => "modal", :type => "button"}
+              %span{"aria-hidden" => "true"} ×
+          - else
+            %button.btn.btn-md.btn-primary{"data-target" => "#manager-#{rotation.id}", "data-toggle" => "modal", :type => "button"}
+              Assign manager +            
         %td
-          %button.btn.btn-lg.btn-primary{"data-target" => "##{rotation.id}", "data-toggle" => "modal", :type => "button"}
-            Assign shifts +
+          %button.btn.btn-md.btn-primary{"data-target" => "#shifts-#{rotation.id}", "data-toggle" => "modal", :type => "button"}
+            Assign volunteers +
+        %td
+          = "#{rotation.covered_shifts}/#{rotation.total_shifts}"
+          = "#{number_to_percentage(rotation.covered_percent, precision: 3)}"
+          = "#{rotation.covered_percent}"
+
+      / Adds a modal for each rotation, to add shift managers to
+      .modal.fade{:id =>  "manager-" + rotation.id }
+        .modal-dialog{:role => "document"}
+          .modal-content
+            .modal-header
+              %h5.modal-title Assign a manager for this rotation
+              %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+                %span{"aria-hidden" => "true"} ×
+            = simple_form_for rotation, url: event_day_rotation_path(@day, rotation) do |f|
+              .modal-body
+                #jobs
+
+                  = f.association :shift_manager, 
+                    collection: User.with_role(:shift_manager),
+                    :label_method => :select_label
+
+
+              .modal-footer
+                = f.button :submit
+                %button.btn.btn-secondary{"data-dismiss" => "modal", :type => "button"} Close             
 
       / Adds a modal for each rotation, to add shifts to
-      .modal.fade{:id =>  rotation.id }
+      .modal.fade{:id =>  "shifts-" + rotation.id }
         .modal-dialog{:role => "document"}
           .modal-content
             .modal-header
