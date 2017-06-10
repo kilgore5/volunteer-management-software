@@ -85,7 +85,8 @@ class RotationsController < ApplicationController
       params.require(:rotation).permit( :id,
                                    :length, 
                                    :start_time, 
-                                   :count, 
+                                   :count,
+                                   :shift_manager_id, 
                                    shifts_attributes: [:id, :volunteer_id, :length, :start_time, :count, :_destroy])
     end
 end

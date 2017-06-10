@@ -99,6 +99,10 @@ class User < ApplicationRecord
 
   end
 
+  def select_label
+    return "#{self.full_name} (#{self.email})"
+  end
+
   protected
 
     # Sets the user's full name on save

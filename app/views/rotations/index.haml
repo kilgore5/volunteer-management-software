@@ -17,34 +17,32 @@
         %td
           = rotation.start_time
         %td
-          = rotation.length
+          = "#{rotation.length} hrs"
         %td
           - if rotation.shift_manager
-            = rotation.shift_manager
+            = link_to(rotation.shift_manager.select_label, rotation.shift_manager)
           - else
             %button.btn.btn-lg.btn-primary{"data-target" => "#manager-#{rotation.id}", "data-toggle" => "modal", :type => "button"}
-              Assign shifts +            
+              Assign manager +            
         %td
           %button.btn.btn-lg.btn-primary{"data-target" => "#shifts-#{rotation.id}", "data-toggle" => "modal", :type => "button"}
-            Assign shifts +
+            Assign volunteers +
 
       / Adds a modal for each rotation, to add shift managers to
       .modal.fade{:id =>  "manager-" + rotation.id }
         .modal-dialog{:role => "document"}
           .modal-content
             .modal-header
-              %h5.modal-title Assign volunteers for this rotation
+              %h5.modal-title Assign a manager for this rotation
               %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
                 %span{"aria-hidden" => "true"} ×
             = simple_form_for rotation, url: event_day_rotation_path(@day, rotation) do |f|
               .modal-body
                 #jobs
-                  = f.simple_fields_for :shifts do |shift|
-                    = render 'shift_fields', f: shift
-                  .links
-                    = link_to_add_association 'Add a Shift', f, :shifts, class: "btn btn-success btn-sm"
 
-                / = f.association :shifts
+                  = f.association :shift_manager, 
+                    collection: User.with_role(:shift_manager),
+                    :label_method => :select_label
 
 
               .modal-footer

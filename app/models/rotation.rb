@@ -25,7 +25,7 @@ class Rotation < ApplicationRecord
   belongs_to                    :day, class_name: "EventDay"
   belongs_to                    :job
   has_many                      :shifts
-  accepts_nested_attributes_for :shifts, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :shifts, :shift_manager, :reject_if => :all_blank, :allow_destroy => true
 
   # Actions when saving
   after_save                  :create_shifts
