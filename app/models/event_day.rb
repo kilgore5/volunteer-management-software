@@ -88,12 +88,15 @@ class EventDay < ApplicationRecord
         i = 1
         rotation_count.times do |rotation|
 
+          # Calculates the hours the rotation should start after the start of the day
+          hours_calc = ( i - 1 ) * job.hours_per_rotation
+
           Rotation.where(
             job_id:           job.id, 
             day_id:           self.id, 
             count:            i, 
             length:           job.hours_per_rotation,
-            start_time:       self.day.date.to_datetime 
+            start_time:       self.date.to_datetime + hours_calc.hours
           ).first_or_create   
 
           i += 1
