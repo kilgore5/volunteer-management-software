@@ -6,7 +6,7 @@
     = f.error_notification
     = f.hidden_field :event_id, value: params[:event_id] ? params[:event_id] : @current_event.id
     = f.hidden_field :user_id, value: @current_user.id
-    = f.simple_fields_for @current_user do |f|
+    = f.simple_fields_for :user do |f|
       %h5 Contact Details
       %hr
       .inputs.row

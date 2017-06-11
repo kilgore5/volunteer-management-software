@@ -19,6 +19,7 @@ class ApplicationForEventsController < ApplicationController
     # end
     # @application = ApplicationForEvent.new(event_id: @current_event.id, user_id: @current_user.id)
     @application = ApplicationForEvent.new
+    @application.user = @current_user
   end
 
   def show
@@ -29,13 +30,13 @@ class ApplicationForEventsController < ApplicationController
   def create
 
     # Check to see if the user is registered/logged in
-    if current_user.nil?
-       # Store the form data in the session so we can retrieve it after login
-       session[:application_for_event] = params
-       # Redirect the user to register/login
-       redirect_to new_user_registration_path    
+    # if current_user.nil?
+    #    # Store the form data in the session so we can retrieve it after login
+    #    session[:application_for_event] = params
+    #    # Redirect the user to register/login
+    #    redirect_to new_user_registration_path    
    
-    else    
+    # else    
       # @application = @event.applications.build(volunteer_id: @current_user.id)
       @application = ApplicationForEvent.new(application_params)
 
@@ -48,7 +49,6 @@ class ApplicationForEventsController < ApplicationController
           format.json { render json: @application.errors, status: :unprocessable_entity }
         end
       end
-    end
   end
 
   # PATCH/PUT /events/1
@@ -102,7 +102,7 @@ class ApplicationForEventsController < ApplicationController
                       # :ticket_price_cents,
                       # :client_owner_id,
                       :info,
-                      user: [ :id,
+                      user_attributes: [ :id,
                                               :first_name,
                                               :last_name,
                                               :email,
