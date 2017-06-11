@@ -1,7 +1,8 @@
 / Adds an index so we can show each row with a number
 -index = application_counter + 1
 %tr
-  %th{:scope => "row"} #{index}
+  %th{:scope => "row"}
+    #{index}
   %td 
     = link_to application.volunteer.full_name, application.volunteer
   %td 
@@ -13,3 +14,5 @@
       = link_to "Approve", approve_application_for_event_path(application), remote: true, class: "btn btn-primary"
   %td
     TODO
+  %td
+    = link_to "View", application

@@ -1,2 +1,19 @@
-%h1 ApplicationForEvents#show
-%p Find me in app/views/application_for_events/show.html.haml
+- content_for :hero_title do
+  = "Application"
+  %br
+  %h3= "for: volunteer @ #{@current_event.name}, from: #{@application.volunteer.full_name}"
+  
+
+.col-md-10.offset-md-1.event_header
+  .panel.default
+    .top-key-factor
+      .event_day__inner
+        %table.table
+          %thead
+            %tr
+              %th Volunteer
+              %th Submitted
+              %th Accept
+              %th Shift
+          %tbody
+            = render partial: "full_application", locals: {application: @application}

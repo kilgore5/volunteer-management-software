@@ -4,7 +4,7 @@ class ApplicationForEventsController < ApplicationController
   before_action :authenticate_user!, :except => [:show, :index, :create]
 
 
-  before_action :set_event, except: [:approve]
+  before_action :set_event, except: [:approve, :show]
   before_action :set_application, only: [:show, :update, :approve]
   before_action :set_user, only: [:new, :create, :update]
 
@@ -64,7 +64,7 @@ class ApplicationForEventsController < ApplicationController
   end
 
   def index
-    @applications = ApplicationForEvent.where(event_id: params[:event_id]).includes(:event, :volunteer)
+    @applications = ApplicationForEvent.where(event_id: @event.id).includes(:event, :volunteer)
   end
 
   def approve

@@ -1,12 +1,21 @@
-.row
-  .col-md-12
-    %table.table.table-hover
-      %thead
-        %tr
-          %th #
-          %th Volunteer
-          %th Submitted
-          %th Accept
-          %th Shift
-      %tbody
-        = render partial: "application", collection: @applications
+- content_for :hero_title do
+  = "Volunteer Applications"
+  %br
+  %h3= "for: #{@event.name}"
+  
+
+.col-md-10.offset-md-1.event_header
+  .panel.default
+    .top-key-factor
+      .event_day__inner
+        %table.table.table-hover
+          %thead
+            %tr
+              %th #
+              %th Volunteer
+              %th Submitted
+              %th Accept
+              %th Shift
+              %th Application
+          %tbody
+            = render partial: "application", collection: @applications

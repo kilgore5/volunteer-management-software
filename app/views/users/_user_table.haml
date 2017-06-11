@@ -1,0 +1,23 @@
+%table.table
+  %thead
+    %tr
+      %th Full name
+      %th Email
+      %th Age
+      %th Mobile number
+      %th Hours worked
+      %th Rating
+      %th
+      %th
+
+  %tbody
+    - users.each do |user|
+      %tr
+        %td= user.full_name
+        %td= user.email
+        %td= user.age
+        %td= user.mobile_number
+        %td= user.hours_worked
+        %td= user.rating
+        %td= link_to 'Show', user
+        %td= link_to 'Edit', edit_user_path(user)

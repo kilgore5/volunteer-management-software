@@ -1,33 +1,30 @@
 - content_for :hero_title do
-  Volunteers
+  = "Volunteers & Managers"
+  %br
+  %h3= "for: #{@current_event.name}"
+
 .col-md-10.offset-md-1.event_header
   .panel.default
     .top-key-factor
       .event_day__inner
-        %table.table
-          %thead
-            %tr
-              %th Full name
-              %th Email
-              %th Age
-              %th Mobile number
-              %th Hours worked
-              %th Rating
-              %th
-              %th
+        / Nav tabs
+        %ul.nav.nav-tabs{:role => "tablist"}
+          %li.nav-item
+            %a.nav-link.active{"data-toggle" => "tab", :href => "#volunteers", :role => "tab"}
+              Volunteers
+          %li.nav-item
+            %a.nav-link{"data-toggle" => "tab", :href => "#managers", :role => "tab"}
+              Managers
+        / Tab panes
+        .tab-content
+          #volunteers.tab-pane.active{:role => "tabpanel"}
+            = render 'user_table', users: @volunteers
 
-          %tbody
-            - @users.each do |user|
-              %tr
-                %td= user.full_name
-                %td= user.email
-                %td= user.age
-                %td= user.mobile_number
-                %td= user.hours_worked
-                %td= user.rating
-                %td= link_to 'Show', user
-                %td= link_to 'Edit', edit_user_path(user)
+          #managers.tab-pane{:role => "tabpanel"}
+            = render 'user_table', users: @managers     
+
 
 %br
 
 = link_to 'New User', new_user_path
+
