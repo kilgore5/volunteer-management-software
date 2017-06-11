@@ -38,20 +38,32 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  # Allows our own custom params to go through for Devise models
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:account_update) do |user_params|
-      user_params.permit(:first_name,
-                         :last_name,
-                         :password,
-                         :password_confirmation,
-                         :current_password,
-                         :email,
-                         :birthday,
-                         :mobile_number,
-                         skills_attributes: [:id, :name, :proof_document, :_destroy])
+    # Allows our own custom params to go through for Devise models
+    def configure_permitted_parameters
+      devise_parameter_sanitizer.permit(:account_update) do |user_params|
+        user_params.permit(:first_name,
+                           :last_name,
+                           :password,
+                           :password_confirmation,
+                           :current_password,
+                           :email,
+                           :birthday,
+                           :mobile_number,
+                           skills_attributes: [:id, :name, :proof_document, :_destroy])
+      end
     end
-  end
+
+  private
+
+
+    #Redirects user to registration instead of login
+    def authenticate_user!
+      if user_signed_in?
+        super
+      else
+        redirect_to new_user_registration_path
+      end
+    end  
 
   # TODO this is terrible and only to be used for launch with Strawberry
   def set_current_event
