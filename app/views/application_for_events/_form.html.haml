@@ -1,13 +1,38 @@
-/ # = simple_form_for([@current_user, @event, @application]) do |f|
-= simple_form_for(@application) do |f|
+= simple_form_for([@current_user, @event, @application]) do |f|
 
-  .col-md-4.offset-md-4
+  .col-md-8.offset-md-2
     = f.error_notification
-    .inputs
-      = f.simple_fields_for :user do |v|
-        = v.input :email, required: true, autofocus: true, input_html: { class: "signin-text", autocomplete: 'off' }
-        = v.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length), input_html: { class: "signin-text-password", autocomplete: 'off' }
-        = v.input :password_confirmation, required: true, input_html: { class: "signin-text-password", autocomplete: 'off' }
+    = f.simple_fields_for :volunteer do |f|
+      %h5 Contact Details
+      %hr
+      .inputs.row
+        .col-md-6
+          = f.input :first_name, autofocus: true, required: true
+        .col-md-6
+          = f.input :last_name, required: true
+        .col-md-6
+          = f.input :email, required: true, input_html: { class: "signin-text", autocomplete: 'off' }
+        .col-md-6
+          = f.input :mobile_number , required: true     
+        .col-md-6
+          = f.input :birthday , required: true
+ 
+      %h5 Skills / Qualifying Documents
+      %p i.e. RSA, PHD in Astrophysics
+      %hr
+      / .inputs.row
+      = f.simple_fields_for :skills do |skill|
+      
+        = render 'skill_fields', :f => skill
+      .inputs.row
+        .links.col-md-12
+          = link_to_add_association 'add skill', f, :skills   
+      %h5 Other Information
+      %p Let us know any critical info i.e. allergies, relevant volunteer experience
+      %hr
+    .inputs.row
+      .col-md-12
+        = f.input :info, as: :text    
 
     .actions
       = f.button :submit

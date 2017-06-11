@@ -1,3 +1,4 @@
-%h1 Apply to volunteer at #{@event.name}
+- content_for :hero_title do
+  Apply to volunteer at #{@event.name}
 
 = render 'form'

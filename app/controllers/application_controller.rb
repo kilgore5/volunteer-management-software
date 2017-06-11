@@ -13,6 +13,29 @@ class ApplicationController < ActionController::Base
     request.env['puma.config'].options.user_options.delete :app
   end
 
+
+  def after_sign_in_path_for(resource)
+ 
+    # save list if there is a temp_list in the session
+    if session[:application].present?
+ 
+      # save list
+      @application = current_user.applications.create(session[:application]["application"])
+ 
+      # clear session
+      session[:application] = nil
+ 
+      #redirect
+      flash[:notice] = "Sweet, logged in. Nice application, btw :)"      
+      edit_user_path(@current_user)
+ 
+    else
+      #if there is not temp application in the session proceed as normal
+      super
+    end
+ 
+  end
+
   protected
 
   # Allows our own custom params to go through for Devise models
@@ -30,6 +53,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # TODO this is terrible and only to be used for launch with Strawberry
   def set_current_event
     @current_event = Event.last
   end  
