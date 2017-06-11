@@ -12,6 +12,8 @@
     %main#login
       .container.login
         .row
+          .col-lg-12
+            = flash_messages
           .col-md-8.offset-md-2
             .title-wrap
               = yield :login_title

@@ -3,7 +3,7 @@
     %nav
       %ul.nav.nav-pills.float-right
         %li.nav-item
-          =link_to("Home", @current_event, class: "nav-link #{active_class(@current_event)}")
+          =link_to("Home", @current_event, class: "nav-link #{active_class(@current_event)} #{active_class(root_path)}")
         %li.nav-item
           = link_to("Applications", event_application_for_events_path(@current_event), class: "nav-link #{active_class(event_application_for_events_path(@current_event))}")           
         %li.nav-item
