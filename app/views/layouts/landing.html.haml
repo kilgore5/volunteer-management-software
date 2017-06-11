@@ -6,21 +6,22 @@
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    / # = javascript_pack_tag 'application'
   %body
     / Renders the global header
-    = render "layouts/header"
-    %main#login
-      .container.login
-        .row
-          .col-lg-12
-            = flash_messages
-          .col-md-8.offset-md-2
-            .title-wrap
-              = yield :login_title
-          .col-lg-12
+    / = render "layouts/header"
+    %main
+      .jumbotron.full-page
+        .container.top-fixed
+          .row
+            .col-lg-12
+              = flash_messages
+        .container 
+          %h1.display-3
+            = yield :hero_title
+        .container.bottom-fixed
+          .row
             = yield
-    / Renders the global footer          
-    = render "layouts/footer"
 
     - if Rails.env == 'development'
       = console          

@@ -2,6 +2,7 @@ main{
   min-height: 77vh;
   width: 100%;
   background-color: #f4f2f3;
+  overflow: hidden;
   &#login{
     background-color: #fff;
   }
@@ -15,4 +16,27 @@ main{
   border-radius: 0;
   color: #f4f2f3;
   min-height: 20rem;
+  &.full-page{
+    height: 100vh;
+    margin: 0 !important;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-position: center center;
+    img{
+      width: 400px;
+    }
+    .top-fixed{
+      position: fixed;
+      top: 100px;      
+    }
+    .bottom-fixed{
+      position: fixed;
+      bottom: 100px;
+      .centered{
+        margin: 0 auto;
+      }
+    }
+  }
 }

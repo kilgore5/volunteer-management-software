@@ -2,13 +2,15 @@
   .container
     %nav
       %ul.nav.nav-pills.float-right
-        %li.nav-item
-          =link_to("Home", @current_event, class: "nav-link #{active_class(@current_event)}")
-        %li.nav-item
-          = link_to("Applications", event_application_for_events_path(@current_event), class: "nav-link #{active_class(event_application_for_events_path(@current_event))}")           
-        %li.nav-item
-          =link_to("Volunteers", users_path, class: "nav-link #{active_class(users_path)}")              
+        - if @current_user && @current_user.has_role?(:admin || :event_client || :shift_manager)
+          %li.nav-item
+            =link_to("Home", @current_event, class: "nav-link #{active_class(@current_event)} #{active_class(root_path)}")
+        - if @current_user && @current_user.has_role?(:admin || :event_client)
+          %li.nav-item
+            = link_to("Applications", event_application_for_events_path(@current_event), class: "nav-link #{active_class(event_application_for_events_path(@current_event))}")           
+          %li.nav-item
+            =link_to("Volunteers", users_path, class: "nav-link #{active_class(users_path)}")              
         = render 'users/menu/registration_items'
         = render 'users/menu/login_items'
-    =link_to root_path, class: "nav-link #{active_class(root_path)}" do                     
+    =link_to @current_event, class: "nav-link #{active_class(root_path)}" do                     
       = image_tag("logos/strawberry-fields.png", class: "header-logo")

@@ -1,7 +1,7 @@
 class ApplicationForEventsController < ApplicationController
 
   # Make sure not to filter 'create' as we'll be handling that with our redirect
-  before_action :authenticate_user!, :except => [:show, :index, :create]
+  before_action :authenticate_user!
 
 
   before_action :set_event, except: [:approve, :show]
@@ -111,6 +111,7 @@ class ApplicationForEventsController < ApplicationController
                                               :description,
                                               :_destroy,
                                               skills_attributes: [  :name,
+                                                                    :id,
                                                                     :proof_document,
                                                                     :_destroy
                                                                   ]
