@@ -8,6 +8,7 @@
 #  accepted     :boolean          default(FALSE)
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  info         :text
 #
 # Indexes
 #
@@ -18,4 +19,6 @@
 class ApplicationForEvent < ApplicationRecord
   belongs_to :event
   belongs_to :volunteer, class_name: "User"
+
+  accepts_nested_attributes_for :volunteer
 end

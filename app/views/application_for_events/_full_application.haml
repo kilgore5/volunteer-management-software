@@ -1,0 +1,13 @@
+
+%tr
+  %td 
+    = link_to application.volunteer.full_name, application.volunteer
+  %td 
+    = application.updated_at.strftime("%d/%m/%Y")
+  %td 
+    - if application.accepted?
+      Yep
+    - else
+      = link_to "Approve", approve_application_for_event_path(application), remote: true, class: "btn btn-primary"
+  %td
+    TODO
