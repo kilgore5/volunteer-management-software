@@ -111,6 +111,7 @@ class ApplicationForEventsController < ApplicationController
                                               :description,
                                               :_destroy,
                                               skills_attributes: [  :name,
+                                                                    :id,
                                                                     :proof_document,
                                                                     :_destroy
                                                                   ]

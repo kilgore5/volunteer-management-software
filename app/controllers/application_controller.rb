@@ -55,6 +55,14 @@ class ApplicationController < ActionController::Base
 
   private
 
+    #stops user from viewing a page if they don't have client access
+    def client_and_up  
+      if can? :manage, :all
+        return
+      else
+        redirect_to root_url
+      end
+    end
 
     #Redirects user to registration instead of login
     def authenticate_user!

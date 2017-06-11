@@ -1,4 +1,9 @@
 class EventsController < ApplicationController
+  # load_and_authorize_resource
+  # Basic Devise authentication
+  before_action :authenticate_user!
+  # Only allows access if use has correct role
+  before_action :client_and_up
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 
   # GET /events
@@ -63,6 +68,7 @@ class EventsController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     # Get all the event_days as well for each request
     def set_event
