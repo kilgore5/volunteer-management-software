@@ -1,7 +1,7 @@
 - content_for :hero_title do
   = "Application"
   %br
-  %h3= "for: volunteer @ #{@current_event.name}, from: #{@application.volunteer.full_name}"
+  %h3= "for: volunteer @ #{@current_event.name}, from: #{@application.user.full_name}"
   
 
 .col-md-10.offset-md-1.event_header

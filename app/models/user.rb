@@ -68,7 +68,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   # Actions to take when saving User
-  before_create :set_full_name
+  before_save :set_full_name
   after_create :assign_default_role
 
   # Model validations

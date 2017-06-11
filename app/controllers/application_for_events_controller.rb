@@ -66,7 +66,7 @@ class ApplicationForEventsController < ApplicationController
   end
 
   def index
-    @applications = ApplicationForEvent.where(event_id: @event.id).includes(:event, :volunteer)
+    @applications = ApplicationForEvent.where(event_id: @event.id).includes(:event, :user)
   end
 
   def approve
