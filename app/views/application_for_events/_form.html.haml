@@ -1,8 +1,12 @@
-= simple_form_for([@current_user, @event, @application]) do |f|
+/ = simple_form_for([@current_user, @event, @application]) do |f|
+= simple_form_for(@application) do |f|
 
   .col-md-8.offset-md-2
+    / = help
     = f.error_notification
-    = f.simple_fields_for :volunteer do |f|
+    = f.hidden_field :event_id, value: params[:event_id] ? params[:event_id] : @current_event.id
+    = f.hidden_field :user_id, value: @current_user.id
+    = f.simple_fields_for :user do |f|
       %h5 Contact Details
       %hr
       .inputs.row

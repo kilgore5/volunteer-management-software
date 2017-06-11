@@ -9,14 +9,17 @@ class ApplicationForEventsController < ApplicationController
   before_action :set_user, only: [:new, :create, :update]
 
   def new
-    # proceed to creating application if user exists, otherwise signup with Devise
-    if @current_user
-      @application = @event.applications.build(volunteer_id: @current_user.id)
-      @application.save
-    else
-      # @application = @event.applications.build()
-      @application = ApplicationForEvent.new(event_id: @current_event.id)
-    end
+    # # proceed to creating application if user exists, otherwise signup with Devise
+    # if @current_user
+    #   @application = @event.applications.build(volunteer_id: @current_user.id)
+    #   @application.save
+    # else
+    #   # @application = @event.applications.build()
+    #   @application = ApplicationForEvent.new(event_id: @current_event.id)
+    # end
+    # @application = ApplicationForEvent.new(event_id: @current_event.id, user_id: @current_user.id)
+    @application = ApplicationForEvent.new
+    @application.user = @current_user
   end
 
   def show
@@ -27,15 +30,15 @@ class ApplicationForEventsController < ApplicationController
   def create
 
     # Check to see if the user is registered/logged in
-    if current_user.nil?
-       # Store the form data in the session so we can retrieve it after login
-       session[:application] = params
-       # Redirect the user to register/login
-       redirect_to new_user_registration_path    
+    # if current_user.nil?
+    #    # Store the form data in the session so we can retrieve it after login
+    #    session[:application_for_event] = params
+    #    # Redirect the user to register/login
+    #    redirect_to new_user_registration_path    
    
-    else    
+    # else    
       # @application = @event.applications.build(volunteer_id: @current_user.id)
-      @application = current_user.applications.create(session[:application]["application"])
+      @application = ApplicationForEvent.new(application_params)
 
       respond_to do |format|
         if @application.save
@@ -46,7 +49,6 @@ class ApplicationForEventsController < ApplicationController
           format.json { render json: @application.errors, status: :unprocessable_entity }
         end
       end
-    end
   end
 
   # PATCH/PUT /events/1
@@ -91,14 +93,16 @@ class ApplicationForEventsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def application_params
       params.require(:application_for_event).permit(
+                      :user_id,
+                      :event_id,
                       :name,
-                      :start_time,
-                      :end_time,
-                      :event_length,
-                      :ticket_price_cents,
-                      :client_owner_id,
+                      # :start_time,
+                      # :end_time,
+                      # :event_length,
+                      # :ticket_price_cents,
+                      # :client_owner_id,
                       :info,
-                      volunteer_attributes: [ :id,
+                      user_attributes: [ :id,
                                               :first_name,
                                               :last_name,
                                               :email,
