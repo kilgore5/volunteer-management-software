@@ -45,7 +45,7 @@ abbr[title] {
 
 // Login form
 .signin-text, .signin-text-password {
-    background-image: url("avatar_un.png")!important;
+    background-image: image-url("avatar_un.png")!important;
     background-repeat: no-repeat;
     background-position: 3%;
     padding-left: 10%;
@@ -54,7 +54,7 @@ abbr[title] {
 }
 
 .signin-text-password {
-    background-image: url("locked_pwd.png")!important;
+    background-image: image-url("locked_pwd.png")!important;
 }
 
 .signin-button {
