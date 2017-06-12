@@ -84,7 +84,9 @@ gem 'whenever'
 gem 'yard'
 
 group :production do
-  gem 'unicorn'
+  # gem 'unicorn'
+  # Assets in production
+  # gem 'rails_12factor'
 end
 
 
