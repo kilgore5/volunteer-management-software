@@ -62,6 +62,9 @@ class User < ApplicationRecord
   has_many :skills
   accepts_nested_attributes_for :skills, :reject_if => :all_blank, :allow_destroy => true  
 
+  has_many    :volunteer_preferred_departments
+  has_many    :preferred_departments, through: :volunteer_preferred_departments, source: :job_department
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

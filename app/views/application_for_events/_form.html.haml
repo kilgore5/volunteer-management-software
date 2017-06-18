@@ -56,10 +56,11 @@
           = link_to_add_association 'add skill', f, :skills
     %h5 Shifts
     %hr
-    %p= "What type of shifts do you want to do at #{@current_event.name}?"
     .inputs.row
-      .col-md-12
-        = f.association :preferred_jobs, collection: @current_event.jobs
-
+      .col-md-6
+        = f.association :preferred_jobs, collection: @current_event.jobs, label: "What type of shifts do you want to do at #{@current_event.name}?"
+      .col-md-6
+        = f.simple_fields_for :user do |f|
+          = f.association :preferred_departments, label: "For general volunteer applications, what is your preferred volunteer department?"
     .actions
       = f.button :submit
