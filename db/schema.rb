@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170611201337) do
+ActiveRecord::Schema.define(version: 20170618195632) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,8 +23,21 @@ ActiveRecord::Schema.define(version: 20170611201337) do
     t.datetime "updated_at", null: false
     t.text "info"
     t.uuid "user_id"
+    t.boolean "volunteered_before", default: false, null: false
+    t.boolean "been_before", default: false, null: false
+    t.index ["been_before"], name: "index_application_for_events_on_been_before"
     t.index ["event_id"], name: "index_application_for_events_on_event_id"
     t.index ["user_id"], name: "index_application_for_events_on_user_id"
+    t.index ["volunteered_before"], name: "index_application_for_events_on_volunteered_before"
+  end
+
+  create_table "application_preferred_jobs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "job_id"
+    t.uuid "application_for_event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["application_for_event_id"], name: "index_application_preferred_jobs_on_application_for_event_id"
+    t.index ["job_id"], name: "index_application_preferred_jobs_on_job_id"
   end
 
   create_table "event_accepted_volunteers", id: false, force: :cascade do |t|

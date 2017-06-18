@@ -20,11 +20,13 @@
 #
 
 class Job < ApplicationRecord
-  belongs_to :event
-  has_and_belongs_to_many :days, class_name: "EventDay"
-  has_many :rotations
-  has_many   :skill_requirements
+  belongs_to                    :event
+  has_and_belongs_to_many       :days, class_name: "EventDay"
+  has_many                      :rotations
+  has_many                      :skill_requirements
   accepts_nested_attributes_for :skill_requirements, :reject_if => :all_blank, :allow_destroy => true
+  has_many                      :application_preferred_jobs
+  has_many                      :applications, through: :application_preferred_jobs, source: :application_for_event
 
   # Allows 'friendly' slugs
   extend FriendlyId
