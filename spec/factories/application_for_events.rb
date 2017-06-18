@@ -2,15 +2,16 @@
 #
 # Table name: application_for_events
 #
-#  id                 :uuid             not null, primary key
-#  event_id           :uuid
-#  accepted           :boolean          default(FALSE)
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  info               :text
-#  user_id            :uuid
-#  volunteered_before :boolean          default(FALSE), not null
-#  been_before        :boolean          default(FALSE), not null
+#  id                   :uuid             not null, primary key
+#  event_id             :uuid
+#  accepted             :boolean          default(FALSE)
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  info                 :text
+#  user_id              :uuid
+#  volunteered_before   :boolean          default(FALSE), not null
+#  been_before          :boolean          default(FALSE), not null
+#  friends_or_referrals :text
 #
 # Indexes
 #

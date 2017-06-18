@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170618215923) do
+ActiveRecord::Schema.define(version: 20170618223035) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20170618215923) do
     t.uuid "user_id"
     t.boolean "volunteered_before", default: false, null: false
     t.boolean "been_before", default: false, null: false
+    t.text "friends_or_referrals"
     t.index ["been_before"], name: "index_application_for_events_on_been_before"
     t.index ["event_id"], name: "index_application_for_events_on_event_id"
     t.index ["user_id"], name: "index_application_for_events_on_user_id"
@@ -216,6 +217,7 @@ ActiveRecord::Schema.define(version: 20170618215923) do
     t.string "avatar_content_type"
     t.integer "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.text "medical_conditions"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_users_on_slug", unique: true
