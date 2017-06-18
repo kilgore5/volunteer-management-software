@@ -25,6 +25,15 @@
           = f.input :mobile_number , required: true     
         .col-md-6
           = f.input :birthday , required: true
+      = f.simple_fields_for :emergency_contact do |f|
+        %p Your Emergency Contact
+        .inputs.row
+          .col-md-4
+            = f.input :name
+          .col-md-4
+            = f.input :phone_number
+          .col-md-4
+            = f.input :relationship
     %h5 Other Information
     %hr
     %p Have you...

@@ -113,8 +113,14 @@ class ApplicationForEventsController < ApplicationController
                                                                     :id,
                                                                     :proof_document,
                                                                     :_destroy
-                                                                  ]
-                                              ]
+                                                                  ],
+                                              emergency_contact_attributes: [ :name,
+                                                                              :id,
+                                                                              :phone_number,
+                                                                              :relationship,
+                                                                              :_destroy
+                                                                            ]
+                                              ]                                              
                       )
     end    
 
