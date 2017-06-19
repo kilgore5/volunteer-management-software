@@ -27,6 +27,7 @@ Rails.application.routes.draw do
 
   resources :application_for_events do
     get 'approve', on: :member
+    get 'submitted'
   end
 
   root to: "pages#home"

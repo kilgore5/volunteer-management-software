@@ -7,36 +7,77 @@
     = f.hidden_field :event_id, value: params[:event_id] ? params[:event_id] : @current_event.id
     = f.hidden_field :user_id, value: @current_user.id
     = f.simple_fields_for :user do |f|
-      %h5 Contact Details
+      %h5 About You
       %hr
       .inputs.row
         .col-md-6
           = f.input :first_name, autofocus: true, required: true
         .col-md-6
           = f.input :last_name, required: true
-        .col-md-6
-          = f.input :email, required: true, input_html: { class: "signin-text", autocomplete: 'off' }
+        .col-md-12
+          .row
+            .col-md-6
+              = f.input :email, required: true, input_html: { class: "signin-text", autocomplete: 'off' }, label: "Email (also your account login)"
+            .col-md-6
+              %label.hidden hidden
+              %small.form-text.text-muted this will be used for all correspondence. Please check regularly, including spam folder
         .col-md-6
           = f.input :mobile_number , required: true     
         .col-md-6
           = f.input :birthday , required: true
- 
-      %h5 Skills / Qualifying Documents
-      %p i.e. RSA, PHD in Astrophysics
+      = f.simple_fields_for :emergency_contact do |f|
+        %p Your Emergency Contact
+        %hr        
+        .inputs.row
+          .col-md-4
+            = f.input :name
+          .col-md-4
+            = f.input :phone_number
+          .col-md-4
+            = f.input :relationship
+      %p Medical Conditions
       %hr
-      / .inputs.row
-      = f.simple_fields_for :skills do |skill|
-      
-        = render 'skill_fields', :f => skill
-      .inputs.row
-        .links.col-md-12
-          = link_to_add_association 'add skill', f, :skills   
-      %h5 Other Information
-      %p Let us know any critical info i.e. allergies, relevant volunteer experience
-      %hr
+      .inputs.row          
+        .col-md-12
+          = f.input :medical_conditions, label: "Please list any conditions you may have that should be known to the organisers"  
+    %h5 Shifts
+    %hr
+    %p Have you...
+    .inputs.row
+      .col-md-6
+        = f.label :volunteered_before, "Volunteered at #{@current_event.name} before?"
+        .row
+          .col-md-4
+            = f.input :volunteered_before, as: :select, include_blank: false, label: false
+      .col-md-6
+        =f.label :been_before, "Been to #{@current_event.name} before?"      
+        .row
+          .col-md-4      
+            = f.input :been_before, as: :select, include_blank: false, label: false
+    .inputs.row
+      .col-md-6
+        = f.association :preferred_jobs, collection: @current_event.jobs, label: "What type of shifts do you want to do at #{@current_event.name}?"
+      .col-md-6
+        = f.simple_fields_for :user do |f|
+          = f.association :preferred_departments, label: "For general volunteer applications, what is your preferred volunteer department?"            
+    %p Why would you like to volunteer?
     .inputs.row
       .col-md-12
-        = f.input :info, as: :text    
-
+        = f.input :info, as: :text, label: "... and what particular skills do you think you can offer? If you have proof, you can upload it below."
+    %p Evidence for skills / qualifying documents
+    %hr
+    .inputs.row    
+      = f.simple_fields_for :user do |f|    
+        / .inputs.row
+        = f.simple_fields_for :skills do |skill|
+        
+          = render 'skill_fields', :f => skill
+        .inputs
+          .links.col-md-12
+            = link_to_add_association 'add skill', f, :skills
+    %hr            
+    .inputs.row
+      .col-md-12
+        = f.input :friends_or_referrals, label: "List any friends also applying whom you would like to work with, or any organiser who referred you to the role" 
     .actions
       = f.button :submit
