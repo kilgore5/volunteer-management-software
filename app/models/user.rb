@@ -34,6 +34,7 @@
 #  avatar_content_type    :string
 #  avatar_file_size       :integer
 #  avatar_updated_at      :datetime
+#  medical_conditions     :text
 #
 # Indexes
 #
@@ -49,6 +50,9 @@ class User < ApplicationRecord
 
   has_many :applications, class_name: "ApplicationForEvent"
 
+  has_one :emergency_contact
+  accepts_nested_attributes_for :emergency_contact, :reject_if => :all_blank, :allow_destroy => true  
+
   # Enables roles for Users via the Rolify gem and CanCanCan gem
   rolify
 
@@ -62,6 +66,9 @@ class User < ApplicationRecord
   has_many :skills
   accepts_nested_attributes_for :skills, :reject_if => :all_blank, :allow_destroy => true  
 
+  has_many    :volunteer_preferred_departments
+  has_many    :preferred_departments, through: :volunteer_preferred_departments, source: :job_department
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -70,6 +77,7 @@ class User < ApplicationRecord
   # Actions to take when saving User
   before_save :set_full_name
   after_create :assign_default_role
+  after_create :add_emergency_contact
 
   # Model validations
   validates_presence_of :email
@@ -114,4 +122,9 @@ class User < ApplicationRecord
     def assign_default_role
       self.add_role(:volunteer) if self.roles.blank?
     end  
+
+    # Creates an empty emergency contact for the new user
+    def add_emergency_contact
+      contact = EmergencyContact.create(user_id: self.id, name: "", phone_number: "", )
+    end      
 end

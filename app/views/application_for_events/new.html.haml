@@ -2,3 +2,8 @@
   Apply to volunteer at #{@event.name}
 
 = render 'form'
+
+= render 'terms_modal'
+
+:javascript
+  $('#myModal').modal('show')
