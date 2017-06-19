@@ -112,6 +112,7 @@ class ApplicationForEventsController < ApplicationController
                       :friends_or_referrals,
                       :been_before,
                       :volunteered_before,
+                      :terms_accepted,
                       preferred_job_ids: [],
                       user_attributes: [ :id,
                                               :first_name,

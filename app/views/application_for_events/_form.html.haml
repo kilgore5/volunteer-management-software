@@ -79,5 +79,9 @@
     .inputs.row
       .col-md-12
         = f.input :friends_or_referrals, label: "List any friends also applying whom you would like to work with, or any organiser who referred you to the role" 
+    %hr            
+    .inputs.row
+      .col-md-12
+        = f.input :terms_accepted, label: ("All volunteers must accept the festival #{link_to 'terms', 'data-target' =>'#myModal', 'data-toggle' => 'modal'}").html_safe
     .actions
       = f.button :submit

@@ -12,6 +12,7 @@
 #  volunteered_before   :boolean          default(FALSE), not null
 #  been_before          :boolean          default(FALSE), not null
 #  friends_or_referrals :text
+#  terms_accepted       :boolean
 #
 # Indexes
 #
@@ -26,6 +27,8 @@ class ApplicationForEvent < ApplicationRecord
   belongs_to  :user
   has_many    :application_preferred_jobs
   has_many    :preferred_jobs, through: :application_preferred_jobs, source: :job
+
+  validates   :terms_accepted, acceptance: true
 
   accepts_nested_attributes_for :user, :reject_if => :all_blank, :allow_destroy => true
 end
