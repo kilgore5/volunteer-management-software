@@ -69,7 +69,11 @@ class ApplicationController < ActionController::Base
       if user_signed_in?
         super
       else
-        redirect_to new_user_registration_path
+        if params[:controller] == "application_for_events"
+          redirect_to new_user_registration_path(ref: "apply")
+        else
+          redirect_to new_user_registration_path
+        end
       end
     end  
 

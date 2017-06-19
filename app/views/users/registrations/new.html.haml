@@ -8,6 +8,8 @@
         = f.input :email, required: true, autofocus: true, input_html: { class: "signin-text", autocomplete: 'off' }
         = f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length), input_html: { class: "signin-text-password", autocomplete: 'off' }
         = f.input :password_confirmation, required: true, input_html: { class: "signin-text-password", autocomplete: 'off' }
+        - if params[:ref]
+          = hidden_field_tag(:ref, 'apply')
       .actions.text-right
         = f.button :submit, "Sign up", class: "signin-button"
       = render "users/shared/links"

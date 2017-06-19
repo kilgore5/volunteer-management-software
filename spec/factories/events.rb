@@ -2,16 +2,17 @@
 #
 # Table name: events
 #
-#  id                 :uuid             not null, primary key
-#  start_time         :datetime
-#  end_time           :datetime
-#  event_length       :float
-#  ticket_price_cents :integer
-#  client_owner_id    :uuid
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  name               :string
-#  slug               :string
+#  id                       :uuid             not null, primary key
+#  start_time               :datetime
+#  end_time                 :datetime
+#  event_length             :float
+#  ticket_price_cents       :integer
+#  client_owner_id          :uuid
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  name                     :string
+#  slug                     :string
+#  application_closing_date :datetime
 #
 # Indexes
 #

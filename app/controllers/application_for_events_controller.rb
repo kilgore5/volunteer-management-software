@@ -2,11 +2,12 @@ class ApplicationForEventsController < ApplicationController
 
   # Make sure not to filter 'create' as we'll be handling that with our redirect
   before_action :authenticate_user!
-
-
   before_action :set_event, except: [:approve, :show]
-  before_action :set_application, only: [:show, :update, :approve]
-  before_action :set_user, only: [:new, :create, :update]
+  before_action :set_application, only: [:show, :update, :approve, :edit]
+  before_action :set_user, only: [:new, :create, :update, :edit]  
+  # before_action :ensure_current_user_owns_application, only: [:edit, :update, :destroy]
+
+
 
   def new
     # # proceed to creating application if user exists, otherwise signup with Devise
@@ -42,7 +43,7 @@ class ApplicationForEventsController < ApplicationController
 
       respond_to do |format|
         if @application.save
-          format.html { redirect_to edit_user_path(@current_user), notice: 'Application was successfully submitted.' }
+          format.html { redirect_to application_for_event_submitted_path(@application), notice: 'Application was successfully submitted.' }
           format.json { render :show, status: :created, location: @application }
         else
           format.html { render :new }
@@ -64,6 +65,10 @@ class ApplicationForEventsController < ApplicationController
       end
     end
   end
+
+  def submitted
+    @application = ApplicationForEvent.find(params[:application_for_event_id])
+  end  
 
   def index
     @applications = ApplicationForEvent.where(event_id: @event.id).includes(:event, :user)
@@ -88,6 +93,13 @@ class ApplicationForEventsController < ApplicationController
 
     def set_application
       @application = ApplicationForEvent.find(params[:id])
+    end
+
+    def ensure_current_user_owns_application
+      if !(@current_user == @application.user)
+        flash[:notice] = "You cannot access that page"
+        redirect_to root_url
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

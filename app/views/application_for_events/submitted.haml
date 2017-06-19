@@ -1,0 +1,10 @@
+- content_for :hero_title do
+  Apply to volunteer at #{@event.name}
+.col-md-10.offset-md-1.event_header
+  .panel.default
+    .top-key-factor
+      .event_day__inner
+        %p= "Your application for the position of #{@event.name} Volunteer has been received! Thanks very much for your interest. We’ll be in touch once applications close on #{@event.application_closing_date.strftime("#{@event.application_closing_date.day.ordinalize} %B")}."
+      .event_day__inner
+        = link_to 'My Details', edit_user_path(current_user)
+        = link_to 'Edit my application', edit_application_for_event_path(@application)
