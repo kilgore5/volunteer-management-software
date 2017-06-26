@@ -35,6 +35,8 @@
 #  avatar_file_size       :integer
 #  avatar_updated_at      :datetime
 #  medical_conditions     :text
+#  provider               :string
+#  uid                    :string
 #
 # Indexes
 #
@@ -72,7 +74,8 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :confirmable
+         :recoverable, :rememberable, :trackable, :validatable,
+         :confirmable, :omniauthable, :omniauth_providers => [:facebook]
 
   # Actions to take when saving User
   before_save :set_full_name
@@ -109,6 +112,25 @@ class User < ApplicationRecord
 
   def select_label
     return "#{self.full_name} (#{self.email})"
+  end
+
+  # defines information received when user signs in with Facebook link
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      # Extracts the first and last name from omniauth's name
+      full = auth.info.name.split
+      user.first_name = full[0]
+      full.delete_at(0)
+      user.last_name = full * ' '
+
+      # Sets the email, password, and avatar for the user
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0,20]
+      user.avatar = auth.info.image
+      # If you are using confirmable and the provider(s) you use validate emails, 
+      # uncomment the line below to skip the confirmation emails.
+      user.skip_confirmation!
+    end
   end
 
   protected

@@ -35,6 +35,8 @@
 #  avatar_file_size       :integer
 #  avatar_updated_at      :datetime
 #  medical_conditions     :text
+#  provider               :string
+#  uid                    :string
 #
 # Indexes
 #

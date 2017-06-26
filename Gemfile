@@ -45,6 +45,7 @@ gem 'devise', git: 'https://github.com/plataformatec/devise.git', branch: 'maste
   # Authorization
 gem 'cancancan', '~> 1.10'
 gem 'rolify'
+gem 'omniauth-facebook'
 
 # ADMIN SECTION
 # gem 'administrate' # (maybe)
