@@ -30,10 +30,10 @@
             %button.close{"aria-label" => "Change", "data-target" => "#manager-#{rotation.id}", "data-toggle" => "modal", :type => "button"}
               %span{"aria-hidden" => "true"} ×
           - else
-            %button.btn.btn-md.btn-primary{"data-target" => "#manager-#{rotation.id}", "data-toggle" => "modal", :type => "button"}
+            %button.btn.btn-md.btn-info{"data-target" => "#manager-#{rotation.id}", "data-toggle" => "modal", :type => "button"}
               Assign manager +            
         %td
-          %button.btn.btn-md.btn-primary{"data-target" => "#shifts-#{rotation.id}", "data-toggle" => "modal", :type => "button"}
+          %button.btn.btn-md.btn-info{"data-target" => "#shifts-#{rotation.id}", "data-toggle" => "modal", :type => "button"}
             Assign volunteers +
         %td
           = "#{rotation.covered_shifts}/#{rotation.total_shifts}"

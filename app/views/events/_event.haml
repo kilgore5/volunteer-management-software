@@ -12,7 +12,7 @@
       .event_day__inner        
         - if user_signed_in?
           / =  current_user.applications
-          = link_to "Apply to volunteer", new_user_event_application_for_event_path(current_user.id, event.id), class: "btn btn-primary"
+          = link_to "Apply to volunteer", new_user_event_application_for_event_path(current_user.id, event.id), class: "btn btn-info"
       .event_day__inner
         = "Start date: "
         = event.start_time        
@@ -30,7 +30,7 @@
       .event_day__inner
         = "Shifts Filled: #{}  "    
 
-/     %button.btn.btn-primary{"data-target" => "##{event.name.downcase.delete(' ')}", "data-toggle" => "modal", :type => "button"}
+/     %button.btn.btn-info{"data-target" => "##{event.name.downcase.delete(' ')}", "data-toggle" => "modal", :type => "button"}
 /       Apply to event
 / .modal.fade{:id => event.name.downcase.delete(' ') }
 /   .modal-dialog{:role => "document"}

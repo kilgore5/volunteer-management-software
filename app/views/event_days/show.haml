@@ -3,7 +3,7 @@
 - content_for :hero_title do
   = "#{@event_day.event.name}: #{@event_day.date.strftime("%A")}, #{@event_day.date.strftime("%d/%m/%Y")}"
 - content_for :cta do
-  %button.btn.btn-lg.btn-primary{"data-target" => "##{@event_day.date}", "data-toggle" => "modal", :type => "button"}
+  %button.btn.btn-lg.btn-info{"data-target" => "##{@event_day.date}", "data-toggle" => "modal", :type => "button"}
     Add jobs +
 
 .row 

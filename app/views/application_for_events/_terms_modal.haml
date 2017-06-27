@@ -1,5 +1,5 @@
 / Button trigger modal
-/ %button.btn.btn-primary{"data-target" => "#myModal", "data-toggle" => "modal", :type => "button"}
+/ %button.btn.btn-info{"data-target" => "#myModal", "data-toggle" => "modal", :type => "button"}
 /   Launch demo modal
 / Modal
 #myModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", :role => "dialog", :tabindex => "-1"}
@@ -30,7 +30,7 @@
           %li
             Volunteers must accept and comply with Strawberry Fields Indemnity & Volunteer Agreement in order to fulfil volunteer obligations and receive complimentary entry
       .modal-footer
-        %button.btn.btn-primary#accept-terms{"data-dismiss" => "modal", :type => "button"} I Agree
+        %button.btn.btn-info#accept-terms{"data-dismiss" => "modal", :type => "button"} I Agree
 
 :javascript
   $('#accept-terms').click(function() {
