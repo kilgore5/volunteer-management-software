@@ -4,4 +4,4 @@
 %div  
   = link_to "Apply to volunteer", new_event_application_for_event_path(@current_event.id), class: "btn btn-info btn-lg centered"
   - if !user_signed_in?
-    = link_to('Login', new_user_session_path, class: "btn btn-secondary btn-lg centered")
+    = link_to('Login', new_user_session_path, class: "btn btn-default btn-lg centered")

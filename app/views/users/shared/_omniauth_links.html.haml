@@ -4,5 +4,5 @@
       = link_to(omniauth_authorize_path(resource_name, provider), class: "btn btn-primary signin-button") do
         %i.fa.fa-facebook.left
         = "Sign in with #{OmniAuth::Utils.camelize(provider)}"
-    .col-sm-2.offset-md-5.seperator
+    .col-sm-2.col-md-offset-5.seperator
       = "or"

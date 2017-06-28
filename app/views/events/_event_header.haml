@@ -1,4 +1,4 @@
-.col-md-10.offset-md-1.event_header
+.col-md-10.col-md-offset-1.event_header
   .panel.default
     .top-key-factor
       .event_day__inner
@@ -22,9 +22,9 @@
               %td
                 = link_to(event.client_owner.full_name, user_path(event.client_owner))
               %td   
-                = link_to("View / Add", event_jobs_path(event), class: "btn btn-sm btn-secondary")  
+                = link_to("View / Add", event_jobs_path(event), class: "btn btn-sm btn-default")  
               %td
-                = link_to("Review / Aprove", event_application_for_events_path(event), class: "btn btn-sm btn-secondary") 
+                = link_to("Review / Aprove", event_application_for_events_path(event), class: "btn btn-sm btn-default") 
               %td   
                 TODO                 
 
@@ -45,4 +45,4 @@
 
 /       .modal-footer
 /         / = f.button :submit
-/         %button.btn.btn-secondary{"data-dismiss" => "modal", :type => "button"} Close          
+/         %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close          

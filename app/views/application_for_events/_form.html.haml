@@ -1,7 +1,10 @@
 / = simple_form_for([@current_user, @event, @application]) do |f|
+- if flash[:error].present?
+  #error_explanation
+    %p= flash[:error]
 = simple_form_for(@application) do |f|
 
-  .col-md-8.offset-md-2
+  .col-md-8.col-md-offset-2
     / = help
     = f.error_notification
     = f.hidden_field :event_id, value: params[:event_id] ? params[:event_id] : @current_event.id
@@ -39,7 +42,13 @@
       %hr
       .inputs.row          
         .col-md-12
-          = f.input :medical_conditions, label: "Please list any conditions you may have that should be known to the organisers"  
+          = f.input :medical_conditions, label: "Please list any conditions you may have that should be known to the organisers"
+      %p Purchase your T Shirt
+      %hr
+      .inputs.row          
+        .col-md-12
+          %script.stripe-button{"data-amount" => "1500", "data-description" => "Volunteer T-Shirt", "data-key" => "#{Rails.configuration.stripe[:publishable_key]}", "data-locale" => "auto", :src => "https://checkout.stripe.com/checkout.js"}
+
     %h5 Shifts
     %hr
     %p Have you...

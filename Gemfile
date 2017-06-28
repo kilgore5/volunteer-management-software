@@ -53,6 +53,9 @@ gem 'omniauth-facebook'
 # Nested Models Help
 gem "cocoon"
 
+# Payments
+gem 'stripe'
+
 # Images
 gem 'paperclip'
 gem 'delayed_paperclip' # think that's the name
@@ -66,8 +69,8 @@ gem 'ckeditor' # Make sure to use a sanitizer
 gem 'simple_form', github: 'elsurudo/simple_form', branch: 'rails-5.1.0'
 
 # Styling
-gem 'bootstrap', '~> 4.0.0.alpha6'
-gem 'rails-assets-tether', '>= 1.3.3', source: 'https://rails-assets.org'
+gem 'bootstrap-sass', '~> 3.3.6'
+# gem 'rails-assets-tether', '>= 1.3.3', source: 'https://rails-assets.org'
 gem 'autoprefixer-rails'
 gem 'haml-rails'
 

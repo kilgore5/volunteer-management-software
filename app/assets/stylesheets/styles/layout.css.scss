@@ -34,9 +34,16 @@ main{
     .bottom-fixed{
       position: fixed;
       bottom: 100px;
+      left: 0;
+      right: 0;
       .centered{
         margin: 0 auto;
       }
     }
   }
+}
+
+// Overrides bootstrap default
+.nav {
+  display: flex;
 }
