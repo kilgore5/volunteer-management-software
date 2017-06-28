@@ -61,7 +61,7 @@ gem 'paperclip'
 gem 'delayed_paperclip' # think that's the name
 
 # Content Editing
-gem 'ckeditor' # Make sure to use a sanitizer
+# gem 'ckeditor' # Make sure to use a sanitizer
 
 # Forms
 # TODO - look for newer official version that doesn't break with Rails 5.1
