@@ -5,7 +5,7 @@
     = f.simple_fields_for :jobs do |job|
       / = render 'job_fields', f: job
     .links
-      = link_to_add_association 'Add a Job', f, :jobs, class: "btn"
+      = link_to_add_association '+ Add a Job', f, :jobs, class: "btn"
   = f.submit "Save"
 - @jobs.each do |job|
   %b 

@@ -9,7 +9,8 @@ main{
 }
 
 .jumbotron{
-  background-image: image-url("main-bg.jpg");
+  position: relative;
+  background-image: image-url("main-bg-strawberry.jpg");
   background-position: center 85%;
   background-size: cover;
   background-repeat: no-repeat;
@@ -43,7 +44,21 @@ main{
   }
 }
 
+.full-overlay{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(136, 125, 102);
+  opacity: 0.2;
+  transition: background 170ms ease-out,opacity 170ms ease-out;
+}
+
 // Overrides bootstrap default
 .nav {
   display: flex;
+  li a{
+    color: $brand-info;
+  }
 }

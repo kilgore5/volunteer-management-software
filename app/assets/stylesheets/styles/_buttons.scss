@@ -1,0 +1,7 @@
+.btn-info{
+  border-color: $brand-info;
+  &:hover {
+    background-color: $brand-info;
+    border-color: $brand-info;
+  }
+}
