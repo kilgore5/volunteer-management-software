@@ -102,7 +102,8 @@ Rails.application.configure do
   config.paperclip_defaults = {
     :storage => :s3,
     # :s3_host_name => 'REMOVE_THIS_LINE_IF_UNNECESSARY',
-    :bucket => ENV["S3_BUCKET_NAME"]
+    :bucket => ENV["S3_BUCKET_NAME"],
+    :region => ENV["AWS_REGION"]
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
