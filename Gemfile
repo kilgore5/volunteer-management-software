@@ -59,6 +59,7 @@ gem 'stripe'
 # Images
 gem 'paperclip'
 gem 'delayed_paperclip' # think that's the name
+gem 'aws-sdk', '~> 2.3'
 
 # Content Editing
 # gem 'ckeditor' # Make sure to use a sanitizer
