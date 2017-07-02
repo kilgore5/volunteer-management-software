@@ -1,19 +1,19 @@
 %h5
   = "Current Information"
 
-.user-details
+.user-details.panel.default
   .row
-    .col-md-3
-      = image_tag @user.avatar.url(:thumb)
-    .col-md-9
-      = simple_form_for @user, :html => { :class => 'form-horizontal' } do |f|
-        = f.error_notification
-
+    = simple_form_for @user, :html => { :class => 'form-inline' } do |f|
+      = f.error_notification  
+      .col-md-4
+        = image_tag @user.avatar.url(:thumb)
+      .col-md-8
         .inputs
-          = f.input :avatar, label: false
+          = f.input :avatar, label: false    
+      .col-md-12
         .actions.text-right
-          = f.button :submit
-.user-details
+          = f.button :submit, "Update Avatar"
+.user-details.panel.default
   .row
     .col-md-12        
       = @user.full_name

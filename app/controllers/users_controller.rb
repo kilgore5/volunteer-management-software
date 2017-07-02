@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+  # Only allows access if use has correct role
+  before_action :client_and_up, only: [:index, :show]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   layout "account", only: [:show, :edit, :update]
 

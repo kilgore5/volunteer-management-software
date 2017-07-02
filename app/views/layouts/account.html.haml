@@ -10,18 +10,18 @@
     / Renders the global header
     = render "layouts/header"
     / Mastead - Title & subtitle
-    %main#login
-      .container
-        .user-header
-          .row
-            .col-lg-4
-              = yield :page_title
-            .col-lg-8
-              = yield :page_sub_title
-          .row
-            .col-lg-12
-              = flash_messages           
-        .row
+    %main
+      .jumbotron
+        / .full-overlay
+        .container
+          = flash_messages 
+          %h1.display-3
+            = yield :page_title
+          %p.lead
+            = yield :page_sub_title
+          = yield :cta    
+      .container       
+        .row.marketing
           .col-lg-4
             = yield :profile
           .col-lg-8

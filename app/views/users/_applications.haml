@@ -1,0 +1,15 @@
+%h5
+  My Applications
+.user-details.panel.default
+  .row
+    - @current_user.applications.each do |app|
+      .col-md-4
+        = app.event.name
+      .col-md-5
+        Status: 
+        - if app.accepted?
+          Hello
+        - else
+          Waiting Approval
+      .col-md-3
+        = link_to 'Edit my application', edit_application_for_event_path(app)

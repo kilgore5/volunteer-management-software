@@ -4,13 +4,13 @@
     %p= flash[:error]
 = simple_form_for @application, :html=> { class: "application_form" } do |f|
 
-  .col-md-8.col-md-offset-2
+  .col-md-8.col-md-offset-2.panel.default
     / = help
     = f.error_notification
     = f.hidden_field :event_id, value: params[:event_id] ? params[:event_id] : @current_event.id
     = f.hidden_field :user_id, value: @current_user.id
     = f.simple_fields_for :user do |f|
-      %h5 About You
+      %h3 About You
       %hr
       .inputs.row
         .col-md-6
@@ -30,7 +30,7 @@
           = f.input :birthday , required: true
       = f.simple_fields_for :emergency_contact do |f|
         %p Your Emergency Contact
-        %hr        
+        / %hr        
         .inputs.row
           .col-md-4
             = f.input :name
@@ -39,12 +39,12 @@
           .col-md-4
             = f.input :relationship
       %p Medical Conditions
-      %hr
+      / %hr
       .inputs.row          
         .col-md-12
           = f.input :medical_conditions, label: "Please list any conditions you may have that should be known to the organisers"
 
-    %h5 Shifts
+    %h3 Shifts
     %hr
     %p Have you...
     .inputs.row
@@ -69,7 +69,7 @@
       .col-md-12
         = f.input :info, as: :text, label: "... and what particular skills do you think you can offer? If you have proof, you can upload it below."
     %p Evidence for skills / qualifying documents
-    %hr
+    / %hr
     .inputs.row    
       = f.simple_fields_for :user do |f|    
         / .inputs.row
@@ -78,13 +78,21 @@
           = render 'skill_fields', :f => skill
         .inputs
           .links.col-md-12
-            = link_to_add_association '+ add skill', f, :skills
-    %hr            
+            %p
+              = link_to_add_association '+ add skill', f, :skills
+    %p Friends
+    / %hr            
     .inputs.row
       .col-md-12
         = f.input :friends_or_referrals, label: "List any friends also applying whom you would like to work with, or any organiser who referred you to the role"
-    %p Purchase your T Shirt
+    %h3.inputs.row
+      .col-sm-8
+        Puchase Volunteer Shirt
+      .col-sm-4
+        =image_tag "powered_by_stripe.png"
     %hr
+    %small.form-text.text-muted All volunteers must purchase their $15 volunteer t-shirt
+    %br
     .inputs.row          
       .col-md-12
         = javascript_include_tag "https://js.stripe.com/v2/"
@@ -95,26 +103,31 @@
         %span.payment-errors
 
     .inputs.row          
+      .col-md-7
+        .form-group  
+          %label
+            %span Card Number
+          %input{"data-stripe" => "number", :type => "text", class: "form-control"}/        
+      .col-md-2
+        .form-group  
+          %label
+            %span CVC
+          %input{"data-stripe" => "cvc", :size => "4", :type => "text", class: "form-control"}/
+      .col-md-3
+        .form-group  
+          %label
+            %span Expiration (MM/YY)
+          .form-inline
+            %input{"data-stripe" => "exp-month", :size => "2", :type => "text", class: "form-control"}/
+            %span /
+            %input{"data-stripe" => "exp-year", :size => "2", :type => "text", class: "form-control"}/
       .col-md-12
-        %label
-          %span Card Number
-          %input{"data-stripe" => "number", :size => "20", :type => "text"}/
-    .inputs.row          
-      .col-md-6
-        %label
-          %span CVC
-          %input{"data-stripe" => "cvc", :size => "4", :type => "text"}/
-      .col-md-6
-        %label
-          %span Expiration (MM/YYYY)
-          %input{"data-stripe" => "exp-month", :size => "2", :type => "text"}/
-        %span /
-        %input{"data-stripe" => "exp-year", :size => "4", :type => "text"}/
-
+        %small.form-text.text-muted If you are approved and do not show up to your shift, you will be charged $#{@event.ticket_price_cents / 100}
      
     %hr            
     .inputs.row
       .col-md-12
         = f.input :terms_accepted, label: ("All volunteers must accept the festival #{link_to 'terms', 'data-target' =>'#myModal', 'data-toggle' => 'modal'}").html_safe
     .actions
-      = f.button :submit
+      .form-group
+        = f.button :submit, "Submit"

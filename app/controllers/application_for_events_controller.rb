@@ -2,6 +2,7 @@ class ApplicationForEventsController < ApplicationController
 
   # Make sure not to filter 'create' as we'll be handling that with our redirect
   before_action :authenticate_user!
+  before_action :client_and_up, only: [:index]
   before_action :set_event, except: [:approve, :show]
   before_action :set_application, only: [:show, :update, :approve, :edit]
   before_action :set_user, only: [:new, :create, :update, :edit]

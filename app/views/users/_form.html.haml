@@ -3,23 +3,18 @@
 
   %h5
     Contact Details
-  .inputs.row
-    .col-md-6
-      = f.input :first_name
-    .col-md-6
-      = f.input :last_name
-    .col-md-6
-      = f.input :email
-    .col-md-6
-      = f.input :mobile_number      
-    .col-md-6
-      = f.input :birthday
-  / %h3 Skills
-  / #skills
-  /   = f.simple_fields_for :skills do |skill|
-  /     = render 'skill_fields', f: skill
-  /   .links
-  /     = link_to_add_association 'add skill', f, :skills    
+  .user-details.panel.default
+    .row
+      .col-md-6
+        = f.input :first_name
+      .col-md-6
+        = f.input :last_name
+      .col-md-6
+        = f.input :email
+      .col-md-6
+        = f.input :mobile_number      
+      .col-md-6
+        = f.input :birthday
 
-  .actions.text-right
-    = f.button :submit
+    .actions.text-right
+      = f.button :submit, "Update Details"

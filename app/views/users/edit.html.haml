@@ -8,18 +8,19 @@
 - content_for :profile do
   = render "user_details"
 
-.user-row
-  = render 'form'
+= render 'applications'
 
-%hr
+/ %hr
 
-.user-row
-  = render 'users/registrations/edit'
+= render 'form'
 
-%hr
+/ %hr
 
-.user-row
-  = render 'users/registrations/cancel_account'
+= render 'users/registrations/edit'
+
+/ %hr
+
+= render 'users/registrations/cancel_account'
 
 / %hr
 

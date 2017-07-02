@@ -1,17 +1,18 @@
 %h5
   Change Password
-= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-  = f.error_notification
-  / # = resource.errors.full_messages
-  .inputs.row
-    - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-      .col-md-12
-        %p
-          Currently waiting confirmation for: #{resource.unconfirmed_email}
-    .col-md-6
-      = f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false
-    .col-md-6
-      = f.input :password_confirmation, required: false
-  .actions.text-right
-    = f.button :submit, "Update"
+.user-details.panel.default
+  = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+    = f.error_notification
+    / # = resource.errors.full_messages
+    .inputs.row
+      - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+        .col-md-12
+          %p
+            Currently waiting confirmation for: #{resource.unconfirmed_email}
+      .col-md-6
+        = f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false
+      .col-md-6
+        = f.input :password_confirmation, required: false
+    .actions.text-right
+      = f.button :submit, "Update password"
 
