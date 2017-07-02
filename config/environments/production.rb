@@ -103,7 +103,8 @@ Rails.application.configure do
     :storage => :s3,
     # :s3_host_name => 'REMOVE_THIS_LINE_IF_UNNECESSARY',
     :bucket => ENV["S3_BUCKET_NAME"],
-    :s3_region => ENV["AWS_REGION"]
+    :s3_region => ENV["AWS_REGION"],
+    :s3_host_name => "s3-#{ENV['AWS_REGION']}.amazonaws.com"
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
