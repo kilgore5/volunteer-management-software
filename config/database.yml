@@ -1,6 +1,6 @@
 default: &default
   adapter: postgresql
-  user: volunteer
+  user: swish
   password: 
   pool: 5
   timeout: 5000

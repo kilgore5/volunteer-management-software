@@ -37,6 +37,7 @@
 #  medical_conditions     :text
 #  provider               :string
 #  uid                    :string
+#  stripe_customer_id     :string
 #
 # Indexes
 #
@@ -86,7 +87,7 @@ class User < ApplicationRecord
   validates_presence_of :email
 
   # Sets the user's avatar from Paperclip gem
-  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
+  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "missing.png"
   # Validates that the avatar is a real image when uploaded
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
   # Process the avatar as a background job, to not slow the user creation process.  delayed_paperclip gem

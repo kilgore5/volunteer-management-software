@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170626231031) do
+ActiveRecord::Schema.define(version: 20170702200012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,6 +94,8 @@ ActiveRecord::Schema.define(version: 20170626231031) do
     t.string "name"
     t.string "slug"
     t.datetime "application_closing_date"
+    t.string "initial_charge_description"
+    t.integer "initial_charge_cents"
     t.index ["client_owner_id"], name: "index_events_on_client_owner_id"
     t.index ["slug"], name: "index_events_on_slug"
   end
@@ -222,6 +224,7 @@ ActiveRecord::Schema.define(version: 20170626231031) do
     t.text "medical_conditions"
     t.string "provider"
     t.string "uid"
+    t.string "stripe_customer_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_users_on_slug", unique: true

@@ -37,6 +37,7 @@
 #  medical_conditions     :text
 #  provider               :string
 #  uid                    :string
+#  stripe_customer_id     :string
 #
 # Indexes
 #

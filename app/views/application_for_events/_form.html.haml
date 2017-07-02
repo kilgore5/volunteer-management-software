@@ -2,7 +2,7 @@
 - if flash[:error].present?
   #error_explanation
     %p= flash[:error]
-= simple_form_for(@application) do |f|
+= simple_form_for @application, :html=> { class: "application_form" } do |f|
 
   .col-md-8.col-md-offset-2
     / = help
@@ -83,11 +83,35 @@
     .inputs.row
       .col-md-12
         = f.input :friends_or_referrals, label: "List any friends also applying whom you would like to work with, or any organiser who referred you to the role"
-    / %p Purchase your T Shirt
-    / %hr
-    / .inputs.row          
-    /   .col-md-12
-    /     %script.stripe-button{"data-amount" => "1500", "data-description" => "Volunteer T-Shirt", "data-key" => "#{Rails.configuration.stripe[:publishable_key]}", "data-locale" => "auto", :src => "https://checkout.stripe.com/checkout.js"}        
+    %p Purchase your T Shirt
+    %hr
+    .inputs.row          
+      .col-md-12
+        = javascript_include_tag "https://js.stripe.com/v2/"
+        :javascript
+          Stripe.setPublishableKey('#{ENV['STRIPE_PUBLISHABLE_KEY']}');
+          console.log(Stripe);
+
+        %span.payment-errors
+
+    .inputs.row          
+      .col-md-12
+        %label
+          %span Card Number
+          %input{"data-stripe" => "number", :size => "20", :type => "text"}/
+    .inputs.row          
+      .col-md-6
+        %label
+          %span CVC
+          %input{"data-stripe" => "cvc", :size => "4", :type => "text"}/
+      .col-md-6
+        %label
+          %span Expiration (MM/YYYY)
+          %input{"data-stripe" => "exp-month", :size => "2", :type => "text"}/
+        %span /
+        %input{"data-stripe" => "exp-year", :size => "4", :type => "text"}/
+
+     
     %hr            
     .inputs.row
       .col-md-12

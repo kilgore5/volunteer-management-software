@@ -21,7 +21,7 @@ class Skill < ApplicationRecord
   belongs_to :user
 
   # Uses Paperclip gem to allow the Skill to have a proof_document
-  has_attached_file :proof_document, styles: { thumb: "100x100>" }, default_url: "/images/:style/missing.png"
+  has_attached_file :proof_document, styles: { thumb: "100x100>" }, default_url: "missing.png"
   # Validates that the document is a real image when uploaded
   validates_attachment_content_type :proof_document, content_type: /\Aimage\/.*\z/  
   # Process proof_document as a background job, to not slow the user creation process.  delayed_paperclip gem
