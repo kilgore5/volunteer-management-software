@@ -1,12 +1,5 @@
 - content_for :hero_title do
   = "#{@event.name}: Jobs"
-= simple_form_for @event do |f|
-  #jobs
-    = f.simple_fields_for :jobs do |job|
-      / = render 'job_fields', f: job
-    .links
-      = link_to_add_association '+ Add a Job', f, :jobs, class: "btn"
-  = f.submit "Save"
 - @jobs.each do |job|
   %b 
     = job.title
@@ -29,4 +22,16 @@
           %td
             = f.input :hours_per_rotation
           %td
-            = f.submit "Update Job"
+            .actions
+              .form-group
+                %label.hides.control-label
+                  Update
+                %div
+                  = f.submit "Update Job", class: "btn"
+= simple_form_for @event do |f|
+  #jobs
+    = f.simple_fields_for :jobs do |job|
+      / = render 'job_fields', f: job
+    .links
+      = link_to_add_association '+ Add a Job', f, :jobs, class: "btn"
+  = f.submit "Save (if you've added a new job)", class: "btn"                  
