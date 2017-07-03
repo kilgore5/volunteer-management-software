@@ -17,6 +17,9 @@ main{
   border-radius: 0;
   color: #f4f2f3;
   min-height: 20rem;
+  .container {
+    width: 100%;
+  }
   &.full-page{
     height: 100vh;
     margin: 0 !important;
