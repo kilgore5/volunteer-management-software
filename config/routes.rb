@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   get 'pages/home'
+  get 'pages/terms'
 
   # Gets all events, and their associated nested resources
   resources :events do

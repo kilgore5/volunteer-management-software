@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
 
-  layout "landing"
+  layout "landing", only: [:home]
 
   # before_action :redirect_to_account, only: [:home]
   
@@ -11,6 +11,9 @@ class PagesController < ApplicationController
     end    
     @events = Event.includes(:client_owner, :event_days, :jobs).order('start_time ASC')
   end
+
+  def terms
+  end  
 
   def user_has_applied
     if user_signed_in?
