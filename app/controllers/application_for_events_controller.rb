@@ -37,9 +37,9 @@ class ApplicationForEventsController < ApplicationController
     # Sets the user's Stripe Account ID
     @current_user.update_attributes(stripe_customer_id: customer.id)
     # Creates the charge for the t-shirt
-    charge = StripeTool.create_charge(customer_id: customer.id, 
-                                    amount: @amount,
-                                    description: @description)
+    # charge = StripeTool.create_charge(customer_id: customer.id, 
+    #                                 amount: @amount,
+    #                                 description: @description)
     @application = ApplicationForEvent.new(application_params)
 
     respond_to do |format|

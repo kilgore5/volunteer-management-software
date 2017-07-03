@@ -1,8 +1,13 @@
 .col-md-12
-  .nested-fields.row
-    .col-md-6
-      = f.input :name, label: "Qualification / Skill"
-    .col-md-6  
-      = f.input :proof_document
-    .col-md-12   
-      = link_to_remove_association "- delete skill", f
+	.nested-fields.row
+		.col-md-5
+			= f.input :name, label: "Qualification / Skill"
+		.col-md-5 
+			= f.input :proof_document
+		.col-md-2
+			.actions
+				.form-group
+					%label.hides.control-label
+						Update
+					%div    
+						= link_to_remove_association "X remove", f, class: "btn btn-default btn-xs"

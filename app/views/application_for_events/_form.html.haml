@@ -69,7 +69,7 @@
       .col-md-12
         = f.input :info, as: :text, label: "... and what particular skills do you think you can offer? If you have proof, you can upload it below."
     %p Evidence for skills / qualifying documents
-    / %hr
+    %small.form-text.text-muted i.e. first aid certificate, counsellor certificate...
     .inputs.row    
       = f.simple_fields_for :user do |f|    
         / .inputs.row
@@ -79,7 +79,7 @@
         .inputs
           .links.col-md-12
             %p
-              = link_to_add_association '+ add skill', f, :skills
+              = link_to_add_association '+ add new document', f, :skills, class: "btn btn-default btn-xs"
     %p Friends
     / %hr            
     .inputs.row
@@ -91,7 +91,7 @@
       .col-sm-4
         =image_tag "powered_by_stripe.png"
     %hr
-    %small.form-text.text-muted All volunteers must purchase their $15 volunteer t-shirt
+    %small.form-text.text-muted All volunteers must purchase a $15 volunteer t-shirt.  You will be charged only if your application is approved.
     %br
     .inputs.row          
       .col-md-12
@@ -107,20 +107,20 @@
         .form-group  
           %label
             %span Card Number
-          %input{"data-stripe" => "number", :type => "text", class: "form-control"}/        
+          %input{"data-stripe" => "number", :type => "text", class: "form-control", required: true }/        
       .col-md-2
         .form-group  
           %label
             %span CVC
-          %input{"data-stripe" => "cvc", :size => "4", :type => "text", class: "form-control"}/
+          %input{"data-stripe" => "cvc", :size => "4", :type => "text", class: "form-control", required: true}/
       .col-md-3
         .form-group  
           %label
             %span Expiration (MM/YY)
           .form-inline
-            %input{"data-stripe" => "exp-month", :size => "2", :type => "text", class: "form-control"}/
+            %input{"data-stripe" => "exp-month", :size => "2", :type => "text", class: "form-control", required: true}/
             %span /
-            %input{"data-stripe" => "exp-year", :size => "2", :type => "text", class: "form-control"}/
+            %input{"data-stripe" => "exp-year", :size => "2", :type => "text", class: "form-control", required: true}/
       .col-md-12
         %small.form-text.text-muted If you are approved and do not show up to your shift, you will be charged $#{@event.ticket_price_cents / 100}
      
