@@ -1,34 +1,82 @@
-/ Button trigger modal
-/ %button.btn.btn-info{"data-target" => "#myModal", "data-toggle" => "modal", :type => "button"}
-/   Launch demo modal
-/ Modal
 #myModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", :role => "dialog", :tabindex => "-1"}
   .modal-dialog.modal-lg{:role => "document"}
     .modal-content
       .modal-header
-        %h5#exampleModalLabel.modal-title IMPORTANT INFORMATION ABOUT VOLUNTEERING
+        %h5#exampleModalLabel.modal-title STRAWBERRY FIELDS VOLUNTEER AGREEMENT
         %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
           %span{"aria-hidden" => "true"} ×
       .modal-body
-        %ul
+
+        %h5
+          For Services & Payment
+
+        %p
+          This Volunteer Agreement ("Agreement") is made and entered into by and between Strawberry Music Group Pty Ltd, an Australian limited liability company ("Strawberry") and Strawberry Fields Festival volunteers ("Volunteer").
+
+        %p
+          This Agreement pertains to the preparation, setup, take-down and duration of the event to be held from November 17th – November 19th, 2017 known as "Strawberry Fields 2017" ("Festival").
+
+        %p
+          WHEREAS, Strawberry wishes to engage Volunteer in connection with the Festival upon the terms and conditions herein; and
+
+        %p
+          WHEREAS, Volunteer wishes to accept such engagement upon the terms herein specified.
+
+        %p
+          NOW THEREFORE, in consideration of the mutual promises herein, the Parties agree as follows:
+
+        %ol
           %li
-            You must be 18+ years of age to volunteer.
+            PERFORMANCE: 
+            %p
+              Strawberry hereby engages Volunteer, and Volunteer hereby accepts the engagement as indicated here:
+
+            %p
+              Volunteer will perform 8 hours of service during the event
+            %p
+              Strawberry will provide 1 full festival pass & a Strawberry Fields Volunteer t-shirt. Volunteer agrees to pay a $15 application processing fee which will be used to cover to cost of the t-shirt and administering the Volunteer Program. In the event that Volunteer does not perform duties outlined to the satisfaction of Strawberry Staff, the Volunteer authorises Strawberry to charge Volunteer the amount of AUD$360 as penalisation for not fulfilling their shift according to this agreement. 
           %li
-            Volunteers must attend a general volunteer meeting in Melbourne to be scheduled in October
+            INSURANCE:
+            %p
+              Volunteer understands Volunteer's appearance is at Volunteer's own risk, and Strawberry encourages Volunteer to obtain their own liability and medical insurance.
           %li
-            Volunteers complete 1 x 8hr shift during the event, unless otherwise specified. Volunteers cannot choose shift time/date, this will be allocated at random by management. 
+            INDEMNIFICATION:
+            %p
+              Volunteer hereby indemnifies and holds harmless Strawberry from and against any and all losses, costs, claims, damages or injury or liability of any kind or nature whatsoever, whether to persons or to property, caused by Volunteer and/or its employees, agents, or guests, arising from and/or in connection with the Volunteer's duties at the Festival. All of the rights to indemnity hereunder shall survive termination of this Agreement. The indemnity obligations of this Agreement shall be effective whether or not there is insurance coverage for an indemnifiable claim. 
           %li          
-            All volunteers will receive a complimentary ticket to Strawberry Fields in exchange for their commitment
+            CONFIDENTIALITY:
+            %p
+              In connection with the services provided under the Agreement, Volunteer may have access to and become acquainted with various trade secrets and proprietary or confidential information belonging to Strawberry, consisting of, without limitation, business practices, revenue and income amounts and information related to the development of costs, financing, management, marketing policies and/or plans, know-how, trade-secrets, designs and customer, supplier, employee and information ("Confidential Information"). The confidentiality of all Confidential Information is vital to Strawberry, thus Volunteer acknowledges and agrees that any publication or use by a third party of the Confidential Information without permission will cause irreparable harm to Strawberry and that money damages alone would not be an adequate remedy for any breach or attempted breach. Accordingly, Volunteer agrees that it will maintain the utmost confidentiality of the information, and Strawberry may seek injunctive or other equitable relief for any such breach or attempted breach of confidentiality, in addition to any other legal or equitable remedies that may be available to it. The Parties hereby acknowledge that the restrictions contained in this Paragraph are, in view of the value of the proprietary information being protected, reasonable and necessary to protect the legitimate proprietary interests of Strawberry and that any violation of this clause would cause irreparable harm for Strawberry cannot be fully compensated by money damages alone.
           %li
-            All volunteers must follow Strawberry Fields sign-in/sign-out procedure in order to validate their attendance at their scheduled shift
+            RULES AND REGULATIONS:
+            %p
+              Volunteer will comply with all applicable laws, statutes, ordinances, rules and regulations including, but not limited to, those of New South Wales and any other agencies with jurisdiction over the Festival, in connection with Volunteer's presentation hereunder. Furthermore, volunteer will comply with Participation Guidelines listed on the Strawberry website.
           %li
-            All volunteers contribute a $15 application processing fee via Stripe to cover the cost of a fresh and limited edition Strawberry Fields T-shirt as well as administrative costs
+            MISCELLANEOUS PROVISIONS:
+            %p
+              Severability. If any provision of this Agreement shall be held to be invalid or unenforceable for any reason, the remaining provisions shall continue to be valid and enforceable. If a court finds that any provision of this Agreement is invalid or unenforceable, but that by limiting such provision it would become valid and enforceable, then such provision shall be deemed to be written, construed, and enforced as so limited.
+            %p
+              Entire Agreement. This Agreement and any exhibits hereto shall constitute the entire agreement between Strawberry and Volunteer and the Agreement may not be amended, modified or supplemented except by a writing signed by both Parties.
           %li
-            Volunteer credit card payment details will be kept on file – in the event that a volunteer does not complete their scheduled shift they will be charged a fee to the total of $340
-          %li 
-            Once registered, any volunteer that pulls out within 21 days of the event start date (without written evidence of a serious and valid excuse) will be charged the above penalty fee
-          %li
-            Volunteers must accept and comply with Strawberry Fields Indemnity & Volunteer Agreement in order to fulfil volunteer obligations and receive complimentary entry
+            STRIPE AUTHORISATION:
+            %p
+              I hereby authorise Strawberry Music Group to charge the indicated credit card supplied to the Stripe ticketing system for all amounts due in accordance with the Volunteer Agreement. I agree that if I have any problems or questions regarding any charges from Strawberry Music Group, I will contact Strawberry Music Group for assistance, via volunteers@strawberry-fields.com.au.
+
+            %p
+              I agree that I will not dispute any charges from Strawberry Music Group unless I have already attempted to rectify the situation directly with Strawberry Music Group and those attempts have failed. I guarantee and warrant that  I am legally authorised to enter into this credit card hold agreement with Strawberry Music Group. I agree to indemnify, defend and hold Strawberry Music Group harmless, against any liability pursuant to this authorisation.
+
+            %p
+              I agree to the following additional terms and conditions:
+
+            %ol
+              %li
+                This is a periodic charge that may occur 1 additional time in accordance Strawberry Music Group Volunteer Agreement; 
+              %li
+                All payments are non-refundable and charges made to the Stripe account above under this agreement will constitute in effect a "sales receipt" and that services were rendered and received; 
+              %li
+                To terminate the credit card hold process I must terminate my service agreement in writing or arrange for an alternative method of payment with at least 30 days notice to Strawberry Music Group; 
+              %li
+                I will not dispute Strawberry Music Group's charges with my Stripe account, so long as the amount in question was for periods prior to the receipt of my written request to terminate my Strawberry Volunteer Agreement (at least 30 days prior to Strawberry Fields Festival). 
       .modal-footer
         %button.btn.btn-info#accept-terms{"data-dismiss" => "modal", :type => "button"} I Agree
 

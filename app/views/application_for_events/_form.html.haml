@@ -23,7 +23,7 @@
               = f.input :email, required: true, input_html: { class: "signin-text", autocomplete: 'off' }, label: "Email (also your account login)"
             .col-md-6
               %label.hidden hidden
-              %small.form-text.text-muted this will be used for all correspondence. Please check regularly, including spam folder
+              %small.form-text.text-muted This email will be used for all correspondence. Please check regularly, including spam folder.
         .col-md-6
           = f.input :mobile_number , required: true     
         .col-md-6
@@ -33,11 +33,11 @@
         / %hr        
         .inputs.row
           .col-md-4
-            = f.input :name
+            = f.input :name, label: "Emergency Contact Name"
           .col-md-4
-            = f.input :phone_number
+            = f.input :phone_number, label: "Their Phone Number"
           .col-md-4
-            = f.input :relationship
+            = f.input :relationship, label: "Their Relationship to You"
       %p Medical Conditions
       / %hr
       .inputs.row          
@@ -60,14 +60,14 @@
             = f.input :been_before, as: :select, include_blank: false, label: false
     .inputs.row
       .col-md-6
-        = f.association :preferred_jobs, collection: @current_event.jobs, label: "What type of shifts do you want to do at #{@current_event.name}?"
+        = f.association :preferred_jobs, collection: @current_event.jobs, label: "Which volunteer role are you applying for?"
       .col-md-6
         = f.simple_fields_for :user do |f|
           = f.association :preferred_departments, label: "For general volunteer applications, what is your preferred volunteer department?"            
     %p Why would you like to volunteer?
     .inputs.row
       .col-md-12
-        = f.input :info, as: :text, label: "... and what particular skills do you think you can offer? If you have proof, you can upload it below."
+        = f.input :info, as: :text, label: "... and what relevant skills can you offer? Please list your previous experience in dot points. If you have proof, you can upload it below."
     %p Evidence for skills / qualifying documents
     %small.form-text.text-muted i.e. first aid certificate, counsellor certificate...
     .inputs.row    
@@ -87,11 +87,11 @@
         = f.input :friends_or_referrals, label: "List any friends also applying whom you would like to work with, or any organiser who referred you to the role"
     %h3.inputs.row
       .col-sm-8
-        Puchase Volunteer Shirt
+        Purchase Volunteer Shirt
       .col-sm-4
         =image_tag "powered_by_stripe.png"
     %hr
-    %small.form-text.text-muted All volunteers must purchase a $15 volunteer t-shirt.  You will be charged only if your application is approved.
+    %small.form-text.text-muted All volunteers must contribute $15 towards their volunteer t-shirt. You will only be charged if you are sent an official offer which you can accept via your volunteer profile.
     %br
     .inputs.row          
       .col-md-12
@@ -122,12 +122,13 @@
             %span /
             %input{"data-stripe" => "exp-year", :size => "2", :type => "text", class: "form-control", required: true}/
       .col-md-12
-        %small.form-text.text-muted If you are approved and do not show up to your shift, you will be charged $#{@event.ticket_price_cents / 100}
+        %small.form-text.text-muted 
+          = "If you accept your place and fail to meet the expectations laid out #{link_to 'here', pages_terms_path, target: '_blank'} and in the #{content_tag('a', 'Volunteer Agreement', 'data-target' =>'#myModal', 'data-toggle' => 'modal')}, you will be charged $#{@event.ticket_price_cents / 100}".html_safe
      
     %hr            
     .inputs.row
       .col-md-12
-        = f.input :terms_accepted, label: ("All volunteers must accept the festival #{link_to 'terms', 'data-target' =>'#myModal', 'data-toggle' => 'modal'}").html_safe
+        = f.input :terms_accepted, label: ("All volunteers must accept the #{content_tag('a', 'STRAWBERRY FIELDS VOLUNTEER AGREEMENT', 'data-target' =>'#myModal', 'data-toggle' => 'modal')}").html_safe
     .actions
       .form-group
         = f.button :submit, "Submit"
