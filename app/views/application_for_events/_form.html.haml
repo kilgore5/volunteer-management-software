@@ -59,11 +59,32 @@
           .col-md-4      
             = f.input :been_before, as: :select, include_blank: false, label: false
     .inputs.row
-      .col-md-6
-        = f.association :preferred_jobs, collection: @current_event.jobs, label: "Which volunteer role are you applying for?"
-      .col-md-6
-        = f.simple_fields_for :user do |f|
-          = f.association :preferred_departments, label: "For general volunteer applications, what is your preferred volunteer department?"            
+      .col-md-12
+        %p
+          Which volunteer role are you applying for?
+        %label
+          Please select up to 3 preferences from the drop down list below - keeping in mind that there are special requirements to be a Wilderness or Ranger volunteer:
+        %small.text-muted
+          %i
+            Ranger volunteer: 
+          Rangers will be stationed in our Helper Huts and roam the event looking after the wellbeing of our patrons. This role consists of 2 x 6 hour shifts and will require mandatory attendance at a Dancewize training session before undertaking the role. 
+          %br
+          %br
+          %i
+            Wilderness Volunteer: 
+          Open to those who can provide evidence of membership or volunteer association with The Wilderness Society. Complete 2 days work after the festival helping to restore our site to pristine condition, and we will donate the cost of a final round ticket to TWS. We will provide you with a full festival ticket and 2 square meals a day.
+          %br
+          %br
+          %i
+            All other roles: 
+          complete a minimum of 8 hours in exchange for a ticket.
+          %br
+          %br
+      .col-md-12
+        = f.association :preferred_jobs, collection: @current_event.jobs, label: false
+      / .col-md-6
+      / = f.simple_fields_for :user do |f|
+      / = f.association :preferred_departments, label: "For general volunteer applications, what is your preferred volunteer department?"            
     %p Why would you like to volunteer?
     .inputs.row
       .col-md-12
