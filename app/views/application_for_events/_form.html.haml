@@ -33,9 +33,9 @@
         / %hr        
         .inputs.row
           .col-md-4
-            = f.input :name, label: "Emergency Contact Name"
+            = f.input :name, label: "Emergency Contact Name", required: true 
           .col-md-4
-            = f.input :phone_number, label: "Their Phone Number"
+            = f.input :phone_number, label: "Their Phone Number", required: true 
           .col-md-4
             = f.input :relationship, label: "Their Relationship to You"
       %p Medical Conditions
@@ -72,7 +72,9 @@
           %br
           %i
             Wilderness Volunteer: 
-          Open to those who can provide evidence of membership or volunteer association with The Wilderness Society. Complete 2 days work after the festival helping to restore our site to pristine condition, and we will donate the cost of a final round ticket to TWS. We will provide you with a full festival ticket and 2 square meals a day.
+          Open to those who can provide evidence of membership or volunteer association with The Wilderness Society. Complete 2 days work after the festival helping to restore our site to pristine condition, and we will donate the cost of a final round ticket to TWS. We will provide you with a full festival ticket and 2 square meals 
+          %b
+            a day.
           %br
           %br
           %i
@@ -128,20 +130,20 @@
         .form-group  
           %label
             %span Card Number
-          %input{"data-stripe" => "number", :type => "text", class: "form-control", required: true }/        
+          %input{"data-stripe" => "number", :type => "text", class: "form-control", required: true}   
       .col-md-2
         .form-group  
           %label
             %span CVC
-          %input{"data-stripe" => "cvc", :size => "4", :type => "text", class: "form-control", required: true}/
+          %input{"data-stripe" => "cvc", :size => "4", :type => "text", class: "form-control", required: true}
       .col-md-3
         .form-group  
           %label
             %span Expiration (MM/YY)
           .form-inline
-            %input{"data-stripe" => "exp-month", :size => "2", :type => "text", class: "form-control", required: true}/
+            %input{"data-stripe" => "exp-month", :size => "2", :type => "text", class: "form-control", required: true}
             %span /
-            %input{"data-stripe" => "exp-year", :size => "2", :type => "text", class: "form-control", required: true}/
+            %input{"data-stripe" => "exp-year", :size => "2", :type => "text", class: "form-control", required: true}
       .col-md-12
         %small.form-text.text-muted 
           = "If you accept your place and fail to meet the expectations laid out #{link_to 'here', pages_terms_path, target: '_blank'} and in the #{content_tag('a', 'Volunteer Agreement', 'data-target' =>'#myModal', 'data-toggle' => 'modal')}, you will be charged $#{@event.ticket_price_cents / 100}".html_safe

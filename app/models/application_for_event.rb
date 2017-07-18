@@ -27,8 +27,16 @@ class ApplicationForEvent < ApplicationRecord
   belongs_to  :user
   has_many    :application_preferred_jobs
   has_many    :preferred_jobs, through: :application_preferred_jobs, source: :job
+  accepts_nested_attributes_for :user, :reject_if => :all_blank, :allow_destroy => false
 
   validates   :terms_accepted, acceptance: true
+  # validates   :user, presence: true
 
-  accepts_nested_attributes_for :user, :reject_if => :all_blank, :allow_destroy => true
+  # validates_presence_of :first_name
+  # validates_presence_of :last_name
+  # validates_presence_of :email
+  # validates_presence_of :mobile_number
+  # validates_presence_of :birthday
+
+  
 end
