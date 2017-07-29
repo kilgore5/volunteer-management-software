@@ -35,4 +35,8 @@ Rails.application.routes.draw do
   root to: "pages#home"
   # root to: "events#show", :id => Event.last.id
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  # SSL
+  # https://collectiveidea.com/blog/archives/2016/01/12/lets-encrypt-with-a-rails-app-on-heroku
+  get '/.well-known/acme-challenge/:id' => 'pages#letsencrypt'
 end

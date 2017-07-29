@@ -26,4 +26,9 @@ class PagesController < ApplicationController
     return true
   end
 
+  def letsencrypt
+    # https://collectiveidea.com/blog/archives/2016/01/12/lets-encrypt-with-a-rails-app-on-heroku
+    render text: "uItkXMzclAiV7_4ojbxddd7JYFnhQYXlvaijALcGsME.8IQxXUZIlzqf2nS9C1pFPj5dLH9qDjwxQBeb310KXwM"
+  end
+
 end
