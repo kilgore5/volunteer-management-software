@@ -90,6 +90,9 @@ gem 'yard'
 #Helpful
 gem 'awesome_print'
 
+#Errors
+gem 'airbrake', '~> 6.2'
+
 group :production do
   # gem 'unicorn'
   # Assets in production

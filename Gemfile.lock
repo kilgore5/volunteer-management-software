@@ -61,6 +61,9 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
+    airbrake (6.2.1)
+      airbrake-ruby (~> 2.3, >= 2.3.1)
+    airbrake-ruby (2.3.2)
     annotate (2.7.2)
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 13.0)
@@ -339,6 +342,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  airbrake (~> 6.2)
   annotate
   autoprefixer-rails
   awesome_print
