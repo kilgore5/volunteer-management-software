@@ -1,13 +1,69 @@
+- friends = application.friends_or_referrals.split('\r\n')
+%h3 Application Info
+%hr
+%table.table
+  %thead
+    %tr
+      %th{colspan: 2} Volunteer
+      %th Submitted
+      %th Updated
+      %th Accept
+      %th Shift
+  %tbody
+    %tr
+      %td
+        = link_to image_tag(application.user.avatar), application.user
+      %td
+        = link_to application.user.full_name, application.user
+      %td
+        = application.created_at.strftime("%d/%m/%Y")
+      %td
+        = application.updated_at.strftime("%d/%m/%Y")
+      %td
+        - if application.accepted?
+          Yep
+        - else
+          = link_to "Approve", approve_application_for_event_path(application), remote: true, class: "btn btn-info"
+      %td
+        TODO
+%h4 Info Given
+%hr
+%b Why I want to volunteer?
+%p
+  = application.info
+%table.table
+  %thead
+    %tr
+      %th Volunteered before?
+      %th Been before?
+      %th Terms Accepted?
+      %th Has Emergency Contact?
+      %th Has Payment Method?
+  %tbody
+    %tr
+      %td 
+        = application.volunteered_before
+      %td 
+        = application.been_before
+      %td 
+        = application.terms_accepted
+      %td
+        = applicant.emergency_contact.present?
+      %td
+        = !applicant.stripe_customer_id.blank?
+%b Prefered Jobs:
+- if application.preferred_jobs.any?
+  %ul
+    - application.preferred_jobs.each do |job|
+      %li
+        = job.title
 
-%tr
-  %td 
-    = link_to application.user.full_name, application.user
-  %td 
-    = application.updated_at.strftime("%d/%m/%Y")
-  %td 
-    - if application.accepted?
-      Yep
-    - else
-      = link_to "Approve", approve_application_for_event_path(application), remote: true, class: "btn btn-info"
-  %td
-    TODO
+%b Friends / Referrals: 
+- if friends.any?
+  %ul
+    - friends.each do |friend|
+      %li
+        = friend
+- else
+  %span
+    None Provided

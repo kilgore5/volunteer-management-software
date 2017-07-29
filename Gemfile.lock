@@ -67,6 +67,7 @@ GEM
     arel (8.0.0)
     autoprefixer-rails (7.1.1.2)
       execjs
+    awesome_print (1.8.0)
     aws-sdk (2.10.7)
       aws-sdk-resources (= 2.10.7)
     aws-sdk-core (2.10.7)
@@ -340,6 +341,7 @@ PLATFORMS
 DEPENDENCIES
   annotate
   autoprefixer-rails
+  awesome_print
   aws-sdk (~> 2.3)
   better_errors
   binding_of_caller
@@ -386,4 +388,4 @@ RUBY VERSION
    ruby 2.4.0p0
 
 BUNDLED WITH
-   1.15.1
+   1.15.3

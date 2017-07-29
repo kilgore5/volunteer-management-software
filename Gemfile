@@ -85,8 +85,10 @@ gem 'figaro'
 gem 'whenever'
 
 # Documentation
-
 gem 'yard'
+
+#Helpful
+gem 'awesome_print'
 
 group :production do
   # gem 'unicorn'

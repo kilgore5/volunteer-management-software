@@ -1,0 +1,72 @@
+%h3 Full Applicant Details
+%hr
+%table.table
+  %thead
+    %tr
+      %th First
+      %th Last
+      %th Birth
+      %th Mobile
+      %th Email
+  %tbody
+    %tr
+      %td
+        = applicant.first_name
+      %td
+        = applicant.last_name
+      %td
+        = applicant.birthday.strftime("%d/%m/%Y")
+      %td
+        = applicant.mobile_number
+      %td
+        = applicant.email
+%h4 Applicant Stats
+%hr
+%table.table
+  %thead
+    %tr
+      %th Applications
+      %th Apps Accepted
+      %th Shifts Made
+      %th Shifts Missed
+      %th Hours Worked
+      %th Rating
+  %tbody
+    %tr
+      %td
+        = applicant.applications.count
+      %td
+        = applicant.apps_accepted
+      %td
+        = applicant.shifts_made
+      %td
+        = applicant.shifts_missed
+      %td
+        = applicant.hours_worked
+      %td
+        = applicant.rating
+%b Medical Conditions:
+%p
+  = applicant.medical_conditions.blank? ? "None" : applicant.medical_conditions
+%b Payment
+%p
+  Stripe Customer Id:
+  = applicant.stripe_customer_id
+%h4 Applicant Skills
+- if applicant.skills.any?
+  %table.table
+    %thead
+      %tr
+        %th Skill
+        %th Document
+    %tbody
+      -applicant.skills.each do |skill|
+        %tr
+          %td
+            = skill.name
+          %td
+            = link_to skill.proof_document_file_name, skill.proof_document.url
+
+
+
+

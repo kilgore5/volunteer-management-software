@@ -25,7 +25,7 @@
               %label.hidden hidden
               %small.form-text.text-muted This email will be used for all correspondence. Please check regularly, including spam folder.
         .col-md-6
-          = f.input :mobile_number , required: true     
+          = f.input :mobile_number , required: true
         .col-md-6
           = f.input :birthday, start_year: 60.years.ago.year, end_year: 18.years.ago.year, required: true, order: [:day, :month, :year], selected: 21.years.ago
       = f.simple_fields_for :emergency_contact do |f|

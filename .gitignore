@@ -47,3 +47,6 @@ bower.json
 /config/application.yml
 /public/packs
 /node_modules
+
+# Ignore database dumps
+*.dump
