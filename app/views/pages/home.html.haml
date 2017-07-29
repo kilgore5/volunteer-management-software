@@ -1,7 +1,7 @@
 - content_for :hero_title do
   / = @current_event.name
   = image_tag("logos/strawberry-fields-white.png")
-%div  
+%div
   = link_to "Apply to volunteer", new_event_application_for_event_path(@current_event.id), class: "btn btn-info btn-lg centered"
   - if !user_signed_in?
     = link_to('Login', new_user_session_path, class: "btn btn-info btn-lg centered")

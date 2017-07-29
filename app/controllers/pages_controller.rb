@@ -5,15 +5,22 @@ class PagesController < ApplicationController
   # before_action :redirect_to_account, only: [:home]
   
   def home
+    @admin = is_admin
     @applied = user_has_applied
-    if @applied
+    if @admin
+      redirect_to @current_event
+    elsif @applied
       redirect_to edit_user_path(current_user)
     end    
     @events = Event.includes(:client_owner, :event_days, :jobs).order('start_time ASC')
   end
 
   def terms
-  end  
+  end
+
+  def is_admin
+    (current_user && current_user.has_role?(:admin)) ? true : false
+  end
 
   def user_has_applied
     if user_signed_in?
@@ -24,11 +31,6 @@ class PagesController < ApplicationController
       return false
     end
     return true
-  end
-
-  def letsencrypt
-    # https://collectiveidea.com/blog/archives/2016/01/12/lets-encrypt-with-a-rails-app-on-heroku
-    render plain: "o7JORGad-aq5s6D2possLtPmEt4MsV1lhfEhqwt5wWU.8IQxXUZIlzqf2nS9C1pFPj5dLH9qDjwxQBeb310KXwM"
   end
 
 end
