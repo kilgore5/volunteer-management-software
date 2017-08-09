@@ -17,5 +17,20 @@
               %th Accept
               %th Shift
               %th Application
+              %th Rating
           %tbody
             = render partial: "application", collection: @applications
+
+:javascript
+  $('.star-rating').raty({
+        path: '/assets/',
+        score: function() {
+              return $(this).attr('data-score');
+        },
+        scoreName: 'application_for_event[rating]'
+    });
+    $('.star-rating img').click(function() {
+      form = $(this).closest('form')[0]
+      console.log(form);
+      Rails.fire(form, 'submit')
+    });

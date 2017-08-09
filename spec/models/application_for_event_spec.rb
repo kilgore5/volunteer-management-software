@@ -13,6 +13,7 @@
 #  been_before          :boolean          default(FALSE), not null
 #  friends_or_referrals :text
 #  terms_accepted       :boolean
+#  rating               :integer
 #
 # Indexes
 #

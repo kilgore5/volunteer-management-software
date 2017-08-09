@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170702200012) do
+ActiveRecord::Schema.define(version: 20170806122035) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20170702200012) do
     t.boolean "been_before", default: false, null: false
     t.text "friends_or_referrals"
     t.boolean "terms_accepted"
+    t.integer "rating"
     t.index ["been_before"], name: "index_application_for_events_on_been_before"
     t.index ["event_id"], name: "index_application_for_events_on_event_id"
     t.index ["user_id"], name: "index_application_for_events_on_user_id"

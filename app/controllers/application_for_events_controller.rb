@@ -58,11 +58,13 @@ class ApplicationForEventsController < ApplicationController
   def update
     respond_to do |format|
       if @application.update(application_params)
-        format.html { redirect_to edit_user_path(@current_user), notice: 'Application was successfully submitted.' }
+        # format.html { redirect_to edit_user_path(@current_user), notice: 'Application was successfully submitted.' }
         format.json { render :show, status: :ok, location: @application }
+        format.js { flash.now[:notice] = "Application successfully rated" }
       else
         format.html { render :edit }
         format.json { render json: @application.errors, status: :unprocessable_entity }
+        format.js { flash.now[:notice] = "Application rating failed - reload and try again." }
       end
     end
   end
@@ -72,7 +74,7 @@ class ApplicationForEventsController < ApplicationController
   end  
 
   def index
-    @applications = ApplicationForEvent.where(event_id: @event.id).includes(:event, :user)
+    @applications = ApplicationForEvent.where(event_id: @event.id).includes(:event, :user).order('created_at ASC')
   end
 
   def approve
@@ -117,6 +119,7 @@ class ApplicationForEventsController < ApplicationController
                       :volunteered_before,
                       :terms_accepted,
                       :stripe_token,
+                      :rating,
                       preferred_job_ids: [],
                       user_attributes: [ :id,
                                               :first_name,

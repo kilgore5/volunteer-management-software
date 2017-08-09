@@ -13,6 +13,7 @@
 //= require jquery
 //= require rails-ujs
 //= require turbolinks
+//= require jquery.raty
 //= require cocoon
 //= require bootstrap-sprockets
 //= require_tree .

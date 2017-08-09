@@ -16,3 +16,6 @@
     TODO
   %td
     = link_to "View", application
+  %td
+    = simple_form_for application, remote: true, authenticity_token: true do |f|
+      .star-rating{data: {score: application.rating }}

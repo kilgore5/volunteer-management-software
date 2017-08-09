@@ -1,0 +1,4 @@
+console.log("____UPDATED___");
+$("#lostings_span").on("ajax:success", function(data, status, xhr){
+   $("#asset_nav").prepend(data);
+});
