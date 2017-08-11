@@ -82,6 +82,8 @@ class ApplicationForEventsController < ApplicationController
       @applications = @applications.references(:users)
     end
     @applications = @applications.order(sort_column + " " + sort_direction)
+
+    @count = @applications.count
   end
 
   def approve

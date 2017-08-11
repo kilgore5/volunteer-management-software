@@ -2,7 +2,12 @@
   = "Volunteer Applications"
   %br
   %h3= "for: #{@event.name}"
-  
+
+.col-md-10.col-md-offset-1.upper_header
+  .panel.default
+    .top-key-factor
+      .event_day__inner
+        = "Total applications received: #{@count}"
 
 .col-md-10.col-md-offset-1.event_header
   .panel.default
