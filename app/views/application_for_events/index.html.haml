@@ -18,14 +18,14 @@
             %tr.sortable
               %th #
               %th
-                = sortable "users.last_name", "Volunteer"
+                = sortable "users.last_name", "Volunteer [sort]"
               %th
-                = sortable "created_at", "Submitted"
+                = sortable "created_at", "Submitted [sort]"
               %th Accept
               / %th Shift
               %th Application
               %th 
-                = sortable "rating", "Rating"
+                = sortable "rating", "Rating [sort]"
           %tbody
             = render partial: "application", collection: @applications
 
