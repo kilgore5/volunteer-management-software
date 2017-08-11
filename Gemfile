@@ -75,6 +75,9 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'autoprefixer-rails'
 gem 'haml-rails'
 
+#Pagination
+gem 'will_paginate', '~> 3.1.0'
+
 # Routes / URLs
 gem 'friendly_id'
 

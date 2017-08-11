@@ -1,22 +1,46 @@
 .event_day .panel, .event_header .panel {
-    margin-bottom: 20px;
-    background-color: #fff;
-    min-height: 370px;
-    color: #687680;
-    border: 0;
-    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
-    border-radius: 3px;
-    .excellent {
-        visibility: hidden;
-    }
+  margin-bottom: 20px;
+  background-color: #fff;
+  min-height: 370px;
+  color: #687680;
+  border: 0;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+
+  .excellent {
+    visibility: hidden;
+  }
 }
 
 .event_header {
-    margin-top: 3em;
-    margin-bottom: 3em;
+  margin-top: 3em;
+  margin-bottom: 3em;
 
-    .panel {
-        min-height: auto;
-        padding: 3em;
+  .panel {
+    min-height: auto;
+    padding: 3em;
+  }
+}
+
+.upper_header {
+  margin-top: 3em;
+  margin-bottom: -2em;
+
+  .panel {
+    min-height: auto;
+    padding: 1em;
+  }
+}
+
+.lower_footer {
+  margin-top: -2em;
+  margin-bottom: 3em;
+
+  .panel {
+    min-height: auto;
+    padding: 1em;
+    &.with-pagination{
+      padding: 0;
     }
+  }
 }

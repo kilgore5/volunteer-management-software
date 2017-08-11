@@ -1,19 +1,20 @@
 / Adds an index so we can show each row with a number
 -index = application_counter + 1
+-user = application.user
 %tr
   %th{:scope => "row"}
     #{index}
   %td 
-    = link_to application.user.full_name, application.user
+    = link_to "#{user.last_name.titleize}, #{user.first_name.titleize}", application.user
   %td 
-    = application.updated_at.strftime("%d/%m/%Y")
+    = application.created_at.strftime("%d/%m/%Y")
   %td 
     - if application.accepted?
       Yep
     - else
       = link_to "Approve", approve_application_for_event_path(application), remote: true, class: "btn btn-info"
-  %td
-    TODO
+  / %td
+  /   TODO
   %td
     = link_to "View", application
   %td

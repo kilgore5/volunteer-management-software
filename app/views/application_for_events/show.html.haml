@@ -2,7 +2,12 @@
   = "Application"
   %br
   %h3= "for: volunteer @ #{@current_event.name}, from: #{@application.user.full_name}"
-  
+
+.col-md-10.col-md-offset-1.upper_header
+  .panel.default
+    .top-key-factor
+      .event_day__inner
+        = link_to '<-  Back to applications', event_application_for_events_path(@current_event)
 
 .col-md-10.col-md-offset-1.event_header
   .panel.default

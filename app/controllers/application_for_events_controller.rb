@@ -7,7 +7,7 @@ class ApplicationForEventsController < ApplicationController
   before_action :set_application, only: [:show, :update, :approve, :edit]
   before_action :set_user, only: [:new, :create, :update, :edit]
   # before_action :ensure_current_user_owns_application, only: [:edit, :update, :destroy]
-
+  helper_method :sort_column, :sort_direction
 
 
   def new
@@ -74,7 +74,14 @@ class ApplicationForEventsController < ApplicationController
   end  
 
   def index
-    @applications = ApplicationForEvent.where(event_id: @event.id).includes(:event, :user).order('created_at ASC')
+    @applications = ApplicationForEvent
+      .where(event_id: @event.id)
+      .includes(:event, :user)
+      .paginate(:page => params[:page])
+    if use_references?
+      @applications = @applications.references(:users)
+    end
+    @applications = @applications.order(sort_column + " " + sort_direction)
   end
 
   def approve
@@ -85,6 +92,22 @@ class ApplicationForEventsController < ApplicationController
   end
 
   private
+
+    def use_references?
+      params[:sort] == "users.last_name"
+    end
+
+    def sort_column
+      if params[:sort] == "users.last_name"
+        "LOWER(users.last_name)"
+      else
+        ApplicationForEvent.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
+      end
+    end
+    
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    end
 
     def set_user
       @current_user = current_user

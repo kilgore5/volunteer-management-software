@@ -10,27 +10,22 @@
       .event_day__inner
         %table.table.table-hover
           %thead
-            %tr
+            %tr.sortable
               %th #
-              %th Volunteer
-              %th Submitted
+              %th
+                = sortable "users.last_name", "Volunteer"
+              %th
+                = sortable "created_at", "Submitted"
               %th Accept
-              %th Shift
+              / %th Shift
               %th Application
-              %th Rating
+              %th 
+                = sortable "rating", "Rating"
           %tbody
             = render partial: "application", collection: @applications
 
-:javascript
-  $('.star-rating').raty({
-        path: '/assets/',
-        score: function() {
-              return $(this).attr('data-score');
-        },
-        scoreName: 'application_for_event[rating]'
-    });
-    $('.star-rating img').click(function() {
-      form = $(this).closest('form')[0]
-      console.log(form);
-      Rails.fire(form, 'submit')
-    });
+.col-md-10.col-md-offset-1.lower_footer
+  .panel.default.with-pagination
+    .top-key-factor
+      .event_day__inner
+        = will_paginate @applications
