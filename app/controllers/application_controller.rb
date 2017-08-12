@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
+  # Airbrake throwing "ActionController::InvalidAuthenticityToken" error for some users
+  # https://stackoverflow.com/questions/38331496/rails-5-actioncontrollerinvalidauthenticitytoken-error
+  protect_from_forgery prepend: true
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
@@ -11,29 +13,6 @@ class ApplicationController < ActionController::Base
 
   def better_errors_hack
     request.env['puma.config'].options.user_options.delete :app
-  end
-
-
-  def after_sign_in_path_for(resource)
- 
-    # save list if there is a temp_list in the session
-    if session[:application].present?
- 
-      # save list
-      @application = current_user.applications.create(session[:application]["application"])
- 
-      # clear session
-      session[:application] = nil
- 
-      #redirect
-      flash[:notice] = "Sweet, logged in. Nice application, btw :)"      
-      edit_user_path(@current_user)
- 
-    else
-      #if there is not temp application in the session proceed as normal
-      super
-    end
- 
   end
 
   protected
@@ -63,19 +42,6 @@ class ApplicationController < ActionController::Base
         redirect_to root_url
       end
     end
-
-    #Redirects user to registration instead of login
-    def authenticate_user!
-      if user_signed_in?
-        super
-      else
-        if params[:controller] == "application_for_events"
-          redirect_to new_user_registration_path(ref: "apply")
-        else
-          redirect_to new_user_registration_path
-        end
-      end
-    end  
 
   # TODO this is terrible and only to be used for launch with Strawberry
   def set_current_event

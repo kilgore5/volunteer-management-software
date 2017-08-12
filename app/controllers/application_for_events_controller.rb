@@ -1,7 +1,7 @@
 class ApplicationForEventsController < ApplicationController
 
   # Make sure not to filter 'create' as we'll be handling that with our redirect
-  before_action :authenticate_user!
+  before_action :sign_me_up
   before_action :client_and_up, only: [:index]
   before_action :set_event, except: [:approve, :show]
   before_action :set_application, only: [:show, :update, :approve, :edit]
@@ -11,15 +11,6 @@ class ApplicationForEventsController < ApplicationController
 
 
   def new
-    # # proceed to creating application if user exists, otherwise signup with Devise
-    # if @current_user
-    #   @application = @event.applications.build(volunteer_id: @current_user.id)
-    #   @application.save
-    # else
-    #   # @application = @event.applications.build()
-    #   @application = ApplicationForEvent.new(event_id: @current_event.id)
-    # end
-    # @application = ApplicationForEvent.new(event_id: @current_event.id, user_id: @current_user.id)
     @application = ApplicationForEvent.new
     @application.user = @current_user
   end
@@ -58,7 +49,7 @@ class ApplicationForEventsController < ApplicationController
   def update
     respond_to do |format|
       if @application.update(application_params)
-        # format.html { redirect_to edit_user_path(@current_user), notice: 'Application was successfully submitted.' }
+        format.html { redirect_to edit_user_path(@current_user), notice: 'Application was successfully updated.' }
         format.json { render :show, status: :ok, location: @application }
         format.js { flash.now[:notice] = "Application successfully rated" }
       else
@@ -131,6 +122,15 @@ class ApplicationForEventsController < ApplicationController
         redirect_to root_url
       end
     end
+
+    # Redirects user to registration instead of login
+    def sign_me_up
+      if user_signed_in?
+        return
+      else
+        redirect_to new_user_registration_path(ref: "apply")
+      end
+    end  
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def application_params

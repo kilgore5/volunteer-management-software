@@ -27,6 +27,13 @@ Rails.application.routes.draw do
     end
   end
 
+  # Allows password to be updated
+  resource :user, only: [:edit] do
+    collection do
+      patch 'update_password'
+    end
+  end
+
   resources :application_for_events do
     get 'approve', on: :member
     get 'submitted'

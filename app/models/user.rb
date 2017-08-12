@@ -138,7 +138,11 @@ class User < ApplicationRecord
 
     # Sets the user's full name on save
     def set_full_name
-      self.full_name = "#{self.first_name.capitalize} #{self.last_name.capitalize}"
+      unless self.first_name.nil? or self.last_name.nil?
+        self.full_name = "#{self.first_name.capitalize} #{self.last_name.capitalize}"
+      else
+        self.full_name = "#{self.first_name} #{self.last_name}"
+      end
     end
 
     # Assigns default role of :volunteer when user is created (Rollify gem + CanCanCan)

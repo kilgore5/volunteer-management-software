@@ -1,6 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   #Sets a layout for account pages
-  layout "login"  
+  layout "login"
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
@@ -64,8 +64,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super(resource)
   # end
 
-  def update_resource(resource, params)
-    resource.update_without_password(params)
-  end  
+  # def update_resource(resource, params)
+  #   resource.update_without_password(params)
+  # end  
   
 end

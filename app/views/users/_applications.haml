@@ -2,7 +2,7 @@
   My Applications
 .user-details.panel.default
   .row
-    - @current_user.applications.each do |app|
+    - @user.applications.each do |app|
       .col-md-4
         = app.event.name
       .col-md-5
