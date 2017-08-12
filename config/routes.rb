@@ -7,8 +7,13 @@ Rails.application.routes.draw do
   resources :events do
     resources :jobs
     resources :event_days
-    resources :application_for_events
+    resources :application_for_events do
+      collection do
+        get 'index_all'
+      end
+    end
   end
+
 
   resources :event_days do
     resources :rotations

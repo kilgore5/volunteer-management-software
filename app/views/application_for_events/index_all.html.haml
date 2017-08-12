@@ -1,5 +1,5 @@
 - content_for :hero_title do
-  = "Volunteer Applications (Paged)"
+  = "Volunteer Applications (All)"
   %br
   %h3= "for: #{@event.name}"
 
@@ -10,7 +10,7 @@
         .col-md-6.text-left
           = "Total applications received: #{@count}"
         .col-md-6.text-right
-          = link_to "View all applications ->", index_all_event_application_for_events_path(@event)
+          = link_to "<- View paged applications", event_application_for_events_path(@event)
 
 .col-md-10.col-md-offset-1.event_header
   .panel.default
@@ -31,9 +31,3 @@
                 = sortable "rating", "Rating [sort]"
           %tbody
             = render partial: "application", collection: @applications
-
-.col-md-10.col-md-offset-1.lower_footer
-  .panel.default.with-pagination
-    .top-key-factor
-      .event_day__inner
-        = will_paginate @applications

@@ -77,6 +77,18 @@ class ApplicationForEventsController < ApplicationController
     @count = @applications.count
   end
 
+  def index_all
+    @applications = ApplicationForEvent
+      .where(event_id: @event.id)
+      .includes(:event, :user)
+    if use_references?
+      @applications = @applications.references(:users)
+    end
+    @applications = @applications.order(sort_column + " " + sort_direction)
+
+    @count = @applications.count
+  end
+
   def approve
     @application.update_attributes(:accepted => true)
     respond_to do |format|
