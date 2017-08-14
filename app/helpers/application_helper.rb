@@ -19,14 +19,14 @@ module ApplicationHelper
   # Allows indexed items to be sortable
   # from: http://railscasts.com/episodes/228-sortable-table-columns
   def sortable(column, title = nil)
-    title ||= column.titleize
-    css_class = column == sort_column ? "current #{sort_direction}" : nil
+    title ||= column
+    css_class = (sort_column.include? column) ? "current #{sort_direction}" : nil
     if column == "users.last_name"
-      direction = sort_direction == "asc" ? "desc" : "asc"
+      direction = sort_direction == "desc" ? "asc" : "desc"
     else
-      direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
+      direction = column == sort_column && sort_direction == "desc" ? "asc" : "desc"
     end
-    link_to title, {:sort => column, :direction => direction}, {:class => css_class}
+    link_to title, {sort: column, direction: direction, job: ({slug: params[:job][:slug]} if params[:job])}, {:class => css_class}
   end
 
   # Creates active class for menu links
@@ -48,6 +48,6 @@ module ApplicationHelper
   # Adds Devise resource to each controller / view
   def devise_mapping
     @devise_mapping ||= Devise.mappings[:user]
-  end  
-  
+  end
+
 end

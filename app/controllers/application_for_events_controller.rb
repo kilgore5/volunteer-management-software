@@ -65,38 +65,52 @@ class ApplicationForEventsController < ApplicationController
   end  
 
   def index
-    @applications = ApplicationForEvent
-      .where(event_id: @event.id)
-      .includes(:event, :user)
-      .paginate(:page => params[:page])
-    if use_references?
-      @applications = @applications.references(:users)
-    end
-    @applications = @applications.order(sort_column + " " + sort_direction)
+
+    list_all
+
+    # Used in view partial to display index on page
+    @number_per_page = 20
+
+    @applications = @applications.paginate(page: params[:page], per_page: @number_per_page)
 
     @count = @applications.count
+
   end
 
   def index_all
-    @applications = ApplicationForEvent
-      .where(event_id: @event.id)
-      .includes(:event, :user)
-    if use_references?
-      @applications = @applications.references(:users)
-    end
-    @applications = @applications.order(sort_column + " " + sort_direction)
+
+    list_all
 
     @count = @applications.count
+
   end
 
   def approve
     @application.update_attributes(:accepted => true)
     respond_to do |format|
         format.js
-    end    
+    end
   end
 
   private
+
+    # Finds the apps given certain filters
+    def list_all
+
+      @applications = ApplicationForEvent
+        .where(event_id: @event.id)
+        .includes(:event, :user, :preferred_jobs)
+      if use_references?
+        @applications = @applications.references(:users)
+      end
+      @applications = @applications.order(sort_column + " " + sort_direction)
+
+      # Filters by the selected preferred jobs
+      if params[:job] and !params[:job][:slug].empty?
+        @applications = @applications.joins(:preferred_jobs).where(jobs: {slug: params[:job][:slug]})
+      end
+
+    end
 
     def use_references?
       params[:sort] == "users.last_name"
@@ -105,8 +119,10 @@ class ApplicationForEventsController < ApplicationController
     def sort_column
       if params[:sort] == "users.last_name"
         "LOWER(users.last_name)"
+      elsif params[:sort]
+        ApplicationForEvent.column_names.include?(params[:sort].tap{|s| s.slice!("application_for_events.")}) ? "application_for_events.#{params[:sort]}" : "application_for_events.created_at"
       else
-        ApplicationForEvent.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
+        "application_for_events.created_at"
       end
     end
     

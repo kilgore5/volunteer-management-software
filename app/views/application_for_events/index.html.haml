@@ -6,10 +6,17 @@
 .col-md-10.col-md-offset-1.upper_header
   .panel.default
     .top-key-factor
-      .event_day__inner.row
-        .col-md-6.text-left
-          = "Total applications received: #{@count}"
-        .col-md-6.text-right
+      .event_day__inner.row.filters
+        .col-md-4.text-left
+          = "Total applications: #{@count}"
+        .col-md-2.text-right
+          %label{for: "job[:slug]"}
+            Prefered Roles
+        .col-md-3.text-right
+          = form_tag application_for_events_path(@event), method: 'get' do
+            = collection_select(:job, :slug, @event.jobs, :slug, :title, {selected: params[:job] ? params[:job][:slug]: nil, include_blank: "All roles"}, class: "form-control")
+            / # = submit_tag('Filter', class: 'btn btn-sm btn-default', id: 'job_slug_button')
+        .col-md-3.text-right
           = link_to "View all applications ->", index_all_event_application_for_events_path(@event)
 
 .col-md-10.col-md-offset-1.event_header
@@ -23,12 +30,12 @@
               %th
                 = sortable "users.last_name", "Volunteer [sort]"
               %th
-                = sortable "created_at", "Submitted [sort]"
+                = sortable "application_for_events.created_at", "Submitted [sort]"
               %th Accept
               / %th Shift
               %th Application
               %th 
-                = sortable "rating", "Rating [sort]"
+                = sortable "application_for_events.rating", "Rating [sort]"
           %tbody
             = render partial: "application", collection: @applications
 

@@ -12,7 +12,11 @@ $(document).on 'turbolinks:load', ->
 $(document).on 'turbolinks:load', ->
   $('.star-rating img').click ->
     form = $(this).closest('form')[0]
-    console.log form
     Rails.fire form, 'submit'
+    return
+
+  $('#job_slug').change ->
+    form = $(this).closest('form')[0]
+    form.submit()
     return
 
