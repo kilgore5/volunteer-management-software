@@ -5,27 +5,40 @@
   .row
     = simple_form_for @user, :html => { :class => 'form-inline' } do |f|
       = f.error_notification  
-      .col-md-4
+      .col-md-4#user_image
         = image_tag @user.avatar.url(:thumb)
-      .col-md-8
+      .col-md-6
         .inputs
-          = f.input :avatar, label: false    
-      .col-md-12
+          = f.input :avatar, label: false
+      .col-md-6#user_image_submit{style: "display: none"}
         .actions.text-right
           = f.button :submit, "Update Avatar"
 .user-details.panel.default
   .row
-    .col-md-12        
+    .col-md-12
       = @user.full_name
       %br
       = @user.email
       %br
       = @user.mobile_number
-      %hr      
+      %hr
   .row
-    .col-md-12         
+    .col-md-12
       %br
       = @user.birthday
+
+/ Temporary JS until account area is cleaned up
+/ Lots of errors from people clicking the button 'update image' without inputting an image
+:javascript
+  var inputElement = document.getElementById("user_avatar");
+  inputElement.addEventListener("change", handleFiles, false);
+  function handleFiles() {
+    var fileList = this.files; /* now you can work with the file list */
+    console.log(this.files[0]);
+    $('#user_image').hide();
+    $('#user_image_submit').show();
+  }
+
 / %br
 / %b Shifts made:
 / = @user.shifts_made
