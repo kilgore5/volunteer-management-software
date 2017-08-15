@@ -12,7 +12,7 @@
   %tbody
     %tr
       %td
-        = link_to image_tag(application.user.avatar), application.user
+        = link_to image_tag(application.user.avatar, {style: "max-width: 80px;"}), application.user
       %td
         = link_to application.user.full_name, application.user
       %td
