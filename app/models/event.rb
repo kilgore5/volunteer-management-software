@@ -26,8 +26,11 @@ class Event < ApplicationRecord
 
   belongs_to              :client_owner, class_name: "User"
   has_many                :event_days
-  has_many                :accepted_volunteers, class_name: "User"
-  has_many                :applied_volunteers, class_name: "User"
+
+  # FIX_ME - this relationship is not setup properly at the minute
+  # has_many                :accepted_volunteers, class_name: "User"
+  # has_many                :applied_volunteers, class_name: "User"
+
   has_many                :applications, class_name: "ApplicationForEvent"
 
   # Allows 'friendly' slugs

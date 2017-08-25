@@ -50,3 +50,4 @@ bower.json
 
 # Ignore database dumps
 *.dump
+*.dump.*

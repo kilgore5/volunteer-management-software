@@ -48,8 +48,9 @@
 
 class User < ApplicationRecord
 
-  has_and_belongs_to_many :accepted_events, class_name: "Event"
-  has_and_belongs_to_many :applied_events, class_name: "Event"
+  # FIX_ME - this relationship is not setup properly at the minute
+  # has_and_belongs_to_many :accepted_events, class_name: "Event"
+  # has_and_belongs_to_many :applied_events, class_name: "Event"
 
   has_many :applications, class_name: "ApplicationForEvent"
 
