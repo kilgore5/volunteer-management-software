@@ -116,7 +116,7 @@ class ApplicationForEventsController < ApplicationController
   def accept_multiple
     respond_to do |format|
       @applications = ApplicationForEvent.where(id: params[:application_ids])
-      if @applications.update_all(accepted: true)
+      if ApplicationForEvent.where(id: params[:application_ids]).update_all(accepted: true)
         format.html { redirect_to request.referrer, notice: 'The applications have been approved!' }
         @applications.each do |app|
           ApplicationResponseMailer.application_accepted_email(app.user, app, app.event).deliver
