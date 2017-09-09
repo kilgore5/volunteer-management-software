@@ -96,7 +96,7 @@ class ApplicationForEventsController < ApplicationController
     respond_to do |format|
       if @application.update_attributes(:invitation_accepted => true)
         format.html { redirect_to edit_user_path(@current_user), notice: 'Your volunteer position has been secured!' }
-        ApplicationResponseMailer.accepted_invitation_confirmation_email(@user, @application, @event).deliver
+        # ApplicationResponseMailer.accepted_invitation_confirmation_email(@user, @application, @event).deliver
       else
         format.html { redirect_to edit_user_path(@current_user), notice: 'Oops, something went wrong; please try again.' }
       end
