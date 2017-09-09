@@ -23,21 +23,29 @@
   .panel.default
     .top-key-factor
       .event_day__inner
-        %table.table.table-hover
-          %thead
-            %tr.sortable
-              %th #
-              %th
-                = sortable "users.last_name", "Volunteer [sort]"
-              %th
-                = sortable "application_for_events.created_at", "Submitted [sort]"
-              %th Accept
-              / %th Shift
-              %th Application
-              %th 
-                = sortable "application_for_events.rating", "Rating [sort]"
-          %tbody
-            = render partial: "application", collection: @applications
+        = form_tag edit_multiple_application_for_events_path do
+          %table.table.table-hover
+            %thead
+              %tr.sortable
+                %th #
+                %th
+                  = sortable "users.last_name", "Volunteer [sort]"
+                %th
+                  = sortable "application_for_events.created_at", "Submitted [sort]"
+                %th Application
+                %th 
+                  = sortable "application_for_events.rating", "Rating [sort]"
+                %th Accept
+            %tbody
+              = render partial: "application", collection: @applications
+              %tr
+                %th
+                %th
+                %th
+                %th
+                %th
+                %th
+                  = submit_tag "Approve"
 
 .col-md-10.col-md-offset-1.lower_footer
   .panel.default.with-pagination

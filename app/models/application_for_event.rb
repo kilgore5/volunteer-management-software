@@ -14,6 +14,7 @@
 #  friends_or_referrals :text
 #  terms_accepted       :boolean
 #  rating               :integer          default(0)
+#  invitation_accepted  :boolean
 #
 # Indexes
 #

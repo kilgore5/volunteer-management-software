@@ -41,7 +41,13 @@ Rails.application.routes.draw do
 
   resources :application_for_events do
     get 'approve', on: :member
+    get 'accept_invitation', on: :member
     get 'submitted'
+    collection do
+      post 'edit_multiple'
+      put  'update_multiple'
+      put  'accept_multiple'
+    end
   end
 
   root to: "pages#home"

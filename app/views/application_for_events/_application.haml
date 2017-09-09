@@ -8,11 +8,6 @@
     = link_to "#{user.last_name.titleize}, #{user.first_name.titleize}", application.user
   %td 
     = application.created_at.strftime("%d/%m/%Y")
-  %td 
-    - if application.accepted?
-      Yep
-    - else
-      = link_to "Approve", approve_application_for_event_path(application), remote: true, class: "btn btn-info"
   / %td
   /   TODO
   %td
@@ -20,3 +15,9 @@
   %td
     = simple_form_for application, remote: true, authenticity_token: true do |f|
       .star-rating{data: {score: application.rating }}
+  %td 
+    / - if application.accepted?
+    /   Yep
+    / - else
+    /   = link_to "Approve", approve_application_for_event_path(application), remote: true, class: "btn btn-info"
+    = check_box_tag "application_ids[]", application.id

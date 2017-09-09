@@ -4,7 +4,7 @@ class ApplicationForEventsController < ApplicationController
   before_action :sign_me_up
   before_action :client_and_up, only: [:index]
   before_action :set_event, except: [:approve, :show]
-  before_action :set_application, only: [:show, :update, :approve, :edit]
+  before_action :set_application, only: [:show, :update, :approve, :edit, :accept_invitation]
   before_action :set_user, only: [:new, :create, :update, :edit]
   # before_action :ensure_current_user_owns_application, only: [:edit, :update, :destroy]
   helper_method :sort_column, :sort_direction
@@ -92,6 +92,16 @@ class ApplicationForEventsController < ApplicationController
     end
   end
 
+  def accept_invitation
+    respond_to do |format|
+      if @application.update_attributes(:invitation_accepted => true)
+        format.html { redirect_to edit_user_path(@current_user), notice: 'Your volunteer position has been secured!' }
+      else
+        format.html { redirect_to edit_user_path(@current_user), notice: 'Oops, something went wrong; please try again.' }
+      end
+    end
+  end
+
   private
 
     # Finds the apps given certain filters
@@ -158,7 +168,21 @@ class ApplicationForEventsController < ApplicationController
       else
         redirect_to new_user_registration_path(ref: "apply")
       end
-    end  
+    end
+
+    # Incomplete 
+    # http://railscasts.com/episodes/165-edit-multiple?view=asciicast
+    def edit_multiple
+        
+    end
+      
+    def update_multiple
+       
+    end
+
+    def accept_multiple
+      ApplicationForEvent.update_all(["accepted_at"])
+    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def application_params
@@ -183,7 +207,7 @@ class ApplicationForEventsController < ApplicationController
                                               :description,
                                               :medical_conditions,
                                               :_destroy,
-                                              preferred_department_ids: [],                                              
+                                              preferred_department_ids: [],
                                               skills_attributes: [  :name,
                                                                     :id,
                                                                     :proof_document,
@@ -195,8 +219,8 @@ class ApplicationForEventsController < ApplicationController
                                                                               :relationship,
                                                                               :_destroy
                                                                             ]
-                                              ]                                              
+                                              ]
                       )
-    end    
+    end
 
 end
