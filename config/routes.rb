@@ -46,9 +46,12 @@ Rails.application.routes.draw do
     collection do
       post 'edit_multiple'
       put  'update_multiple'
-      put  'accept_multiple'
+      # put  'accept_multiple'
     end
   end
+
+  # resources :application_for_events, :collection => { :accept_multiple => :put }
+  patch 'accept_multiple', to: 'application_for_events#accept_multiple', as: :accept_multiple
 
   root to: "pages#home"
   # root to: "events#show", :id => Event.last.id

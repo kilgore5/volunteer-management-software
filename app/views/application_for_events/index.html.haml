@@ -23,7 +23,7 @@
   .panel.default
     .top-key-factor
       .event_day__inner
-        = form_tag edit_multiple_application_for_events_path do
+        = form_tag(accept_multiple_path, method: :put) do
           %table.table.table-hover
             %thead
               %tr.sortable
