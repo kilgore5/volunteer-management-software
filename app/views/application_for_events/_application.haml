@@ -7,7 +7,7 @@
   %td
     - if user
       = link_to "#{user.last_name.titleize}, #{user.first_name.titleize}", application.user
-    else
+    - else
       = "__Account Deleted__"
   %td
     = application.created_at.strftime("%d/%m/%Y")
