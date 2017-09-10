@@ -12,7 +12,8 @@
         - else
           Waiting Approval
       .col-md-3
-        = link_to 'Edit my application', edit_application_for_event_path(app)
+        / # = link_to 'Edit my application', edit_application_for_event_path(app)
+        Applications are closed
       - if app.accepted?
         %br
         %hr

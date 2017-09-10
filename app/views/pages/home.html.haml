@@ -3,6 +3,8 @@
   = image_tag("logos/strawberry-fields-white.png")
 %div
   / = link_to "Apply to volunteer", new_event_application_for_event_path(@current_event.id), class: "btn btn-info btn-lg centered"
-  %h2{class: "centeredbin"} Applications for 2017 are now closed!
+  %h2{class: "centered"} Applications for 2017 are now closed!
   - if !user_signed_in?
-    = link_to('Login', new_user_session_path, class: "btn btn-info btn-lg centered")
+    = link_to('Login', new_user_session_path, class: "btn btn-info btn-lg centered"
+  - else
+    = link_to 'My Details', edit_user_path(current_user)
