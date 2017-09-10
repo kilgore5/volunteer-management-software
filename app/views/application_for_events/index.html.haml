@@ -18,7 +18,15 @@
             / # = submit_tag('Filter', class: 'btn btn-sm btn-default', id: 'job_slug_button')
         .col-md-3.text-right
           = link_to "View all applications ->", index_all_event_application_for_events_path(@event)
-
+  .panel.default
+    .top-key-factor
+      .event_day__inner.row.filters
+        .col-md-4.text-left
+          = "Accepted applications: #{@accepted}"
+        .col-md-4.text-right
+          = "Positions Required: TODO"
+        .col-md-4.text-right
+          = "Confirmed spots: #{@confirmed}"
 .col-md-10.col-md-offset-1.event_header
   .panel.default
     .top-key-factor
@@ -35,16 +43,20 @@
                 %th Application
                 %th 
                   = sortable "application_for_events.rating", "Rating [sort]"
-                %th Accept
+                %th
+                  = sortable "application_for_events.accepted", "Acceptance"
+                %th
+                  = sortable "application_for_events.invitation_accepted", "Confirmed"
             %tbody
               = render partial: "application", collection: @applications
+            %tfoot
               %tr
-                %th
-                %th
-                %th
-                %th
-                %th
-                %th
+                %td
+                %td
+                %td
+                %td
+                %td
+                %td{colspan: "2"}
                   = submit_tag "Approve"
 
 .col-md-10.col-md-offset-1.lower_footer

@@ -18,23 +18,40 @@
             / # = submit_tag('Filter', class: 'btn btn-sm btn-default', id: 'job_slug_button')
         .col-md-3.text-right
           = link_to "<- View paged applications", event_application_for_events_path(@event)
+  .panel.default
+    .top-key-factor
+      .event_day__inner.row.filters
+        .col-md-4.text-left
+          = "Accepted applications: #{@accepted}"
+        .col-md-4.text-right
+          = "Positions Required: TODO"
+        .col-md-4.text-right
+          = "Confirmed spots: #{@confirmed}"
 
 .col-md-10.col-md-offset-1.event_header
   .panel.default
     .top-key-factor
       .event_day__inner
-        %table.table.table-hover
-          %thead
-            %tr.sortable
-              %th #
-              %th
-                = sortable "users.last_name", "Volunteer [sort]"
-              %th
-                = sortable "created_at", "Submitted [sort]"
-              %th Accept
-              / %th Shift
-              %th Application
-              %th 
-                = sortable "rating", "Rating [sort]"
-          %tbody
-            = render partial: "application", collection: @applications
+        = form_tag(accept_multiple_path, method: :put) do
+          %table.table.table-hover
+            %thead
+              %tr.sortable
+                %th #
+                %th
+                  = sortable "users.last_name", "Volunteer [sort]"
+                %th
+                  = sortable "application_for_events.created_at", "Submitted [sort]"
+                %th Application
+                %th 
+                  = sortable "application_for_events.rating", "Rating [sort]"
+                %th Accept
+            %tbody
+              = render partial: "application", collection: @applications
+              %tr
+                %th
+                %th
+                %th
+                %th
+                %th
+                %th
+                  = submit_tag "Approve"

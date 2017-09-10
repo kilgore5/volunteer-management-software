@@ -75,6 +75,10 @@ class ApplicationForEventsController < ApplicationController
 
     @count = @applications.count
 
+    @accepted = @applications.where(accepted: true).count
+
+    @confirmed = @applications.where(accepted: true, invitation_accepted: true).count
+
   end
 
   def index_all
@@ -82,6 +86,10 @@ class ApplicationForEventsController < ApplicationController
     list_all
 
     @count = @applications.count
+
+    @accepted = @applications.where(accepted: true).count
+
+    @confirmed = @applications.where(accepted: true, invitation_accepted: true).count
 
   end
 

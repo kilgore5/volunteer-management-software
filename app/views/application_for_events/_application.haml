@@ -18,12 +18,14 @@
   %td
     = simple_form_for application, remote: true, authenticity_token: true do |f|
       .star-rating{data: {score: application.rating }}
-  %td 
-    / - if application.accepted?
-    /   Yep
-    / - else
-    /   = link_to "Approve", approve_application_for_event_path(application), remote: true, class: "btn btn-info"
+  %td
     -if application.accepted
       = check_box_tag "application_ids[]", application.id, true, disabled: true
     -else
       = check_box_tag "application_ids[]", application.id
+  %td
+    -if application.accepted
+      -if application.invitation_accepted
+        = check_box_tag "confirmed", application.id, true, disabled: true
+      -else
+        = check_box_tag "confirmed", application.id, false, disabled: true
