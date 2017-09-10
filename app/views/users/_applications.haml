@@ -19,9 +19,10 @@
         %hr
         .col-md-3
           = "Actions:"
-        .col-md-10
+        .col-md-9
         - if app.invitation_accepted?
           %span{style: "color: green;"}
             Your volunteer spot is secure.  You'll soon receive your shift schedule.
         - else
-          = link_to "Accept my spot", accept_invitation_application_for_event_path(app), class: "btn btn-info"
+          = link_to "Confirm my spot", accept_invitation_application_for_event_path(app), class: "btn btn-success"
+          = link_to "Decline", decline_invitation_application_for_event_path(app), class: "btn btn-default", data: { confirm: "Are you sure?" }

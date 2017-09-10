@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170909014108) do
+ActiveRecord::Schema.define(version: 20170910223805) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,7 +29,9 @@ ActiveRecord::Schema.define(version: 20170909014108) do
     t.boolean "terms_accepted"
     t.integer "rating", default: 0
     t.boolean "invitation_accepted"
+    t.datetime "deleted_at"
     t.index ["been_before"], name: "index_application_for_events_on_been_before"
+    t.index ["deleted_at"], name: "index_application_for_events_on_deleted_at"
     t.index ["event_id"], name: "index_application_for_events_on_event_id"
     t.index ["user_id"], name: "index_application_for_events_on_user_id"
     t.index ["volunteered_before"], name: "index_application_for_events_on_volunteered_before"

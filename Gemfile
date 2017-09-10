@@ -39,6 +39,9 @@ gem 'jbuilder', '~> 2.5'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'annotate'
 
+# Allows records to be soft deleted
+gem "paranoia", "~> 2.2"
+
 # USERS // USER MANAGEMENT
   # Authentication
 gem 'devise', git: 'https://github.com/plataformatec/devise.git', branch: 'master'

@@ -15,16 +15,21 @@
 #  terms_accepted       :boolean
 #  rating               :integer          default(0)
 #  invitation_accepted  :boolean
+#  deleted_at           :datetime
 #
 # Indexes
 #
 #  index_application_for_events_on_been_before         (been_before)
+#  index_application_for_events_on_deleted_at          (deleted_at)
 #  index_application_for_events_on_event_id            (event_id)
 #  index_application_for_events_on_user_id             (user_id)
 #  index_application_for_events_on_volunteered_before  (volunteered_before)
 #
 
 class ApplicationForEvent < ApplicationRecord
+
+  acts_as_paranoid
+
   belongs_to  :event
   belongs_to  :user
   has_many    :application_preferred_jobs
