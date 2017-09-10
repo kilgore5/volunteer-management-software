@@ -20,3 +20,9 @@ $(document).on 'turbolinks:load', ->
     form.submit()
     return
 
+  $('#select_all').change ->
+    if $(this).is(':checked')
+      $('input[name="application_ids[]"]').prop('checked', true);
+    else
+      $('input[name="application_ids[]"]').prop('checked', false);
+

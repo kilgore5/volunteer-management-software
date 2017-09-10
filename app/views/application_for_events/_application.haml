@@ -13,17 +13,17 @@
     = application.created_at.strftime("%d/%m/%Y")
   / %td
   /   TODO
-  %td
+  %td.centered
     = link_to "View", application
   %td
     = simple_form_for application, remote: true, authenticity_token: true do |f|
       .star-rating{data: {score: application.rating }}
-  %td
+  %td.centered
     -if application.accepted
       = check_box_tag "application_ids[]", application.id, true, disabled: true
     -else
       = check_box_tag "application_ids[]", application.id
-  %td
+  %td.centered
     -if application.accepted
       -if application.invitation_accepted
         = check_box_tag "confirmed", application.id, true, disabled: true

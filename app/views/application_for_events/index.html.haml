@@ -47,6 +47,16 @@
                   = sortable "application_for_events.accepted", "Acceptance"
                 %th
                   = sortable "application_for_events.invitation_accepted", "Confirmed"
+              %tr.info-row
+                %td
+                %td
+                %td
+                %td
+                %td
+                %td.centered
+                  = "All "
+                  = check_box_tag "select_all"
+                %td
             %tbody
               = render partial: "application", collection: @applications
             %tfoot
@@ -56,8 +66,8 @@
                 %td
                 %td
                 %td
-                %td{colspan: "2"}
-                  = submit_tag "Approve"
+                %td{colspan: "2", class: "centered"}
+                  = submit_tag "Approve", data: { confirm: "Are you sure? This will send out acceptance emails to all selected volunteers." }
 
 .col-md-10.col-md-offset-1.lower_footer
   .panel.default.with-pagination
