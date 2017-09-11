@@ -42,6 +42,9 @@ gem 'annotate'
 # Allows records to be soft deleted
 gem "paranoia", "~> 2.2"
 
+# Deal with $$
+gem 'money-rails', '~>1'
+
 # USERS // USER MANAGEMENT
   # Authentication
 gem 'devise', git: 'https://github.com/plataformatec/devise.git', branch: 'master'

@@ -38,15 +38,19 @@
 #  provider               :string
 #  uid                    :string
 #  stripe_customer_id     :string
+#  deleted_at             :datetime
 #
 # Indexes
 #
+#  index_users_on_deleted_at            (deleted_at)
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_users_on_slug                  (slug) UNIQUE
 #
 
 class User < ApplicationRecord
+
+  acts_as_paranoid
 
   # FIX_ME - this relationship is not setup properly at the minute
   # has_and_belongs_to_many :accepted_events, class_name: "Event"
@@ -68,6 +72,10 @@ class User < ApplicationRecord
   has_many :rotations
 
   has_many :skills
+
+  # Saves amounts charged to that person
+  has_many :charges
+
   accepts_nested_attributes_for :skills, :reject_if => :all_blank, :allow_destroy => true  
 
   has_many    :volunteer_preferred_departments

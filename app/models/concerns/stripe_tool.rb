@@ -14,12 +14,29 @@ module StripeTool
     )
   end
 
-  def self.create_charge(customer_id: customer_id, amount: amount, description: description)
-    Stripe::Charge.create(
-      customer: customer_id,
-      amount: amount,
-      description: description,
-      currency: 'aud'
-    )
+  def self.create_charge(customer_id, amount, description)
+    begin
+      # Create it in Stripe
+      Stripe::Charge.create(
+        customer: customer_id,
+        amount: amount,
+        description: description,
+        currency: 'aud'
+      )
+    rescue Stripe::CardError => e
+      # Since it's a decline, Stripe::CardError will be caught
+      body = e.json_body
+      err  = body[:error]
+      #Generic Error
+      return {error: err}
+    rescue Stripe::StripeError => e
+      # Display a very generic error to the user, and maybe send
+      # yourself an email
+      body = e.json_body
+      err  = body[:error]
+      return {error: err}
+    rescue => e
+      return {error: e}
+    end
   end
 end

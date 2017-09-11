@@ -27,10 +27,7 @@ class ApplicationForEventsController < ApplicationController
                                             stripe_token: params[:stripeToken])
     # Sets the user's Stripe Account ID
     @current_user.update_attributes(stripe_customer_id: customer.id)
-    # Creates the charge for the t-shirt
-    # charge = StripeTool.create_charge(customer_id: customer.id, 
-    #                                 amount: @amount,
-    #                                 description: @description)
+
     @application = ApplicationForEvent.new(application_params)
 
     respond_to do |format|
@@ -101,13 +98,34 @@ class ApplicationForEventsController < ApplicationController
   end
 
   def accept_invitation
+
+    @customer = Stripe::Customer.retrieve(@current_user.stripe_customer_id)
+
+    # Creates the charge for the t-shirt
+    charge = StripeTool.create_charge(@customer.id, 
+                                      @amount,
+                                      @description)
+
+    error = charge[:error] ? charge[:error][:message] : nil
+
+    unless error
+      # Save it as a record to our DB
+      Charge.create(
+        user_id: @current_user.id,
+        event_id: @event.id,
+        amount_cents: @amount,
+        description: @description,
+        stripe_id: charge.id
+      )
+    end
+
     respond_to do |format|
-      if @application.update_attributes(:invitation_accepted => true)
+      if !charge[:error] && @application.update_attributes(:invitation_accepted => true)
         format.html { redirect_to edit_user_path(@current_user), notice: 'Your volunteer position has been secured!' }
         # TODO - Mailer
         # ApplicationResponseMailer.accepted_invitation_confirmation_email(@user, @application, @event).deliver
       else
-        format.html { redirect_to edit_user_path(@current_user), notice: 'Oops, something went wrong; please try again.' }
+        format.html { redirect_to edit_user_path(@current_user), flash: { "alert-warning": "Oops, something went wrong; please try again or contact our team#{error ? '. (error: ' + error + ')' : ''}" } }
       end
     end
   end
@@ -119,7 +137,7 @@ class ApplicationForEventsController < ApplicationController
         # TODO - Mailer
         # ApplicationResponseMailer.accepted_invitation_confirmation_email(@user, @application, @event).deliver
       else
-        format.html { redirect_to edit_user_path(@current_user), notice: 'Oops, something went wrong; please try again.' }
+        format.html { redirect_to edit_user_path(@current_user), flash: { "alert-warning": "Oops, something went wrong; please try again." } }
       end
     end
   end
@@ -143,7 +161,7 @@ class ApplicationForEventsController < ApplicationController
           ApplicationResponseMailer.application_accepted_email(app.user, app, app.event).deliver
         end
       else
-        format.html { redirect_to request.referrer, notice: 'Oops, something went wrong; please try again.' }
+        format.html { redirect_to request.referrer, flash: { "alert-warning": "Oops, something went wrong; please try again." } }
       end
     end
   end
@@ -188,11 +206,11 @@ class ApplicationForEventsController < ApplicationController
 
     def set_user
       @current_user = current_user
-    end  
+    end
 
     def set_event
       @event = params[:event_id] ? Event.friendly.find(params[:event_id]) : @current_event
-      @description = @event.initial_charge_description ? @event.initial_charge_description : "T Shirt for volunteering"
+      @description = @event.initial_charge_description ? @event.initial_charge_description : "T Shirt for volunteer shift"
       @amount = @event.initial_charge_cents ? @event.initial_charge_cents : 1500
     end
 

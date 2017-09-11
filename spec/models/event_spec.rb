@@ -15,10 +15,12 @@
 #  application_closing_date   :datetime
 #  initial_charge_description :string
 #  initial_charge_cents       :integer
+#  deleted_at                 :datetime
 #
 # Indexes
 #
 #  index_events_on_client_owner_id  (client_owner_id)
+#  index_events_on_deleted_at       (deleted_at)
 #  index_events_on_slug             (slug)
 #
 

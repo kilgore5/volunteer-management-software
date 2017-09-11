@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170910223805) do
+ActiveRecord::Schema.define(version: 20170910235624) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,19 @@ ActiveRecord::Schema.define(version: 20170910223805) do
     t.datetime "updated_at", null: false
     t.index ["application_for_event_id"], name: "index_application_preferred_jobs_on_application_for_event_id"
     t.index ["job_id"], name: "index_application_preferred_jobs_on_job_id"
+  end
+
+  create_table "charges", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "event_id"
+    t.uuid "user_id"
+    t.integer "amount_cents", default: 0, null: false
+    t.string "amount_currency", default: "AUD", null: false
+    t.string "description"
+    t.string "stripe_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_charges_on_event_id"
+    t.index ["user_id"], name: "index_charges_on_user_id"
   end
 
   create_table "emergency_contacts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -100,7 +113,9 @@ ActiveRecord::Schema.define(version: 20170910223805) do
     t.datetime "application_closing_date"
     t.string "initial_charge_description"
     t.integer "initial_charge_cents"
+    t.datetime "deleted_at"
     t.index ["client_owner_id"], name: "index_events_on_client_owner_id"
+    t.index ["deleted_at"], name: "index_events_on_deleted_at"
     t.index ["slug"], name: "index_events_on_slug"
   end
 
@@ -229,6 +244,8 @@ ActiveRecord::Schema.define(version: 20170910223805) do
     t.string "provider"
     t.string "uid"
     t.string "stripe_customer_id"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_users_on_slug", unique: true

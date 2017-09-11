@@ -38,9 +38,11 @@
 #  provider               :string
 #  uid                    :string
 #  stripe_customer_id     :string
+#  deleted_at             :datetime
 #
 # Indexes
 #
+#  index_users_on_deleted_at            (deleted_at)
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_users_on_slug                  (slug) UNIQUE
