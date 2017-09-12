@@ -14,8 +14,8 @@ class ApplicationResponseMailer < ApplicationMailer
     @user = user
     @application = application
     @event = event
-    @url  = edit_user_url(@user)
-    subject = 'Your ' + @event.name + ' volunteer application has been accepted!'
+    # @url  = edit_user_url(@user)
+    subject = 'Your ' + @event.name + ' volunteer position is secure!'
     mail(to: @user.email, subject: subject)
   end
 end

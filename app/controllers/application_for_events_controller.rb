@@ -123,7 +123,7 @@ class ApplicationForEventsController < ApplicationController
       if !charge[:error] && @application.update_attributes(:invitation_accepted => true)
         format.html { redirect_to edit_user_path(@current_user), notice: 'Your volunteer position has been secured!' }
         # TODO - Mailer
-        # ApplicationResponseMailer.accepted_invitation_confirmation_email(@user, @application, @event).deliver
+        ApplicationResponseMailer.accepted_invitation_confirmation_email(@current_user, @application, @event).deliver
       else
         format.html { redirect_to edit_user_path(@current_user), flash: { "alert-warning": "Oops, something went wrong; please try again or contact our team#{error ? '. (error: ' + error + ')' : ''}" } }
       end
