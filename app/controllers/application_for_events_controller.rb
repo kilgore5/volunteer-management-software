@@ -123,7 +123,7 @@ class ApplicationForEventsController < ApplicationController
       if !charge[:error] && @application.update_attributes(:invitation_accepted => true)
         format.html { redirect_to edit_user_path(@current_user), notice: 'Your volunteer position has been secured!' }
         # TODO - Mailer
-        ApplicationResponseMailer.accepted_invitation_confirmation_email(@current_user, @application, @event).deliver
+        ApplicationResponseMailer.accepted_invitation_confirmation_email(@current_user, @application, @event).deliver_later
       else
         format.html { redirect_to edit_user_path(@current_user), flash: { "alert-warning": "Oops, something went wrong; please try again or contact our team#{error ? '. (error: ' + error + ')' : ''}" } }
       end
@@ -135,7 +135,7 @@ class ApplicationForEventsController < ApplicationController
       if @application.destroy
         format.html { redirect_to edit_user_path(@current_user), notice: 'Your volunteer application has been removed.' }
         # TODO - Mailer
-        # ApplicationResponseMailer.accepted_invitation_confirmation_email(@user, @application, @event).deliver
+        # ApplicationResponseMailer.accepted_invitation_confirmation_email(@user, @application, @event).deliver_later
       else
         format.html { redirect_to edit_user_path(@current_user), flash: { "alert-warning": "Oops, something went wrong; please try again." } }
       end
@@ -158,7 +158,7 @@ class ApplicationForEventsController < ApplicationController
       if ApplicationForEvent.where(id: params[:application_ids]).update_all(accepted: true)
         format.html { redirect_to request.referrer, notice: 'The applications have been approved!' }
         @applications.each do |app|
-          ApplicationResponseMailer.application_accepted_email(app.user, app, app.event).deliver
+          ApplicationResponseMailer.application_accepted_email(app.user, app, app.event).deliver_later
         end
       else
         format.html { redirect_to request.referrer, flash: { "alert-warning": "Oops, something went wrong; please try again." } }
