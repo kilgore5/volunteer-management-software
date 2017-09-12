@@ -24,5 +24,8 @@
           %span{style: "color: green;"}
             Your volunteer spot is secure.  You'll soon receive your shift schedule.
         - else
-          = link_to "Confirm my spot", accept_invitation_application_for_event_path(app), class: "btn btn-success", data: { confirm: "Securing your spot requires a $15 volunteer t-shirt purchase; this will be charged to your card." }
-          = link_to "Decline", decline_invitation_application_for_event_path(app), class: "btn btn-default", data: { confirm: "Are you sure?" }
+          - if @user.stripe_customer_id.nil?
+            = "We don't have a credit card on file for your account.  We can't confirm your spot without one.  Please contact volunteers@strawberry-fields.com.au to continue with your position."
+          - else
+            = link_to "Confirm my spot", accept_invitation_application_for_event_path(app), class: "btn btn-success", data: { confirm: "Securing your spot requires a $15 volunteer t-shirt purchase; this will be charged to your card." }
+            = link_to "Decline", decline_invitation_application_for_event_path(app), class: "btn btn-default", data: { confirm: "Are you sure?" }
