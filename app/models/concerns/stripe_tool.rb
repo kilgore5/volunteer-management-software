@@ -39,4 +39,21 @@ module StripeTool
       return {error: e}
     end
   end
+
+  def self.find_customer(stripe_id)
+    begin
+      # Find Customer
+      Stripe::Customer.retrieve(
+        stripe_id
+      )
+    rescue Stripe::StripeError => e
+      # Display a very generic error to the user, and maybe send
+      # yourself an email
+      body = e.json_body
+      err  = body[:error]
+      return {error: err}
+    rescue => e
+      return {error: e}
+    end
+  end
 end

@@ -5,7 +5,7 @@ class ApplicationForEventsController < ApplicationController
   before_action :client_and_up, only: [:index]
   before_action :set_event, except: [:approve, :show]
   before_action :set_application, only: [:show, :update, :approve, :edit, :accept_invitation, :decline_invitation]
-  before_action :set_user, only: [:new, :create, :update, :edit, :accept_invitation, :decline_invitation]
+  before_action :set_user, only: [:new, :create, :update, :edit]
   # before_action :ensure_current_user_owns_application, only: [:edit, :update, :destroy]
   helper_method :sort_column, :sort_direction
 
@@ -93,19 +93,36 @@ class ApplicationForEventsController < ApplicationController
 
   def accept_invitation
 
-    @customer = Stripe::Customer.retrieve(@current_user.stripe_customer_id)
+    @user = @application.user
 
-    # Creates the charge for the t-shirt
-    charge = StripeTool.create_charge(@customer.id, 
-                                      @amount,
-                                      @description)
+    # Don't proceed without customer ID
+    if @user.stripe_customer_id.nil?
+      redirect_to edit_user_path(@user), flash: { "alert-warning": "It looks like we don't have your card details on file; please try entering them." }
+      return
+    end
+
+    # Finds the customer from Stripe
+    customer = StripeTool.find_customer(@user.stripe_customer_id)
+
+    failure = customer[:error] ? customer[:error][:message] : nil
+
+    # Don't proceed without customer ID
+    if failure
+      redirect_to edit_user_path(@user), flash: { "alert-warning": "It looks like we don't have your card details on file; please try entering them." }
+      return
+    else
+      # Creates the charge for the t-shirt
+      charge = StripeTool.create_charge(customer.id, 
+                                        @amount,
+                                        @description)
+    end
 
     error = charge[:error] ? charge[:error][:message] : nil
 
     unless error
       # Save it as a record to our DB
       Charge.create(
-        user_id: @current_user.id,
+        user_id: @user.id,
         event_id: @event.id,
         amount_cents: @amount,
         description: @description,
@@ -115,23 +132,24 @@ class ApplicationForEventsController < ApplicationController
 
     respond_to do |format|
       if !charge[:error] && @application.update_attributes(:invitation_accepted => true)
-        format.html { redirect_to edit_user_path(@current_user), notice: 'Your volunteer position has been secured!' }
+        format.html { redirect_to edit_user_path(@user), notice: 'Your volunteer position has been secured!' }
         # TODO - Mailer
         ApplicationResponseMailer.accepted_invitation_confirmation_email(@current_user, @application, @event).deliver_later
       else
-        format.html { redirect_to edit_user_path(@current_user), flash: { "alert-warning": "Oops, something went wrong; please try again or contact our team#{error ? '. (error: ' + error + ')' : ''}" } }
+        format.html { redirect_to edit_user_path(@user), flash: { "alert-warning": "Oops, something went wrong; please try again or contact our team#{error ? '. (payment error: ' + error + ')' : ''}" } }
       end
     end
   end
 
   def decline_invitation
+    @user = @application.user
     respond_to do |format|
       if @application.destroy
-        format.html { redirect_to edit_user_path(@current_user), notice: 'Your volunteer application has been removed.' }
+        format.html { redirect_to edit_user_path(@user), notice: 'Your volunteer application has been removed.' }
         # TODO - Mailer
         # ApplicationResponseMailer.accepted_invitation_confirmation_email(@user, @application, @event).deliver_later
       else
-        format.html { redirect_to edit_user_path(@current_user), flash: { "alert-warning": "Oops, something went wrong; please try again." } }
+        format.html { redirect_to edit_user_path(@user), flash: { "alert-warning": "Oops, something went wrong; please try again." } }
       end
     end
   end
