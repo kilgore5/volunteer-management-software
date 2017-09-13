@@ -18,11 +18,21 @@
   %td
     = simple_form_for application, remote: true, authenticity_token: true do |f|
       .star-rating{data: {score: application.rating }}
-  %td.centered
-    -if application.accepted
-      = check_box_tag "application_ids[]", application.id, true, disabled: true
-    -else
-      = check_box_tag "application_ids[]", application.id
+  -if application.accepted
+    %td.centered
+      = check_box_tag "application_ids_accept[]", application.id, true, disabled: true
+    %td.centered
+      = check_box_tag "application_ids_deny[]", application.id, false, disabled: true
+  -elsif application.denied
+    %td.centered
+      = check_box_tag "application_ids_accept[]", application.id, false, disabled: true
+    %td.centered
+      = check_box_tag "application_ids_deny[]", application.id, true, disabled: true
+  -else
+    %td.centered
+      = check_box_tag "application_ids_accept[]", application.id
+    %td.centered
+      = check_box_tag "application_ids_deny[]", application.id
   %td.centered
     -if application.accepted
       -if application.invitation_accepted

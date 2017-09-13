@@ -3,7 +3,7 @@
   %br
   %h3= "for: #{@event.name}"
 
-.col-md-10.col-md-offset-1.upper_header
+.col-md-12.upper_header
   .panel.default
     .top-key-factor
       .event_day__inner.row.filters
@@ -14,20 +14,25 @@
             Prefered Roles
         .col-md-3.text-right
           = form_tag application_for_events_path(@event), method: 'get' do
+            = hidden_field_tag "view", @view_type == "paged" ? "" : "all"
             = collection_select(:job, :slug, @event.jobs, :slug, :title, {selected: params[:job] ? params[:job][:slug]: nil, include_blank: "All roles"}, class: "form-control")
-            / # = submit_tag('Filter', class: 'btn btn-sm btn-default', id: 'job_slug_button')
         .col-md-3.text-right
-          = link_to "View all applications ->", index_all_event_application_for_events_path(@event)
+          - if @view_type == "paged"
+            = link_to "View all applications ->", event_application_for_events_path(@event, view: "all")
+          - else
+            = link_to "View paged applications ->", event_application_for_events_path(@event)
   .panel.default
     .top-key-factor
       .event_day__inner.row.filters
-        .col-md-4.text-left
+        .col-md-3.text-left
           = "Accepted applications: #{@accepted}"
-        .col-md-4.text-right
+        .col-md-3.text-left
+          = "Denied applications: #{@denied}"
+        .col-md-3.text-right
           = "Positions Required: TODO"
-        .col-md-4.text-right
+        .col-md-3.text-right
           = "Confirmed spots: #{@confirmed}"
-.col-md-10.col-md-offset-1.event_header
+.col-md-12.event_header
   .panel.default
     .top-key-factor
       .event_day__inner
@@ -44,9 +49,11 @@
                 %th 
                   = sortable "application_for_events.rating", "Rating [sort]"
                 %th
-                  = sortable "application_for_events.accepted", "Acceptance"
+                  = sortable "application_for_events.accepted", "Approve"
                 %th
-                  = sortable "application_for_events.invitation_accepted", "Confirmed"
+                  = sortable "application_for_events.denied", "Deny"
+                %th
+                  = sortable "application_for_events.invitation_accepted", "Confirmed ?"
               %tr.info-row
                 %td
                 %td
@@ -55,7 +62,10 @@
                 %td
                 %td.centered
                   = "All "
-                  = check_box_tag "select_all"
+                  = check_box_tag "select_all_accept"
+                %td.centered
+                  = "All "
+                  = check_box_tag "select_all_deny"
                 %td
             %tbody
               = render partial: "application", collection: @applications
@@ -66,11 +76,13 @@
                 %td
                 %td
                 %td
-                %td{colspan: "2", class: "centered"}
-                  = submit_tag "Approve", data: { confirm: "Are you sure? This will send out acceptance emails to all selected volunteers." }
+                %td{colspan: 2, class: "centered"}
+                  = submit_tag "Submit & Send", data: { confirm: "Are you sure? This will send out acceptance emails to all selected volunteers." }
+                %td
 
-.col-md-10.col-md-offset-1.lower_footer
-  .panel.default.with-pagination
-    .top-key-factor
-      .event_day__inner
-        = will_paginate @applications
+-if @view_type == "paged"
+  .col-md-12.lower_footer
+    .panel.default.with-pagination
+      .top-key-factor
+        .event_day__inner
+          = will_paginate @applications

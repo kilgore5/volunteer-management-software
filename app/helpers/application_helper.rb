@@ -26,7 +26,7 @@ module ApplicationHelper
     else
       direction = column == sort_column && sort_direction == "desc" ? "asc" : "desc"
     end
-    link_to title, {sort: column, direction: direction, job: ({slug: params[:job][:slug]} if params[:job])}, {:class => css_class}
+    link_to title, {sort: column, direction: direction, job: ({slug: params[:job][:slug]} if params[:job]), view: @view_type == "paged" ? "" : "all"}, {:class => css_class}
   end
 
   # Creates active class for menu links

@@ -16,6 +16,7 @@
 #  rating               :integer          default(0)
 #  invitation_accepted  :boolean
 #  deleted_at           :datetime
+#  denied               :boolean
 #
 # Indexes
 #

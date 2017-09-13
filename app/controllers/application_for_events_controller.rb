@@ -65,26 +65,20 @@ class ApplicationForEventsController < ApplicationController
 
     list_all
 
-    # Used in view partial to display index on page
-    @number_per_page = 20
-
-    @applications = @applications.paginate(page: params[:page], per_page: @number_per_page)
-
-    @count = @applications.count
-
-    @accepted = @applications.where(accepted: true).count
-
-    @confirmed = @applications.where(accepted: true, invitation_accepted: true).count
-
-  end
-
-  def index_all
-
-    list_all
+    # view all or paged
+    if params[:view] == "all"
+      @view_type = "all"
+    else
+      @view_type = "paged"
+      @number_per_page = 30
+      @applications = @applications.paginate(page: params[:page], per_page: @number_per_page)
+    end
 
     @count = @applications.count
 
     @accepted = @applications.where(accepted: true).count
+
+    @denied = @applications.where(accepted: true).count
 
     @confirmed = @applications.where(accepted: true, invitation_accepted: true).count
 
@@ -154,12 +148,22 @@ class ApplicationForEventsController < ApplicationController
 
   def accept_multiple
     respond_to do |format|
-      @applications = ApplicationForEvent.where(id: params[:application_ids])
-      if ApplicationForEvent.where(id: params[:application_ids]).update_all(accepted: true)
-        format.html { redirect_to request.referrer, notice: 'The applications have been approved!' }
-        @applications.each do |app|
+
+      @approved_applications = ApplicationForEvent.where(id: params[:application_ids_accept])
+      @denied_applications = ApplicationForEvent.where(id: params[:application_ids_deny])
+
+      if ApplicationForEvent.where(id: params[:application_ids_accept]).update_all(accepted: true) && ApplicationForEvent.where(id: params[:application_ids_deny]).update_all(denied: true)
+
+        format.html { redirect_to request.referrer, notice: 'The applications have been processed!' }
+
+        @approved_applications.each do |app|
           ApplicationResponseMailer.application_accepted_email(app.user, app, app.event).deliver_later
         end
+
+        @denied_applications.each do |app|
+          ApplicationResponseMailer.application_denied_email(app.user, app, app.event).deliver_later
+        end
+
       else
         format.html { redirect_to request.referrer, flash: { "alert-warning": "Oops, something went wrong; please try again." } }
       end
