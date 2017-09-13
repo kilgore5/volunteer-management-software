@@ -78,7 +78,7 @@ class ApplicationForEventsController < ApplicationController
 
     @accepted = @applications.where(accepted: true).count
 
-    @denied = @applications.where(accepted: true).count
+    @denied = @applications.where(denied: true).count
 
     @confirmed = @applications.where(accepted: true, invitation_accepted: true).count
 
