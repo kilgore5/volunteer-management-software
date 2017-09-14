@@ -16,8 +16,7 @@
   %td.centered
     = link_to "View", application
   %td
-    = simple_form_for application, remote: true, authenticity_token: true do |f|
-      .star-rating{data: {score: application.rating }}
+    .star-rating{data: {score: application.rating, id: application.id }}
   -if application.accepted
     %td.centered
       = check_box_tag "application_ids_accept[]", application.id, true, disabled: true

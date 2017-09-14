@@ -11,7 +11,10 @@ $(document).on 'turbolinks:load', ->
 
 $(document).on 'turbolinks:load', ->
   $('.star-rating img').click ->
-    form = $(this).closest('form')[0]
+    id = $(this).parent().attr 'data-id'
+    form = $("#edit_application_for_event_" + id)[0]
+    input = $(this).parent().find('input[name="application_for_event[rating]"]')[0]
+    form.append(input)
     Rails.fire form, 'submit'
     return
 

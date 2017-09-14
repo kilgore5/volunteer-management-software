@@ -86,3 +86,10 @@
       .top-key-factor
         .event_day__inner
           = will_paginate @applications
+
+.col-md-12
+  / Hacky, but needed for the ratings as I can't nest them above (form within form)
+  - @applications.each do |app|
+    = simple_form_for app, remote: true, authenticity_token: true do |f|
+      %span
+
