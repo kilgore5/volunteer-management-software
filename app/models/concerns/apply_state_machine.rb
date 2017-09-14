@@ -55,13 +55,13 @@ module ApplyStateMachine
       puts "sending user notification"
       case aasm.to_state
         when :accepted
-          # ApplicationResponseMailer.accepted(self.user, self, self.event).deliver_later
+          ApplicationResponseMailer.accepted(self.user, self, self.event).deliver_later
         when :waitlisted
-          # ApplicationResponseMailer.waitlisted(self.user, self, self.event).deliver_later
+          ApplicationResponseMailer.waitlisted(self.user, self, self.event).deliver_later
         when :denied
-          # ApplicationResponseMailer.denied(self.user, self, self.event).deliver_later
+          ApplicationResponseMailer.denied(self.user, self, self.event).deliver_later
         when :confirmed
-          # ApplicationResponseMailer.confirmed(self.user, self, self.event).deliver_later
+          ApplicationResponseMailer.confirmed(self.user, self, self.event).deliver_later
       end
     end
 
