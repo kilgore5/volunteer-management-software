@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170914160614) do
+ActiveRecord::Schema.define(version: 20170914190346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,7 +27,6 @@ ActiveRecord::Schema.define(version: 20170914160614) do
 
   create_table "applies", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "event_id"
-    t.boolean "accepted", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "info"
@@ -37,9 +36,8 @@ ActiveRecord::Schema.define(version: 20170914160614) do
     t.text "friends_or_referrals"
     t.boolean "terms_accepted"
     t.integer "rating", default: 0
-    t.boolean "invitation_accepted"
     t.datetime "deleted_at"
-    t.boolean "denied"
+    t.string "state"
     t.index ["been_before"], name: "index_applies_on_been_before"
     t.index ["deleted_at"], name: "index_applies_on_deleted_at"
     t.index ["event_id"], name: "index_applies_on_event_id"

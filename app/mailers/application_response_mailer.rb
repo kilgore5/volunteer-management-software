@@ -2,7 +2,7 @@ class ApplicationResponseMailer < ApplicationMailer
 
 
   # Admins to User
-  def application_accepted_email(user, application, event)
+  def accepted(user, application, event)
     @user = user
     @application = application
     @event = event
@@ -11,7 +11,15 @@ class ApplicationResponseMailer < ApplicationMailer
     mail(to: @user.email, subject: subject)
   end
 
-  def application_denied_email(user, application, event)
+  def waitlisted(user, application, event)
+    @user = user
+    @application = application
+    @event = event
+    subject = "Regarding your #{@event.name} volunteer application"
+    mail(to: @user.email, subject: subject)
+  end
+
+  def denied(user, application, event)
     @user = user
     @application = application
     @event = event
@@ -20,7 +28,7 @@ class ApplicationResponseMailer < ApplicationMailer
   end
 
   # User Triggered
-  def accepted_invitation_confirmation_email(user, application, event)
+  def confirmed(user, application, event)
     @user = user
     @application = application
     @event = event

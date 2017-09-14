@@ -36,24 +36,25 @@
   .panel.default
     .top-key-factor
       .event_day__inner
-        = form_tag(accept_multiple_path, method: :put) do
+        = form_tag(accept_multiple_path, method: :patch) do
           %table.table.table-hover
             %thead
               %tr.sortable
-                %th #
+                %th{colspan: "2"} Application
                 %th
                   = sortable "users.last_name", "Volunteer [sort]"
                 %th
                   = sortable "applies.created_at", "Submitted [sort]"
-                %th Application
                 %th 
                   = sortable "applies.rating", "Rating [sort]"
                 %th
                   = sortable "applies.accepted", "Approve"
                 %th
+                  = sortable "applies.waitlisted", "Waitlist"
+                %th
                   = sortable "applies.denied", "Deny"
                 %th
-                  = sortable "applies.invitation_accepted", "Confirmed ?"
+                  = sortable "applies.confirmed", "Confirmed ?"
               %tr.info-row
                 %td
                 %td
@@ -63,6 +64,9 @@
                 %td.centered
                   = "All "
                   = check_box_tag "select_all_accept"
+                %td.centered
+                  = "All "
+                  = check_box_tag "select_all_waitlist"
                 %td.centered
                   = "All "
                   = check_box_tag "select_all_deny"
@@ -76,8 +80,8 @@
                 %td
                 %td
                 %td
-                %td{colspan: 2, class: "centered"}
-                  = submit_tag "Submit & Send", data: { confirm: "Are you sure? This will send out acceptance emails to all selected volunteers." }
+                %td{colspan: 3, class: "centered"}
+                  = submit_tag "Submit & Send", data: { confirm: "Are you sure? This will send out emails to all selected volunteers." }
                 %td
 
 -if @view_type == "paged"

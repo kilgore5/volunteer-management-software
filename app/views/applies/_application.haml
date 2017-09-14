@@ -1,9 +1,12 @@
 / Adds an index so we can show each row with a number
 -index = (!@number_per_page.nil? && params[:page]) ? ((params[:page].to_i - 1) * @number_per_page + application_counter + 1) :application_counter + 1
 -user = application.user
+-state = application.state
 %tr
-  %th{:scope => "row"}
+  %th{scope: "row"}
     #{index}
+  %td
+    = link_to "View >", application
   %td
     - if user
       = link_to "#{user.last_name.titleize}, #{user.first_name.titleize}", application.user
@@ -11,30 +14,46 @@
       = "__Account Deleted__"
   %td
     = application.created_at.strftime("%d/%m/%Y")
-  / %td
-  /   TODO
-  %td.centered
-    = link_to "View", application
   %td
     .star-rating{ data: { score: application.rating, id: application.id }}
-  -if application.accepted
-    %td.centered
-      = check_box_tag "application_ids_accept[]", application.id, true, disabled: true
-    %td.centered
-      = check_box_tag "application_ids_deny[]", application.id, false, disabled: true
-  -elsif application.denied
-    %td.centered
-      = check_box_tag "application_ids_accept[]", application.id, false, disabled: true
-    %td.centered
-      = check_box_tag "application_ids_deny[]", application.id, true, disabled: true
-  -else
-    %td.centered
-      = check_box_tag "application_ids_accept[]", application.id
-    %td.centered
-      = check_box_tag "application_ids_deny[]", application.id
+  - case state
+    - when "accepted"
+      %td.centered
+        = check_box_tag "application_ids_accepted[]", application.id, true, disabled: true
+      %td.centered
+        = check_box_tag "application_ids_waitlisted[]", application.id, false, disabled: true
+      %td.centered
+        = check_box_tag "application_ids_denied[]", application.id, false, disabled: true
+    - when "waitlisted"
+      %td.centered
+        = check_box_tag "application_ids_accept[]", application.id, false, disabled: false
+      %td.centered
+        = check_box_tag "application_ids_waitlisted[]", application.id, true, disabled: true
+      %td.centered
+        = check_box_tag "application_ids_deny[]", application.id, false, disabled: false
+    - when "denied"
+      %td.centered
+        = check_box_tag "application_ids_accepted[]", application.id, false, disabled: true
+      %td.centered
+        = check_box_tag "application_ids_waitlisted[]", application.id, false, disabled: true
+      %td.centered
+        = check_box_tag "application_ids_denied[]", application.id, true, disabled: true
+    - when "confirmed"
+      %td.centered
+        = check_box_tag "application_ids_accepted[]", application.id, true, disabled: true
+      %td.centered
+        = check_box_tag "application_ids_waitlisted[]", application.id, false, disabled: true
+      %td.centered
+        = check_box_tag "application_ids_denied[]", application.id, false, disabled: true
+    - else
+      %td.centered
+        = check_box_tag "application_ids_accept[]", application.id
+      %td.centered
+        = check_box_tag "application_ids_waitlist[]", application.id
+      %td.centered
+        = check_box_tag "application_ids_deny[]", application.id
   %td.centered
-    -if application.accepted
-      -if application.invitation_accepted
-        = check_box_tag "confirmed", application.id, true, disabled: true
-      -else
-        = check_box_tag "confirmed", application.id, false, disabled: true
+    -if application.confirmed?
+      = check_box_tag "confirmed", application.id, true, disabled: true
+    -else
+      = check_box_tag "confirmed", application.id, false, disabled: true

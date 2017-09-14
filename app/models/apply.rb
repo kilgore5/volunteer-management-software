@@ -4,7 +4,6 @@
 #
 #  id                   :uuid             not null, primary key
 #  event_id             :uuid
-#  accepted             :boolean          default(FALSE)
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  info                 :text
@@ -14,9 +13,8 @@
 #  friends_or_referrals :text
 #  terms_accepted       :boolean
 #  rating               :integer          default(0)
-#  invitation_accepted  :boolean
 #  deleted_at           :datetime
-#  denied               :boolean
+#  state                :string
 #
 # Indexes
 #
@@ -29,6 +27,10 @@
 
 class Apply < ApplicationRecord
 
+  # Includes State Machine Concern
+  include ApplyStateMachine
+
+  # Doesn't allow real deletion
   acts_as_paranoid
 
   belongs_to  :event
@@ -39,12 +41,10 @@ class Apply < ApplicationRecord
 
   validates   :terms_accepted, acceptance: true
   # validates   :user, presence: true
-
   # validates_presence_of :first_name
   # validates_presence_of :last_name
   # validates_presence_of :email
   # validates_presence_of :mobile_number
   # validates_presence_of :birthday
 
-  
 end

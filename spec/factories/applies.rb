@@ -4,7 +4,6 @@
 #
 #  id                   :uuid             not null, primary key
 #  event_id             :uuid
-#  accepted             :boolean          default(FALSE)
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  info                 :text
@@ -14,9 +13,8 @@
 #  friends_or_referrals :text
 #  terms_accepted       :boolean
 #  rating               :integer          default(0)
-#  invitation_accepted  :boolean
 #  deleted_at           :datetime
-#  denied               :boolean
+#  state                :string
 #
 # Indexes
 #

@@ -1,0 +1,16 @@
+%tr
+  %td.wrapper
+    %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+      %tr
+        %td
+          %p Hi there,
+          %br
+          %p= "Thanks for your recent application to volunteer at #{@event.name} this year.  It was an extremely difficult task to narrow down the hundreds of applications to a final team. We had over twice as many applicants as positions."
+          %br
+          %p Unfortunately at this stage your application has not been successful.
+          %p However, we will be offering a limited second round of positions on 27th September. 
+          %p We hope that you will stay tuned in case we can offer you a spot then. 
+          %p Thanks very much for your time and enthusiasm for our event and we hope to see you in the Wildlands in November!
+          %br
+          %p Much Love,
+          %p= @event.name

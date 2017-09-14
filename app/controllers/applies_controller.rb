@@ -62,7 +62,7 @@ class AppliesController < ApplicationController
 
   def submitted
     @application = Apply.find(params[:apply_id])
-  end  
+  end
 
   def index
 
@@ -79,11 +79,13 @@ class AppliesController < ApplicationController
 
     @count = @applications.count
 
-    @accepted = @applications.where(accepted: true).count
+    @accepted = @applications.accepted.count
 
-    @denied = @applications.where(denied: true).count
+    @waitlisted = @applications.waitlisted.count
 
-    @confirmed = @applications.where(accepted: true, invitation_accepted: true).count
+    @denied = @applications.denied.count
+
+    @confirmed = @applications.confirmed.count
 
   end
 
@@ -100,7 +102,7 @@ class AppliesController < ApplicationController
 
     # Don't proceed without customer ID
     if @user.stripe_customer_id.nil?
-      redirect_to edit_user_path(@user), flash: { "alert-warning": "It looks like we don't have your card details on file; please try entering them." }
+      redirect_to edit_user_path(@user), flash: { "alert-warning": "It looks like we don't have your card details on file; please email us at volunteers.strawberry-fields.com.au" }
       return
     end
 
@@ -111,7 +113,7 @@ class AppliesController < ApplicationController
 
     # Don't proceed without customer ID
     if failure
-      redirect_to edit_user_path(@user), flash: { "alert-warning": "It looks like we don't have your card details on file; please try entering them." }
+      redirect_to edit_user_path(@user), flash: { "alert-warning": "It looks like we don't have your card details on file; please email us at volunteers.strawberry-fields.com.au" }
       return
     else
       # Creates the charge for the t-shirt
@@ -134,10 +136,8 @@ class AppliesController < ApplicationController
     end
 
     respond_to do |format|
-      if !charge[:error] && @application.update_attributes(:invitation_accepted => true)
+      if !error && @application.confirm!
         format.html { redirect_to edit_user_path(@user), notice: 'Your volunteer position has been secured!' }
-        # TODO - Mailer
-        ApplicationResponseMailer.accepted_invitation_confirmation_email(@current_user, @application, @event).deliver_later
       else
         format.html { redirect_to edit_user_path(@user), flash: { "alert-warning": "Oops, something went wrong; please try again or contact our team#{error ? '. (payment error: ' + error + ')' : ''}" } }
       end
@@ -173,18 +173,10 @@ class AppliesController < ApplicationController
       @approved_applications = Apply.where(id: params[:application_ids_accept])
       @denied_applications = Apply.where(id: params[:application_ids_deny])
 
-      if Apply.where(id: params[:application_ids_accept]).update_all(accepted: true) && Apply.where(id: params[:application_ids_deny]).update_all(denied: true)
-
+      if Apply.where(id: params[:application_ids_accept]).each { |a| a.accept! } &&
+         Apply.where(id: params[:application_ids_waitlist]).each { |a| a.waitlist! } &&
+         Apply.where(id: params[:application_ids_deny]).each { |a| a.deny! }
         format.html { redirect_to request.referrer, notice: 'The applications have been processed!' }
-
-        @approved_applications.each do |app|
-          ApplicationResponseMailer.application_accepted_email(app.user, app, app.event).deliver_later
-        end
-
-        @denied_applications.each do |app|
-          ApplicationResponseMailer.application_denied_email(app.user, app, app.event).deliver_later
-        end
-
       else
         format.html { redirect_to request.referrer, flash: { "alert-warning": "Oops, something went wrong; please try again." } }
       end
@@ -218,6 +210,12 @@ class AppliesController < ApplicationController
     def sort_column
       if params[:sort] == "users.last_name"
         "LOWER(users.last_name)"
+      elsif params[:sort] == "applies.accepted"
+        "applies.state"
+      elsif params[:sort] == "applies.waitlisted"
+        "applies.state"
+      elsif params[:sort] == "applies.denied"
+        "applies.state"
       elsif params[:sort]
         Apply.column_names.include?(params[:sort].tap{|s| s.slice!("applies.")}) ? "applies.#{params[:sort]}" : "applies.created_at"
       else
