@@ -1,4 +1,4 @@
-class ApplicationForEventsController < ApplicationController
+class AppliesController < ApplicationController
 
   # Devise
   before_action :authenticate_user!
@@ -14,7 +14,7 @@ class ApplicationForEventsController < ApplicationController
 
 
   def new
-    @application = ApplicationForEvent.new
+    @application = Apply.new
     @application.user = @current_user
   end
 
@@ -31,11 +31,11 @@ class ApplicationForEventsController < ApplicationController
     # Sets the user's Stripe Account ID
     @current_user.update_attributes(stripe_customer_id: customer.id)
 
-    @application = ApplicationForEvent.new(application_params)
+    @application = Apply.new(application_params)
 
     respond_to do |format|
       if @application.save
-        format.html { redirect_to application_for_event_submitted_path(@application), notice: 'Application was successfully submitted.' }
+        format.html { redirect_to apply_submitted_path(@application), notice: 'Application was successfully submitted.' }
         format.json { render :show, status: :created, location: @application }
       else
         format.html { render :new }
@@ -61,7 +61,7 @@ class ApplicationForEventsController < ApplicationController
   end
 
   def submitted
-    @application = ApplicationForEvent.find(params[:application_for_event_id])
+    @application = Apply.find(params[:apply_id])
   end  
 
   def index
@@ -170,10 +170,10 @@ class ApplicationForEventsController < ApplicationController
   def accept_multiple
     respond_to do |format|
 
-      @approved_applications = ApplicationForEvent.where(id: params[:application_ids_accept])
-      @denied_applications = ApplicationForEvent.where(id: params[:application_ids_deny])
+      @approved_applications = Apply.where(id: params[:application_ids_accept])
+      @denied_applications = Apply.where(id: params[:application_ids_deny])
 
-      if ApplicationForEvent.where(id: params[:application_ids_accept]).update_all(accepted: true) && ApplicationForEvent.where(id: params[:application_ids_deny]).update_all(denied: true)
+      if Apply.where(id: params[:application_ids_accept]).update_all(accepted: true) && Apply.where(id: params[:application_ids_deny]).update_all(denied: true)
 
         format.html { redirect_to request.referrer, notice: 'The applications have been processed!' }
 
@@ -196,7 +196,7 @@ class ApplicationForEventsController < ApplicationController
     # Finds the apps given certain filters
     def list_all
 
-      @applications = ApplicationForEvent
+      @applications = Apply
         .where(event_id: @event.id)
         .includes(:event, :user, :preferred_jobs)
       if use_references?
@@ -219,9 +219,9 @@ class ApplicationForEventsController < ApplicationController
       if params[:sort] == "users.last_name"
         "LOWER(users.last_name)"
       elsif params[:sort]
-        ApplicationForEvent.column_names.include?(params[:sort].tap{|s| s.slice!("application_for_events.")}) ? "application_for_events.#{params[:sort]}" : "application_for_events.created_at"
+        Apply.column_names.include?(params[:sort].tap{|s| s.slice!("applies.")}) ? "applies.#{params[:sort]}" : "applies.created_at"
       else
-        "application_for_events.created_at"
+        "applies.created_at"
       end
     end
     
@@ -240,7 +240,7 @@ class ApplicationForEventsController < ApplicationController
     end
 
     def set_application
-      @application = ApplicationForEvent.find(params[:id])
+      @application = Apply.find(params[:id])
     end
 
     def ensure_current_user_owns_application
@@ -261,7 +261,7 @@ class ApplicationForEventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def application_params
-      params.require(:application_for_event).permit(
+      params.require(:apply).permit(
                       :user_id,
                       :event_id,
                       :name,

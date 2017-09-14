@@ -53,7 +53,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # The path used after sign up.
   def after_sign_up_path_for(resource)
     if params[:ref] == "apply"
-      new_event_application_for_event_path(@current_event.id)
+      new_event_apply_path(@current_event.id)
     else
       super(resource)
     end

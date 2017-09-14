@@ -1,4 +1,4 @@
-module ApplicationForEventsHelper
+module AppliesHelper
 
   # https://pupeno.com/2010/08/29/show-a-devise-log-in-form-in-another-page/
   # allows Devise form to be used in the 'application' to create a new user

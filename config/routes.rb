@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :events do
     resources :jobs
     resources :event_days
-    resources :application_for_events
+    resources :applies
   end
 
 
@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   
   resources :users  do
     resources :events do
-      resources :application_for_events
+      resources :applies
     end
   end
 
@@ -35,7 +35,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :application_for_events do
+  resources :applies do
     get 'approve',            on: :member
     get 'accept_invitation',  on: :member
     get 'decline_invitation', on: :member
@@ -47,7 +47,7 @@ Rails.application.routes.draw do
   end
 
 
-  patch 'accept_multiple', to: 'application_for_events#accept_multiple', as: :accept_multiple
+  patch 'accept_multiple', to: 'applies#accept_multiple', as: :accept_multiple
 
   root to: "pages#home"
   # root to: "events#show", :id => Event.last.id

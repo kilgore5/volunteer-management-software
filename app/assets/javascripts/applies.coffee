@@ -6,14 +6,14 @@ $(document).on 'turbolinks:load', ->
     path: '/assets/'
     score: ->
       $(this).attr 'data-score'
-    scoreName: 'application_for_event[rating]'
+    scoreName: 'apply[rating]'
   $('.star-rating').raty 'reload'
 
 $(document).on 'turbolinks:load', ->
   $('.star-rating img').click ->
     id = $(this).parent().attr 'data-id'
-    form = $("#edit_application_for_event_" + id)[0]
-    input = $(this).parent().find('input[name="application_for_event[rating]"]')[0]
+    form = $("#edit_apply_" + id)[0]
+    input = $(this).parent().find('input[name="apply[rating]"]')[0]
     form.append(input)
     Rails.fire form, 'submit'
     return

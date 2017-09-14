@@ -56,7 +56,7 @@ class User < ApplicationRecord
   # has_and_belongs_to_many :accepted_events, class_name: "Event"
   # has_and_belongs_to_many :applied_events, class_name: "Event"
 
-  has_many :applications, class_name: "ApplicationForEvent"
+  has_many :applications, class_name: "Apply"
 
   has_one :emergency_contact
   accepts_nested_attributes_for :emergency_contact, :reject_if => :all_blank, :allow_destroy => true  

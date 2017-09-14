@@ -26,7 +26,7 @@ class Job < ApplicationRecord
   has_many                      :skill_requirements
   accepts_nested_attributes_for :skill_requirements, :reject_if => :all_blank, :allow_destroy => true
   has_many                      :application_preferred_jobs
-  has_many                      :applications, through: :application_preferred_jobs, source: :application_for_event
+  has_many                      :applications, through: :application_preferred_jobs, source: :apply
 
   # Allows 'friendly' slugs
   extend FriendlyId

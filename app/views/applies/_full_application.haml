@@ -23,7 +23,7 @@
         - if application.accepted?
           Yep
         - else
-          = link_to "Approve", approve_application_for_event_path(application), remote: true, class: "btn btn-info"
+          = link_to "Approve", approve_apply_path(application), remote: true, class: "btn btn-info"
       %td
         TODO
 %h4 Info Given

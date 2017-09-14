@@ -22,6 +22,8 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    aasm (4.12.2)
+      concurrent-ruby (~> 1.0)
     actioncable (5.1.2)
       actionpack (= 5.1.2)
       nio4r (~> 2.0)
@@ -354,6 +356,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aasm
   airbrake (~> 6.2)
   annotate
   autoprefixer-rails

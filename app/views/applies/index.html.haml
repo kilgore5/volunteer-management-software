@@ -13,14 +13,14 @@
           %label{for: "job[:slug]"}
             Prefered Roles
         .col-md-3.text-right
-          = form_tag application_for_events_path(@event), method: 'get' do
+          = form_tag applies_path(@event), method: 'get' do
             = hidden_field_tag "view", @view_type == "paged" ? "" : "all"
             = collection_select(:job, :slug, @event.jobs, :slug, :title, {selected: params[:job] ? params[:job][:slug]: nil, include_blank: "All roles"}, class: "form-control")
         .col-md-3.text-right
           - if @view_type == "paged"
-            = link_to "View all applications ->", event_application_for_events_path(@event, view: "all")
+            = link_to "View all applications ->", event_applies_path(@event, view: "all")
           - else
-            = link_to "View paged applications ->", event_application_for_events_path(@event)
+            = link_to "View paged applications ->", event_applies_path(@event)
   .panel.default
     .top-key-factor
       .event_day__inner.row.filters
@@ -44,16 +44,16 @@
                 %th
                   = sortable "users.last_name", "Volunteer [sort]"
                 %th
-                  = sortable "application_for_events.created_at", "Submitted [sort]"
+                  = sortable "applies.created_at", "Submitted [sort]"
                 %th Application
                 %th 
-                  = sortable "application_for_events.rating", "Rating [sort]"
+                  = sortable "applies.rating", "Rating [sort]"
                 %th
-                  = sortable "application_for_events.accepted", "Approve"
+                  = sortable "applies.accepted", "Approve"
                 %th
-                  = sortable "application_for_events.denied", "Deny"
+                  = sortable "applies.denied", "Deny"
                 %th
-                  = sortable "application_for_events.invitation_accepted", "Confirmed ?"
+                  = sortable "applies.invitation_accepted", "Confirmed ?"
               %tr.info-row
                 %td
                 %td

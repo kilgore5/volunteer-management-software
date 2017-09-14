@@ -35,7 +35,7 @@ class Event < ApplicationRecord
   # has_many                :accepted_volunteers, class_name: "User"
   # has_many                :applied_volunteers, class_name: "User"
 
-  has_many                :applications, class_name: "ApplicationForEvent"
+  has_many                :applications, class_name: "Apply"
 
   # Allows 'friendly' slugs
   extend FriendlyId

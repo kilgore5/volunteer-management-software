@@ -15,7 +15,7 @@ class Ability
     end    
 
     if user.has_role? :volunteer
-      can :manage, ApplicationForEvent, :user_id => user.id
+      can :manage, Apply, :user_id => user.id
     end        
     #
     # The first argument to `can` is the action you are giving the user

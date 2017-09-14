@@ -99,6 +99,9 @@ gem 'yard'
 #Helpful
 gem 'awesome_print'
 
+#State Machine
+gem 'aasm'
+
 #Errors
 gem 'airbrake', '~> 6.2'
 

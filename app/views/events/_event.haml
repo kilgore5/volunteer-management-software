@@ -12,7 +12,7 @@
       .event_day__inner        
         - if user_signed_in?
           / =  current_user.applications
-          = link_to "Apply to volunteer", new_user_event_application_for_event_path(current_user.id, event.id), class: "btn btn-info"
+          = link_to "Apply to volunteer", new_user_event_apply_path(current_user.id, event.id), class: "btn btn-info"
       .event_day__inner
         = "Start date: "
         = event.start_time        
@@ -26,7 +26,7 @@
       .event_day__inner
         = link_to("Jobs: #{event.jobs.count}", event_jobs_path(event))
       .event_day__inner
-        = link_to("Applications Received: #{event.applications.count}", event_application_for_events_path(event))      
+        = link_to("Applications Received: #{event.applications.count}", event_applies_path(event))      
       .event_day__inner
         = "Shifts Filled: #{}  "    
 

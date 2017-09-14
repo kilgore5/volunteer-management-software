@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: application_for_events
+# Table name: applies
 #
 #  id                   :uuid             not null, primary key
 #  event_id             :uuid
@@ -20,14 +20,14 @@
 #
 # Indexes
 #
-#  index_application_for_events_on_been_before         (been_before)
-#  index_application_for_events_on_deleted_at          (deleted_at)
-#  index_application_for_events_on_event_id            (event_id)
-#  index_application_for_events_on_user_id             (user_id)
-#  index_application_for_events_on_volunteered_before  (volunteered_before)
+#  index_applies_on_been_before         (been_before)
+#  index_applies_on_deleted_at          (deleted_at)
+#  index_applies_on_event_id            (event_id)
+#  index_applies_on_user_id             (user_id)
+#  index_applies_on_volunteered_before  (volunteered_before)
 #
 
-class ApplicationForEvent < ApplicationRecord
+class Apply < ApplicationRecord
 
   acts_as_paranoid
 
