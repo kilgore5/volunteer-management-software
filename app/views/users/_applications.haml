@@ -1,6 +1,10 @@
 %h5
   My Applications
 .user-details.panel.default
+  - if @user.applications.empty?
+    .row
+      .col-md-12
+        %small.form-text.text-muted You don't have any current applications. Check back soon for new events to apply for.
   - @user.applications.each do |app|
     .row
       .col-md-4

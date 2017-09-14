@@ -1,17 +1,15 @@
 module StripeTool
-  def self.create_customer(email: email, stripe_token: stripe_token)
+  def self.create_customer(email, stripe_token)
     Stripe::Customer.create(
       email: email,
       source: stripe_token
     )
   end
 
-  def self.create_membership(email: email, stripe_token: stripe_token, plan: plan)
-    Stripe::Customer.create(
-      email: email,
-      source: stripe_token,
-      plan: plan
-    )
+  def self.add_card(customer, stripe_token)
+    # Revise this to add multiple sources
+    customer.source = stripe_token
+    customer.save
   end
 
   def self.create_charge(customer_id, amount, description)

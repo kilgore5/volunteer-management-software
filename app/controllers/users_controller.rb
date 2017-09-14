@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   # Only allows access if use has correct role
   before_action :client_and_up, only: [:index, :show]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :stripe_customer, only: [:show, :edit]
   layout "account", only: [:show, :edit, :update]
 
   # GET /users
@@ -46,6 +47,22 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+
+    if params[:stripeToken]
+    # User is updating their card details
+      if @user.stripe_customer_id
+        #User is in Stripe, retrieve them
+        customer = StripeTool.find_customer(@user.stripe_customer_id)
+        # Adds The New Card
+        card = StripeTool.add_card(customer, params[:stripeToken])
+      else
+        # Creates the customer via Stripe API
+        customer = StripeTool.create_customer(@user.email, params[:stripeToken])
+        # Sets the user's Stripe Account ID
+        @user.update_attributes(stripe_customer_id: customer.id)
+      end
+    end
+      
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to edit_user_path(@user), notice: 'Your profile was successfully updated.' }
@@ -71,6 +88,10 @@ class UsersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.friendly.find(params[:id])
+    end
+
+    def stripe_customer
+      @customer = @user.stripe_customer_id ? StripeTool.find_customer(@user.stripe_customer_id) : nil
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

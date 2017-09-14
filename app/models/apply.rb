@@ -2,7 +2,7 @@
 #
 # Table name: applies
 #
-#  id                   :uuid             not null, primary key
+#  id                   :uuid             not null
 #  event_id             :uuid
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
@@ -26,6 +26,8 @@
 #
 
 class Apply < ApplicationRecord
+
+  self.primary_key = "id"
 
   # Includes State Machine Concern
   include ApplyStateMachine

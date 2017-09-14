@@ -1,0 +1,70 @@
+.row
+  .col-md-6
+    %h5
+      Payment Methods
+  .col-md-6
+    =image_tag "powered_by_stripe.png"
+.user-details.panel.default
+  .row
+    .col-md-12
+      %small.form-text.text-muted All volunteer applications require a payment method to secure your spot. You'll need a valid card to accept apply for positions or accept offered positions.
+  - if @customer
+    .row
+      .col-md-12
+        %table.table.table-hover
+          %thead
+            %tr
+              %td
+                Card
+              %td
+                Last 4
+              %td
+                Expiry
+          %tbody
+            - @customer.sources.each do |card|
+              %tr
+                %td
+                  = card.brand
+                %td
+                  = card.last4
+                %td
+                  = "#{card.exp_month}/#{card.exp_year}"
+        
+  .row
+    .col-md-4
+      %a{class: "btn btn-default js-add-card"}
+        + Add card
+  = simple_form_for @user, :html=> { class: "js-payment-form hidden" } do |f|
+    = f.hidden_field :stripe_customer_id
+    .inputs.row          
+      .col-md-12
+        = javascript_include_tag "https://js.stripe.com/v2/"
+        :javascript
+          Stripe.setPublishableKey('#{ENV['STRIPE_PUBLISHABLE_KEY']}');
+          console.log(Stripe);
+
+        %span.payment-errors
+
+    .inputs.row          
+      .col-md-7
+        .form-group  
+          %label
+            %span Card Number
+          %input{"data-stripe" => "number", :type => "text", class: "form-control", required: true}   
+      .col-md-2
+        .form-group  
+          %label
+            %span CVC
+          %input{"data-stripe" => "cvc", :size => "4", :type => "text", class: "form-control", required: true}
+      .col-md-3
+        .form-group  
+          %label
+            %span Expiration (MM/YY)
+          .form-inline
+            %input{"data-stripe" => "exp-month", :size => "2", :type => "text", class: "form-control", required: true}
+            %span /
+            %input{"data-stripe" => "exp-year", :size => "2", :type => "text", class: "form-control", required: true}
+
+    .actions
+      .form-group
+        = f.button :submit, "Submit"
