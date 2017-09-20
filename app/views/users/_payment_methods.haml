@@ -8,7 +8,7 @@
   .row
     .col-md-12
       %small.form-text.text-muted All volunteer applications require a payment method to secure your spot. You'll need a valid card to accept apply for positions or accept offered positions.
-  - if @customer
+  - if @customer && @customer.sources.total_count > 1
     .row
       .col-md-12
         %table.table.table-hover
@@ -24,16 +24,19 @@
             - @customer.sources.each do |card|
               %tr
                 %td
-                  = card.brand
+                  %i
+                    = card.brand
                 %td
-                  = card.last4
+                  %i
+                    = card.last4
                 %td
-                  = "#{card.exp_month}/#{card.exp_year}"
+                  %i
+                    = "#{card.exp_month}/#{card.exp_year}"
         
   .row
     .col-md-4
       %a{class: "btn btn-default js-add-card"}
-        + Update card
+        = @customer && @customer.sources ? "+ Update card" : "+ Add Card"
   = simple_form_for @user, :html=> { class: "js-payment-form hidden" } do |f|
     = f.hidden_field :stripe_customer_id
     .inputs.row          
