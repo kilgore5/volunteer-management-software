@@ -55,6 +55,16 @@ class UsersController < ApplicationController
         customer = StripeTool.find_customer(@user.stripe_customer_id)
         # Adds The New Card
         card = StripeTool.add_card(customer, params[:stripeToken])
+
+        error = card[:error] ? card[:error][:message] : nil
+
+        # Don't proceed without a valid card
+        if error
+          redirect_to edit_user_path(@user), flash: { "alert-warning": "Oops, something went wrong; please check the details and try again#{error ? '. (Card error: ' + error + ')' : ''}" }
+          return
+        else
+          # Continue
+        end
       else
         # Creates the customer via Stripe API
         customer = StripeTool.create_customer(@user.email, params[:stripeToken])

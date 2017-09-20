@@ -33,7 +33,7 @@
   .row
     .col-md-4
       %a{class: "btn btn-default js-add-card"}
-        + Add card
+        + Update card
   = simple_form_for @user, :html=> { class: "js-payment-form hidden" } do |f|
     = f.hidden_field :stripe_customer_id
     .inputs.row          
