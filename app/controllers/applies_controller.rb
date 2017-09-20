@@ -204,12 +204,15 @@ class AppliesController < ApplicationController
       # Filters by the status
       if params[:status] and !params[:status].empty?
         # If looking at 'accepted' apps, show those that are confirmed as well
-        if params[:status] == "accepted"
-          # FIXME, this should show accepted and confirmed apps, using something similar to '.where( state: 'like'...)'
-          # @applications = @applications.where(state: "accepted" or state: "confirmed")
-          @applications = @applications.where(state: params[:status])
-        else
-          @applications = @applications.where(state: params[:status])
+        case params[:status]
+          when "all_states"
+            @applications = @applications
+          when "accepted"
+            # FIXME, this should show accepted and confirmed apps, using something similar to '.where( state: 'like'...)'
+            # @applications = @applications.where(state: "accepted" or state: "confirmed")
+            @applications = @applications.where(state: params[:status])
+          else
+            @applications = @applications.where(state: params[:status])
         end
       end
 
