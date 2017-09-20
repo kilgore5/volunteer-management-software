@@ -32,7 +32,7 @@ module ApplicationHelper
   # Creates active class for menu links
   def active_class(link_path)
     current_page?(link_path) ? "active" : ""
-  end   
+  end
 
 
   # Adds Devise resource to each controller / view

@@ -7,16 +7,34 @@
   .panel.default
     .top-key-factor
       .event_day__inner.row.filters
-        .col-md-4.text-left
+        .col-md-2.text-left
           = "Total applications: #{@count}"
         .col-md-2.text-right
           %label{for: "job[:slug]"}
             Prefered Roles
-        .col-md-3.text-right
+        .col-md-2.text-right
           = form_tag applies_path(@event), method: 'get' do
             = hidden_field_tag "view", @view_type == "paged" ? "" : "all"
-            = collection_select(:job, :slug, @event.jobs, :slug, :title, {selected: params[:job] ? params[:job][:slug]: nil, include_blank: "All roles"}, class: "form-control")
-        .col-md-3.text-right
+            = hidden_field_tag "status", params[:status] ? params[:status] : nil
+            = collection_select(:job, :slug, @event.jobs, :slug, :title, {selected: params[:job] ? params[:job][:slug] : nil, include_blank: "All roles"}, class: "form-control")
+        .col-md-2.text-right
+          %label{for: "job[:slug]"}
+            Status
+        .col-md-2.text-right
+          = form_tag applies_path(@event), method: 'get' do
+            = hidden_field_tag "view", @view_type == "paged" ? "" : "all"
+            = hidden_field_tag "job[slug]", params[:job] ? params[:job][:slug] : nil
+            / = collection_select(:status, @statuses, @statuses, {selected: params[:status] ? params[:status]: nil, include_blank: "All states"}, "test", class: "form-control")
+            / = select_tag(:status)
+            /   = option_for_select "true"
+            %select{name: 'status', class: 'form-control', id: 'status_selector'}
+              %option{value: 'all_states'}
+                = "All States"
+              - @statuses.each do |status|
+                %option{ value: status, selected: params[:status] && params[:status] == status ? 'selecte' : nil }
+                  = status.titleize
+                }
+        .col-md-2.text-right
           - if @view_type == "paged"
             = link_to "View all applications ->", event_applies_path(@event, view: "all")
           - else
@@ -48,13 +66,13 @@
                 %th 
                   = sortable "applies.rating", "Rating [sort]"
                 %th
-                  = sortable "applies.accepted", "Approve"
+                  = "Approve"
                 %th
-                  = sortable "applies.waitlisted", "Waitlist"
+                  = "Waitlist"
                 %th
-                  = sortable "applies.denied", "Deny"
+                  = "Deny"
                 %th
-                  = sortable "applies.confirmed", "Confirmed ?"
+                  = "Confirmed ?"
               %tr.info-row
                 %td
                 %td

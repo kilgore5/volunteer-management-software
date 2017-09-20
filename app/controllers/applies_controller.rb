@@ -9,6 +9,7 @@ class AppliesController < ApplicationController
   before_action :set_event, except: [:approve, :show]
   before_action :set_application, only: [:show, :update, :approve, :edit, :accept_invitation, :decline_invitation]
   before_action :set_user, only: [:new, :create, :update, :edit]
+  before_action :statuses, only: [:index]
   # before_action :ensure_current_user_owns_application, only: [:edit, :update, :destroy]
   helper_method :sort_column, :sort_direction
 
@@ -200,6 +201,18 @@ class AppliesController < ApplicationController
         @applications = @applications.joins(:preferred_jobs).where(jobs: {slug: params[:job][:slug]})
       end
 
+      # Filters by the status
+      if params[:status] and !params[:status].empty?
+        # If looking at 'accepted' apps, show those that are confirmed as well
+        if params[:status] == "accepted"
+          # FIXME, this should show accepted and confirmed apps, using something similar to '.where( state: 'like'...)'
+          # @applications = @applications.where(state: "accepted" or state: "confirmed")
+          @applications = @applications.where(state: params[:status])
+        else
+          @applications = @applications.where(state: params[:status])
+        end
+      end
+
     end
 
     def use_references?
@@ -210,7 +223,7 @@ class AppliesController < ApplicationController
       if params[:sort] == "users.last_name"
         "LOWER(users.last_name)"
       elsif params[:sort] == "applies.accepted"
-        "applies.state"
+        "applies.state = 'accepted'"
       elsif params[:sort] == "applies.waitlisted"
         "applies.state"
       elsif params[:sort] == "applies.denied"
@@ -255,6 +268,18 @@ class AppliesController < ApplicationController
         redirect_to new_user_registration_path(ref: "apply")
       end
     end
+
+
+    # Shows statuses to sort by
+    def statuses
+      @statuses = [
+        "accepted",
+        "submitted",
+        "waitlisted",
+        "denied",
+        "confirmed"
+      ]
+    end 
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def application_params

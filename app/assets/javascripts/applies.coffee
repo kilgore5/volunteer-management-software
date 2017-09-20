@@ -23,6 +23,11 @@ $(document).on 'turbolinks:load', ->
     form.submit()
     return
 
+  $('#status_selector').change ->
+    form = $(this).closest('form')[0]
+    form.submit()
+    return
+
   $('#select_all_accept').change ->
     if $(this).is(':checked')
       $('input[name="application_ids_accept[]"]:not([disabled])').prop('checked', true);
