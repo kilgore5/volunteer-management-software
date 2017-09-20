@@ -6,15 +6,25 @@
       .col-md-12
         %small.form-text.text-muted You don't have any current applications. Check back soon for new events to apply for.
   - @user.applications.each do |app|
+    - case app.state
+    - when "submitted"
+      - status_label = "default"
+    - when "accepted"
+      - status_label = "success"
+    - when "waitlisted"
+      - status_label = "warning"
+    - when "denied"
+      - status_label = "danger"
+    - when "confirmed"
+      - status_label = "success"
+
     .row
       .col-md-4
         = app.event.name
       .col-md-5
-        Status: 
-        - if app.accepted?
-          Accepted
-        - else
-          Waiting Approval
+        Status
+        %span.label{ class: "label-#{status_label}" }
+          = app.state.titleize
       .col-md-3
         / # = link_to 'Edit my application', edit_apply_path(app)
         Applications are closed
@@ -36,4 +46,4 @@
         .col-md-12
           %hr
           %span.small
-            If your card has expired or you have other payment issues, please let us know at volunteers.strawberry-fields.com.au.  We'll be updating the site shortly to allow you to input a new card. Thanks for your patience
+            This site is developed by 'Built in Code'. Charges will show up in your bank from Built in Code LLC.
