@@ -27,6 +27,14 @@ class ApplicationResponseMailer < ApplicationMailer
     mail(to: @user.email, subject: subject)
   end
 
+  def confirm_reminder(user, application, event)
+    @user = user
+    @application = application
+    @event = event
+    subject = "Reminder to confirm your volunteer spot at #{@event.name}"
+    mail(to: @user.email, subject: subject)
+  end
+
   # User Triggered
   def confirmed(user, application, event)
     @user = user
