@@ -31,9 +31,20 @@ class ApplicationResponseMailer < ApplicationMailer
     @user = user
     @application = application
     @event = event
+    @url  = edit_user_url(@user)
     subject = "Reminder to confirm your volunteer spot at #{@event.name}"
     mail(to: @user.email, subject: subject)
   end
+
+  # Example to send the reminder
+  # Need to set all apps who don't have a state to state: "submitted"
+  # apps = Apply.where state: "submitted"
+  # apps.each { |app| ApplicationResponseMailer.confirm_reminder(
+  #                     app.user, 
+  #                     app, 
+  #                     app.event).deliver_later }
+
+
 
   # User Triggered
   def confirmed(user, application, event)
