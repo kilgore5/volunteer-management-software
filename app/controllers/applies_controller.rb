@@ -24,10 +24,9 @@ class AppliesController < ApplicationController
   # POST /events
   # POST /events.json
   def create
-
     # Creates the customer via Stripe API
-    customer = StripeTool.create_customer(email: @current_user.email, 
-                                            stripe_token: params[:stripeToken])
+    customer = StripeTool.create_customer(@current_user.email, 
+                                            params[:stripeToken])
     # Sets the user's Stripe Account ID
     @current_user.update_attributes(stripe_customer_id: customer.id)
 
