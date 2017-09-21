@@ -39,10 +39,7 @@ class ApplicationResponseMailer < ApplicationMailer
   # Example to send the reminder
   # Need to set all apps who don't have a state to state: "submitted"
   # apps = Apply.where state: "submitted"
-  # apps.each { |app| ApplicationResponseMailer.confirm_reminder(
-  #                     app.user, 
-  #                     app, 
-  #                     app.event).deliver_later }
+  # apps.each { |app| ApplicationResponseMailer.confirm_reminder(app.user, app, app.event).deliver_later }
 
 
 

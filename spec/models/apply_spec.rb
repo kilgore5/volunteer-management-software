@@ -2,7 +2,7 @@
 #
 # Table name: applies
 #
-#  id                   :uuid             not null
+#  id                   :uuid             not null, primary key
 #  event_id             :uuid
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
@@ -14,7 +14,7 @@
 #  terms_accepted       :boolean
 #  rating               :integer          default(0)
 #  deleted_at           :datetime
-#  state                :string
+#  state                :string           default("submitted")
 #
 # Indexes
 #
