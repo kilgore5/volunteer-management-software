@@ -123,18 +123,23 @@
 
         %span.payment-errors
 
-    .inputs.row          
-      .col-xs-12.col-sm-8.col-lg-5
+    .inputs.row
+      .col-xs-12.col-sm-6
+        .form-group  
+          %label
+            %span Name
+          %input{"data-stripe" => "name", :type => "text", class: "form-control", required: true, value: @current_user.full_name }
+      .col-xs-12.col-sm-6
         .form-group  
           %label
             %span Card Number
           %input{"data-stripe" => "number", :type => "text", class: "form-control", required: true}   
-      .col-xs-12.col-sm-4.col-lg-2
+      .col-xs-12.col-sm-4
         .form-group  
           %label
             %span CVC
           %input{"data-stripe" => "cvc", :size => "4", :type => "text", class: "form-control", required: true}
-      .col-xs-12.col-sm-6.col-md-4.col-lg-3
+      .col-xs-12.col-sm-3
         .form-group  
           %label
             %span Expiration (MM/YY)
@@ -142,7 +147,7 @@
             %input{"data-stripe" => "exp-month", :size => "2", :type => "text", class: "form-control", required: true}
             %span /
             %input{"data-stripe" => "exp-year", :size => "2", :type => "text", class: "form-control", required: true}
-      .col-xs-12.col-sm-6.col-md-4.col-lg-2
+      .col-xs-12.col-sm-4
         .form-group  
           %label
             %span Postcode
