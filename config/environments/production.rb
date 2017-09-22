@@ -82,7 +82,7 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-     :address => "mail.strawberry-fields.com.au",
+     :address => "webcloud1.au.syrahost.com",
      :port => 25,
      :user_name => ENV["gmail_username"],
      :password => ENV["gmail_password"],
