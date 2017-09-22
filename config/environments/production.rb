@@ -86,8 +86,7 @@ Rails.application.configure do
      :port => 25,
      :user_name => ENV["gmail_username"],
      :password => ENV["gmail_password"],
-     :authentication => :plain,
-     :tls => true
+     :authentication => :plain
   }
 
   # config.paperclip_defaults = {
