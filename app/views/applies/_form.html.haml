@@ -124,17 +124,17 @@
         %span.payment-errors
 
     .inputs.row          
-      .col-md-7
+      .col-xs-12.col-sm-8.col-lg-5
         .form-group  
           %label
             %span Card Number
           %input{"data-stripe" => "number", :type => "text", class: "form-control", required: true}   
-      .col-md-2
+      .col-xs-12.col-sm-4.col-lg-2
         .form-group  
           %label
             %span CVC
           %input{"data-stripe" => "cvc", :size => "4", :type => "text", class: "form-control", required: true}
-      .col-md-3
+      .col-xs-12.col-sm-6.col-md-4.col-lg-3
         .form-group  
           %label
             %span Expiration (MM/YY)
@@ -142,7 +142,12 @@
             %input{"data-stripe" => "exp-month", :size => "2", :type => "text", class: "form-control", required: true}
             %span /
             %input{"data-stripe" => "exp-year", :size => "2", :type => "text", class: "form-control", required: true}
-      .col-md-12
+      .col-xs-12.col-sm-6.col-md-4.col-lg-2
+        .form-group  
+          %label
+            %span Postcode
+          %input{"data-stripe" => "address_zip", :size => "5", :type => "text", class: "form-control", required: true}
+      .col-xs-12
         %small.form-text.text-muted 
           = "If you accept your place and fail to meet the expectations laid out #{link_to 'here', pages_terms_path, target: '_blank'} and in the #{content_tag('a', 'Volunteer Agreement', 'data-target' =>'#myModal', 'data-toggle' => 'modal')}, you will be charged $#{@event.ticket_price_cents / 100}".html_safe
      
