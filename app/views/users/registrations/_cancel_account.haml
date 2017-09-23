@@ -1,6 +1,6 @@
 .user-details.panel.default
   .inputs.row
-    .col-md-6
+    .col-sm-6
       = link_to "Update your password here", edit_user_registration_path
-    .col-md-6
+    .col-sm-6
       Unhappy? #{link_to "Cancel your account", registration_path(resource_name), data: { confirm: "Are you sure? Any applications and all data will be gone!" }, method: :delete}

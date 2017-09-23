@@ -2,24 +2,36 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.user-row {
+body.users {
+  .user-row {
     margin-bottom: 3em;
 
     &:not(:first-child) {
-        margin-top: 3em;
+      margin-top: 3em;
     }
-}
+  }
 
-.user-header {
+  .user-header {
     margin-bottom: 5em;
     margin-top: 2em;
-}
+  }
 
-.user-details {
+  .user-details {
     padding: 8px 12px;
     border: 1px solid rgba(0, 0, 0, 0.1);
 
     &:not(:last-child) {
-        margin-bottom: 1em;
+      margin-bottom: 1em;
     }
+  }
+
+  // Edit page
+  &.edit {
+    br {
+      display: none;
+      @media (min-width: $screen-sm-min) {
+        display: block;
+      }
+    }
+  }
 }

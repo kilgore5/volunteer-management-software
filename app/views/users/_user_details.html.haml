@@ -5,12 +5,12 @@
   .row
     = simple_form_for @user, :html => { :class => 'form-inline' } do |f|
       = f.error_notification  
-      .col-md-4#user_image
+      .col-xs-4#user_image
         = image_tag @user.avatar.url(:thumb)
-      .col-md-6
+      .col-xs-6.pad-me
         .inputs
           = f.input :avatar, label: false
-      .col-md-6#user_image_submit{style: "display: none"}
+      .col-xs-6#user_image_submit{style: "display: none"}
         .actions.text-right
           = f.button :submit, "Update Avatar"
 .user-details.panel.default

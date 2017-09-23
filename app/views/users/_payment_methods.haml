@@ -1,9 +1,7 @@
 .row
-  .col-md-6
+  .col-md-12
     %h5
       Payment Methods
-  .col-md-6
-    =image_tag("powered_by_stripe.png", class: "pad-bottom")
 .user-details.panel.default
   .row
     .col-md-12
@@ -33,10 +31,12 @@
                   %i
                     = "#{card.exp_month}/#{card.exp_year}"
         
-  .row
-    .col-md-4
-      %a{class: "btn btn-default js-add-card pad-me"}
+  .row.pad-top
+    .col-xs-4
+      %a{class: "btn btn-default js-add-card"}
         = @customer && @customer.sources.total_count > 0 ? "+ Update card" : "+ Add Card"
+    .col-xs-8.align-right
+      =image_tag("powered_by_stripe.png")
   = simple_form_for @user, :html=> { class: "js-payment-form hidden" } do |f|
     = f.hidden_field :stripe_customer_id
     .inputs.row          
@@ -79,5 +79,10 @@
           %input{"data-stripe" => "address_zip", :size => "5", :type => "text", class: "form-control", required: true}
 
     .actions
-      .form-group
+      %div
         = f.button :submit, "Submit"
+  .row
+    .col-md-12
+      %hr
+      %span.small
+        This site is developed by web agency 'Built in Code'. Charges will show up in your bank from Built in Code LLC.

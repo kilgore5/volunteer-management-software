@@ -55,8 +55,9 @@ class User < ApplicationRecord
   # FIX_ME - this relationship is not setup properly at the minute
   # has_and_belongs_to_many :accepted_events, class_name: "Event"
   # has_and_belongs_to_many :applied_events, class_name: "Event"
+  alias_attribute :applications, :apps
 
-  has_many :applications, class_name: "Apply"
+  has_many :apps, class_name: "Apply"
 
   has_one :emergency_contact
   accepts_nested_attributes_for :emergency_contact, :reject_if => :all_blank, :allow_destroy => true  

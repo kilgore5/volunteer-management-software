@@ -1,16 +1,16 @@
 %h5
   My Applications
 .user-details.panel.default
-  - if @user.applications.empty?
+  - if @apps.empty?
     .row
       .col-md-12
         %small.form-text.text-muted You don't have any current applications. Check back soon for new events to apply for.
-  - @user.applications.each do |app|
+  - @apps.each do |app|
     - case app.state
     - when "submitted"
       - status_label = "default"
     - when "accepted"
-      - status_label = "success"
+      - status_label = "primary"
     - when "waitlisted"
       - status_label = "warning"
     - when "denied"
@@ -21,49 +21,94 @@
     .row
       .col-md-4
         %h6= app.event.name
-      .col-md-5
-        Application Status:
+      .col-md-5.pad-me
+        Your Application Status:
         %span.label{ class: "label-#{status_label}" }
           = app.state.titleize
-      .col-md-3
+      .col-md-3.pad-me
         / # = link_to 'Edit my application', edit_apply_path(app)
         %i Applications are closed
       %br
       %hr
-      .col-md-3
-        = "Actions:"
-      .col-md-9
-        - if app.accepted?
-          - if app.confirmed?
-            %span{style: "color: green;"}
-              Your volunteer spot is secure.  You'll soon receive your shift schedule.
-          - else
-            - unless @customer && @customer.sources.total_count > 0
-              %div
-                = link_to "Confirm my spot", accept_invitation_apply_path(app), class: "btn btn-success disabled", disabled: true, data: { confirm: "Securing your spot requires a $15 volunteer t-shirt purchase; this will be charged to your card." }
-                = link_to "Decline", decline_invitation_apply_path(app), class: "btn btn-default", data: { confirm: "Are you sure?" }
-              %div
-                %span.small.form-text.text-muted
-                  You need to add a payment method below to secure your spot.
-            - else
-              = link_to "Confirm my spot", accept_invitation_apply_path(app), class: "btn btn-success", data: { confirm: "Securing your spot requires a $15 volunteer t-shirt purchase; this will be charged to your card." }
-              = link_to "Decline", decline_invitation_apply_path(app), class: "btn btn-default", data: { confirm: "Are you sure?" }
-        - elsif app.submitted?
-          %div
-            %span.small.form-text.text-muted
-              Please hang tight while we review the applications - you'll receive an email with further instructions shortly.
-        - elsif app.confirmed?
-          %div
-            %span.small.form-text.text-muted
-              Your spot is secure!
-              %br
-              Welcome to the team.  Watch your email for important announcements about your shift or upcoming meetings.
-        - else
-          %div
-            %span.small.form-text.text-muted
-              No actions at this time. Please get in contact (volunteers@strawberry-fields.com.au) with any questions.
 
-      .col-md-12
+      / 
+        Cover the different states the app could be in
+
+      - if app.submitted?
+        /
+          This app is in the basic 'submitted state'
+        .col-xs-12
+          We have successfully received your application - thank you for applying!
+        %br
         %hr
-        %span.small
-          This site is developed by web agency 'Built in Code'. Charges will show up in your bank from Built in Code LLC.
+        .col-xs-2
+          = "Actions:"
+        .col-xs-10
+          %div
+            %span.small.form-text.text-muted
+              Please hang tight while we review the applications - you'll receive emails with further instructions.
+
+      - elsif app.accepted?
+        /
+          This app has been accepted but not yet confirmed
+        .col-xs-12
+          Congrats, your application has been accepted by our team!  You still need to confirm your intent to volunteer below.
+        %br
+        %hr
+        .col-xs-2
+          = "Actions:"
+        .col-xs-10
+          - unless @customer && @customer.sources.total_count > 0
+            %div
+              %span{ title: "You need to add a payment method to confirm your spot", style: "display: inline-block", data: { toggle: "tooltip" } }
+                = link_to "Confirm my spot", accept_invitation_apply_path(app), class: "btn btn-lg btn-success disabled", disabled: true, data: { confirm: "Securing your spot requires a $15 volunteer t-shirt purchase; this will be charged to your card." }
+              = link_to "Decline", decline_invitation_apply_path(app), class: "btn btn-lg btn-default", data: { confirm: "Are you sure?" }
+            %div.pad-top
+              %span.small.form-text.text-muted
+                %i
+                  It appears we don't have a saved credit card for your account. You need to add a payment method below to secure your spot.
+          - else
+            = link_to "Confirm my spot", accept_invitation_apply_path(app), class: "btn btn-success", data: { confirm: "Securing your spot requires a $15 volunteer t-shirt purchase; this will be charged to your card." }
+            = link_to "Decline", decline_invitation_apply_path(app), class: "btn btn-default", data: { confirm: "Are you sure?" }
+
+      - elsif app.confirmed?
+        /
+          This app has been confirmed and paid by the user
+        .col-xs-12
+          Awesome! You have confirmed your intention to volunteer and your spot is secure.
+        %br
+        %hr
+        .col-xs-2
+          = "Actions:"
+        .col-xs-10
+          %div
+            %span.small.form-text.text-muted
+              Welcome to the team.  Watch your email for important announcements about your shift schedule or upcoming meetings.
+
+      - elsif app.waitlisted?
+        /
+          This app is 'waitlisted'
+        .col-xs-12
+          We've had a ton of great applications and we've placed yours on the waitlist for the minute.  We'll be releasing a second round of offers soon.
+        %br
+        %hr
+        .col-xs-2
+          = "Actions:"
+        .col-xs-10
+          %div
+            %span.small.form-text.text-muted
+              Please watch your email for second round offers.
+
+      - elsif app.denied?
+        /
+          This app is 'waitlisted'
+        .col-xs-12
+          We've had a massive amount of applications and unfortunately were not able to accept yours at this time.  Thank you for making the effort and we encourage you to come back and apply for future events.
+        %br
+        %hr
+        .col-xs-2
+          = "Actions:"
+        .col-xs-10
+          %div
+            %span.small.form-text.text-muted
+              Please watch your email to hear about upcoming festivals with volunteer opportunities.

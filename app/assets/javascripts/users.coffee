@@ -3,8 +3,12 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).on 'turbolinks:load', ->
-	$('.js-add-card').click ->
-		$('.js-payment-form').toggleClass('hidden')
+  $('.js-add-card').click ->
+    $('.js-payment-form').toggleClass('hidden')
+
+  $ ->
+    $('[data-toggle="tooltip"]').tooltip()
+    return
 
 jQuery ($) ->
   $('.js-payment-form').submit (event) ->

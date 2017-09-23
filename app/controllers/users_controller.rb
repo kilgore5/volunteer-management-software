@@ -26,6 +26,11 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    @apps = @user.applications.includes(:event)
+    @recently_accepted = @apps.accepted.where('updated_at >= ?', 2.months.ago).count
+    if @recently_accepted > 0 && flash.empty?
+      flash[:notice] = "You have an accepted application pending your confirmation! Your spot is not secure until you confirm your intent to attend your shifts."
+    end
   end
 
   # POST /users
