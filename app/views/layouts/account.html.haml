@@ -13,18 +13,18 @@
     %main
       .jumbotron
         / .full-overlay
-        .container
-          = flash_messages 
+        .container-fluid
+          = flash_messages
           %h1.display-3
             = yield :page_title
           %p.lead
             = yield :page_sub_title
-          = yield :cta    
-      .container       
+          = yield :cta
+      .container-fluid
         .row.marketing
           .col-lg-4
             = yield :profile
           .col-lg-8
             = yield
-    / Renders the global footer          
-    = render "layouts/footer"     
+    / Renders the global footer
+    = render "layouts/footer"

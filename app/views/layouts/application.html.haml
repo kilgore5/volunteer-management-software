@@ -13,7 +13,7 @@
     %main
       .jumbotron
         / .full-overlay
-        .container
+        .container-fluid
           = flash_messages 
           %h1.display-3
             = yield :hero_title
@@ -26,10 +26,9 @@
           /     = link_to('Become a volunteer', new_user_registration_path, class: 'btn btn-lg btn-success')
           .row
             = yield :hero_content
-      .container      
+      .container-fluid
         .row.marketing
           .col-lg-12
             = yield
-    / Renders the global footer          
+    / Renders the global footer
     = render "layouts/footer"
-       

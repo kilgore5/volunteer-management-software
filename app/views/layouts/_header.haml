@@ -1,19 +1,19 @@
 .header.clearfix
-	.container
-		%nav.header-inner
-			%ul.nav.nav-pills.float-right
-				- if @current_user && @current_user.has_role?(:admin || :event_client || :shift_manager)
-					%li.nav-item
-						=link_to("Home", @current_event, class: "nav-link #{active_class(@current_event)} #{active_class(root_path)}")
-				- if @current_user && @current_user.has_role?(:admin || :event_client)
-					%li.nav-item
-						= link_to("Applications", event_applies_path(@current_event), class: "nav-link #{active_class(event_applies_path(@current_event))}")           
-					%li.nav-item
-						=link_to("Volunteers", users_path, class: "nav-link #{active_class(users_path)}")   
-				%li.nav-item
-					=link_to("Terms", pages_terms_path, class: "nav-link #{active_class(pages_terms_path)}") 
-				= render 'users/menu/registration_items'
-				= render 'users/menu/login_items'
-			%ul.nav.nav-pills        
-				=link_to @current_event, class: "nav-link #{active_class(root_path)}" do                     
-					= image_tag("logos/strawberry-fields-white.png", class: "header-logo")
+  .container-fluid
+    %nav.header-inner
+      %ul.nav.nav-pills.float-right
+        - if @current_user && @current_user.has_role?(:admin || :event_client || :shift_manager)
+          %li.nav-item
+            =link_to("Home", @current_event, class: "nav-link #{active_class(@current_event)} #{active_class(root_path)}")
+        - if @current_user && @current_user.has_role?(:admin || :event_client)
+          %li.nav-item
+            = link_to("Applications", event_applies_path(@current_event), class: "nav-link #{active_class(event_applies_path(@current_event))}")
+          %li.nav-item
+            =link_to("Volunteers", users_path, class: "nav-link #{active_class(users_path)}")
+        %li.nav-item
+          =link_to("Terms", pages_terms_path, class: "nav-link #{active_class(pages_terms_path)}")
+        = render 'users/menu/registration_items'
+        = render 'users/menu/login_items'
+      %ul.nav.nav-pills
+        =link_to @current_event, class: "nav-link #{active_class(root_path)}" do
+          = image_tag("logos/strawberry-fields-white.png", class: "header-logo")
