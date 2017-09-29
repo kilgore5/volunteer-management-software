@@ -28,15 +28,15 @@ module StripeTool
     end
   end
 
-  def self.create_charge(customer_id, amount, description)
+  def self.create_charge(customer_id, amount, description, unique_key)
     begin
       # Create it in Stripe
-      Stripe::Charge.create(
+      Stripe::Charge.create({
         customer: customer_id,
         amount: amount,
         description: description,
         currency: 'aud'
-      )
+      }, { idempotency_key: unique_key })
     rescue Stripe::CardError => e
       # Since it's a decline, Stripe::CardError will be caught
       body = e.json_body

@@ -119,7 +119,8 @@ class AppliesController < ApplicationController
       # Creates the charge for the t-shirt
       charge = StripeTool.create_charge(customer.id, 
                                         @amount,
-                                        @description)
+                                        @description,
+                                        params[:key])
     end
 
     error = charge[:error] ? charge[:error][:message] : nil
