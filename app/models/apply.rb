@@ -44,10 +44,10 @@ class Apply < ApplicationRecord
   validates   :terms_accepted, acceptance: true
 
   def self.to_csv
-    attributes = %w{name email state created_pretty info rating}
+    attributes = %w{name email state submitted rating}
     # attributes << column_names
     CSV.generate(headers: true) do |csv|
-      csv << attributes
+      csv << attributes.map{ |attr| attr.titleize }
       all.each do |app|
         if app.user
           csv << attributes.map{ |attr| app.send(attr) }
@@ -65,7 +65,7 @@ class Apply < ApplicationRecord
     "#{user.email}"
   end
 
-  def created_pretty
+  def submitted
     "#{created_at.strftime("%Y-%m-%d")}"
   end
   # validates   :user, presence: true

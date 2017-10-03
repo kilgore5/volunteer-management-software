@@ -118,7 +118,7 @@
   .panel.default
     .top-key-factor
       .event_day__inner
-        = link_to "Download", applies_path(@event, format: :csv)
+        = link_to "Download All", applies_path(@event, format: :csv), class: "btn btn-default"
 
 .col-md-12
   / Hacky, but needed for the ratings as I can't nest them above (form within form)
