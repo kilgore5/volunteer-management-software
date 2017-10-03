@@ -195,6 +195,17 @@ class AppliesController < ApplicationController
       if use_references?
         @applications = @applications.references(:users)
       end
+      # Search Form in use
+      if params[:q] and !params[:q].empty?
+        @applications = @applications
+                        .joins(:user)
+                        .where( "lower(users.full_name) like ?", "%#{params[:q].downcase}%" )
+                        .or(
+                          @applications
+                          .joins(:user)
+                          .where( "lower(users.email) like ?", "%#{params[:q].downcase}%" )
+                        )
+      end
       @applications = @applications.order(sort_column + " " + sort_direction)
 
       # Filters by the selected preferred jobs
@@ -277,8 +288,8 @@ class AppliesController < ApplicationController
     # Shows statuses to sort by
     def statuses
       @statuses = [
-        "accepted",
         "submitted",
+        "accepted",
         "waitlisted",
         "denied",
         "confirmed"

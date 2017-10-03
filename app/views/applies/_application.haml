@@ -13,6 +13,11 @@
     - else
       = "__Account Deleted__"
   %td
+    - if user
+      = mail_to user.email
+    - else
+      = "-"
+  %td
     = application.created_at.strftime("%d/%m/%Y")
   %td
     .star-rating{ data: { score: application.rating, id: application.id }}

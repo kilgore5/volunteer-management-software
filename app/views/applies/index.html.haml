@@ -7,8 +7,12 @@
   .panel.default
     .top-key-factor
       .event_day__inner.row.filters
-        .col-md-2.text-left
-          = "Total applications: #{@count}"
+        .col-md-3.text-left
+          = form_tag applies_path(@event), method: 'get' do
+            .input-group
+              = text_field_tag "q", params[:q] ? params[:q] : nil, class: "form-control", placeholder: "Name or Email"
+              %span.input-group-btn
+                = submit_tag("Search", class: "btn btn-default")
         .col-md-2.text-right
           %label{for: "job[:slug]"}
             Prefered Roles
@@ -16,17 +20,16 @@
           = form_tag applies_path(@event), method: 'get' do
             = hidden_field_tag "view", @view_type == "paged" ? "" : "all"
             = hidden_field_tag "status", params[:status] ? params[:status] : nil
+            = hidden_field_tag "q", params[:q] ? params[:q] : nil
             = collection_select(:job, :slug, @event.jobs, :slug, :title, {selected: params[:job] ? params[:job][:slug] : nil, include_blank: "All roles"}, class: "form-control")
-        .col-md-2.text-right
+        .col-md-1.text-right
           %label{for: "job[:slug]"}
             Status
         .col-md-2.text-right
           = form_tag applies_path(@event), method: 'get' do
             = hidden_field_tag "view", @view_type == "paged" ? "" : "all"
             = hidden_field_tag "job[slug]", params[:job] ? params[:job][:slug] : nil
-            / = collection_select(:status, @statuses, @statuses, {selected: params[:status] ? params[:status]: nil, include_blank: "All states"}, "test", class: "form-control")
-            / = select_tag(:status)
-            /   = option_for_select "true"
+            = hidden_field_tag "q", params[:q] ? params[:q] : nil
             %select{name: 'status', class: 'form-control', id: 'status_selector'}
               %option{value: 'all_states'}
                 = "All States"
@@ -43,11 +46,11 @@
     .top-key-factor
       .event_day__inner.row.filters
         .col-md-3.text-left
-          = "Accepted applications: #{@accepted}"
+          = "Total applications: #{@count}"
         .col-md-3.text-left
-          = "Denied applications: #{@denied}"
+          = "Accepted applications: #{@accepted}"
         .col-md-3.text-right
-          = "Positions Required: TODO"
+          = "Denied applications: #{@denied}"
         .col-md-3.text-right
           = "Confirmed spots: #{@confirmed}"
 .col-md-12.event_header
@@ -62,6 +65,8 @@
                 %th
                   = sortable "users.last_name", "Volunteer [sort]"
                 %th
+                  = "Email"
+                %th
                   = sortable "applies.created_at", "Submitted [sort]"
                 %th 
                   = sortable "applies.rating", "Rating [sort]"
@@ -74,6 +79,7 @@
                 %th
                   = "Confirmed ?"
               %tr.info-row
+                %td
                 %td
                 %td
                 %td
@@ -93,6 +99,7 @@
               = render partial: "application", collection: @applications
             %tfoot
               %tr
+                %td
                 %td
                 %td
                 %td
