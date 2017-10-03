@@ -42,6 +42,32 @@ class Apply < ApplicationRecord
   accepts_nested_attributes_for :user, :reject_if => :all_blank, :allow_destroy => false
 
   validates   :terms_accepted, acceptance: true
+
+  def self.to_csv
+    attributes = %w{name email state created_pretty info rating}
+    # attributes << column_names
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+      all.each do |app|
+        if app.user
+          csv << attributes.map{ |attr| app.send(attr) }
+        else
+        end
+      end
+    end
+  end
+
+  def name
+    "#{user.last_name.titleize}, #{user.first_name.titleize}"
+  end
+
+  def email
+    "#{user.email}"
+  end
+
+  def created_pretty
+    "#{created_at.strftime("%Y-%m-%d")}"
+  end
   # validates   :user, presence: true
   # validates_presence_of :first_name
   # validates_presence_of :last_name

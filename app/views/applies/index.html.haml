@@ -109,12 +109,16 @@
                   = submit_tag "Submit & Send", data: { confirm: "Are you sure? This will send out emails to all selected volunteers." }
                 %td
 
--if @view_type == "paged"
-  .col-md-12.lower_footer
+.col-md-12.lower_footer
+  -if @view_type == "paged"
     .panel.default.with-pagination
       .top-key-factor
         .event_day__inner
           = will_paginate @applications
+  .panel.default
+    .top-key-factor
+      .event_day__inner
+        = link_to "Download", applies_path(@event, format: :csv)
 
 .col-md-12
   / Hacky, but needed for the ratings as I can't nest them above (form within form)

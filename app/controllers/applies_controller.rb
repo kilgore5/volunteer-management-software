@@ -69,7 +69,7 @@ class AppliesController < ApplicationController
     list_all
 
     # view all or paged
-    if params[:view] == "all"
+    if params[:view] == "all" or request.format.csv?
       @view_type = "all"
     else
       @view_type = "paged"
@@ -86,6 +86,11 @@ class AppliesController < ApplicationController
     @denied = @applications.denied.count
 
     @confirmed = @applications.confirmed.count
+
+    if request.format.csv?
+      send_data @applications.to_csv, 
+                filename: "#{@event.name.parameterize}-applications-#{Date.today.strftime("%Y-%m-%d")}.csv"
+    end
 
   end
 
