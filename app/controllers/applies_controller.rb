@@ -174,19 +174,24 @@ class AppliesController < ApplicationController
   end
 
   def accept_multiple
+
     respond_to do |format|
 
-      @approved_applications = Apply.where(id: params[:application_ids_accept])
-      @denied_applications = Apply.where(id: params[:application_ids_deny])
-
-      if Apply.where(id: params[:application_ids_accept]).where().not(state: "denied").each { |a| a.accept! } &&
-         Apply.where(id: params[:application_ids_accept]).where(state: "denied").each { |a| a.second_chance! } &&
-         Apply.where(id: params[:application_ids_waitlist]).each { |a| a.waitlist! } &&
-         Apply.where(id: params[:application_ids_deny]).each { |a| a.deny! }
-        format.html { redirect_to request.referrer, notice: 'The applications have been processed!' }
+      if params[:commit] == "Assign"
+        # We are assigning a role here
+        role = Job.friendly.find(params[:assignment])
       else
-        format.html { redirect_to request.referrer, flash: { "alert-warning": "Oops, something went wrong; please try again." } }
+        # We are accepting / declining the applications
+        if Apply.where(id: params[:application_ids_accept]).where().not(state: "denied").each { |a| a.accept! } &&
+           Apply.where(id: params[:application_ids_accept]).where(state: "denied").each { |a| a.second_chance! } &&
+           Apply.where(id: params[:application_ids_waitlist]).each { |a| a.waitlist! } &&
+           Apply.where(id: params[:application_ids_deny]).each { |a| a.deny! }
+          format.html { redirect_to request.referrer, notice: 'The applications have been processed!' }
+        else
+          format.html { redirect_to request.referrer, flash: { "alert-warning": "Oops, something went wrong; please try again." } }
+        end
       end
+
     end
   end
 

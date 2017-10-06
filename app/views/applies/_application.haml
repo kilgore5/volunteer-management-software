@@ -19,8 +19,6 @@
       = "-"
   %td
     = application.created_at.strftime("%d/%m/%Y")
-  %td
-    .star-rating{ data: { score: application.rating, id: application.id }}
   - case state
     - when "accepted"
       %td.centered
@@ -57,8 +55,20 @@
         = check_box_tag "application_ids_waitlist[]", application.id
       %td.centered
         = check_box_tag "application_ids_deny[]", application.id
+  %td
+    .star-rating{ data: { score: application.rating, id: application.id }}
   %td.centered
     -if application.confirmed?
       = check_box_tag "confirmed", application.id, true, disabled: true
     -else
       = check_box_tag "confirmed", application.id, false, disabled: true
+  %td.centered
+    - case state
+      - when "accepted"
+        = check_box_tag "application_ids_assign[]", application.id, false, disabled: true
+      - when "waitlisted"
+        = check_box_tag "application_ids_assign[]", application.id, false, disabled: true
+      - when "denied"
+        = check_box_tag "application_ids_assign[]", application.id, false, disabled: true
+      - when "confirmed"
+        = check_box_tag "application_ids_assign[]", application.id, false, disabled: false

@@ -68,16 +68,18 @@
                   = "Email"
                 %th
                   = sortable "applies.created_at", "Submitted [sort]"
-                %th 
-                  = sortable "applies.rating", "Rating [sort]"
                 %th
                   = "Approve"
                 %th
                   = "Waitlist"
                 %th
                   = "Deny"
+                %th 
+                  = sortable "applies.rating", "Rating [sort]"
                 %th
                   = "Confirmed ?"
+                %th
+                  = "Assign Role"
               %tr.info-row
                 %td
                 %td
@@ -95,6 +97,9 @@
                   = "All "
                   = check_box_tag "select_all_deny"
                 %td
+                %td.centered
+                  = "All "
+                  = check_box_tag "select_all_assign"
             %tbody
               = render partial: "application", collection: @applications
             %tfoot
@@ -104,10 +109,12 @@
                 %td
                 %td
                 %td
-                %td
                 %td{colspan: 3, class: "centered"}
                   = submit_tag "Submit & Send", data: { confirm: "Are you sure? This will send out emails to all selected volunteers." }
+                %td{colspan: 2, class: "centered"}
+                  = select_tag "assignment", options_from_collection_for_select(@event.jobs, :slug, :title, {selected: params[:job] ? params[:job][:slug] : nil}), include_blank: "Choose Role", class: "form-control"
                 %td
+                  = submit_tag "Assign"
 
 .col-md-12.lower_footer
   -if @view_type == "paged"
