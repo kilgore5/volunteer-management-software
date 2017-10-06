@@ -36,6 +36,16 @@ class ApplicationResponseMailer < ApplicationMailer
     mail(to: @user.email, subject: subject)
   end
 
+  # Admins to User
+  def second_chance(user, application, event)
+    @user = user
+    @application = application
+    @event = event
+    @url  = edit_user_url(@user)
+    subject = "Your #{@event.name} volunteer application has been accepted!"
+    mail(to: @user.email, subject: subject)
+  end
+
   # Example to send the reminder
   # Need to set all apps who don't have a state to state: "submitted"
   # apps = Apply.where state: "accepted"

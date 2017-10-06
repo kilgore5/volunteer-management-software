@@ -45,6 +45,14 @@ module ApplyStateMachine
         transitions :from => :accepted, :to => :confirmed
       end
 
+      event :second_chance do
+        success do
+        end
+        error do |e|
+        end
+        transitions :from => :denied, :to => :accepted
+      end
+
     end
 
     def log_status_change
@@ -55,7 +63,11 @@ module ApplyStateMachine
       puts "sending user notification"
       case aasm.to_state
         when :accepted
-          ApplicationResponseMailer.accepted(self.user, self, self.event).deliver_later
+          if aasm.from_state == :denied
+            ApplicationResponseMailer.second_chance(self.user, self, self.event).deliver_later
+          else
+            ApplicationResponseMailer.accepted(self.user, self, self.event).deliver_later
+          end
         when :waitlisted
           ApplicationResponseMailer.waitlisted(self.user, self, self.event).deliver_later
         when :denied

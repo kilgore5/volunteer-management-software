@@ -38,7 +38,7 @@
         = check_box_tag "application_ids_deny[]", application.id, false, disabled: false
     - when "denied"
       %td.centered
-        = check_box_tag "application_ids_accepted[]", application.id, false, disabled: true
+        = check_box_tag "application_ids_accept[]", application.id, false, disabled: false
       %td.centered
         = check_box_tag "application_ids_waitlisted[]", application.id, false, disabled: true
       %td.centered

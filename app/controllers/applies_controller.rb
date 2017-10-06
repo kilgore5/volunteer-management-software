@@ -179,7 +179,8 @@ class AppliesController < ApplicationController
       @approved_applications = Apply.where(id: params[:application_ids_accept])
       @denied_applications = Apply.where(id: params[:application_ids_deny])
 
-      if Apply.where(id: params[:application_ids_accept]).each { |a| a.accept! } &&
+      if Apply.where(id: params[:application_ids_accept]).where().not(state: "denied").each { |a| a.accept! } &&
+         Apply.where(id: params[:application_ids_accept]).where(state: "denied").each { |a| a.second_chance! } &&
          Apply.where(id: params[:application_ids_waitlist]).each { |a| a.waitlist! } &&
          Apply.where(id: params[:application_ids_deny]).each { |a| a.deny! }
         format.html { redirect_to request.referrer, notice: 'The applications have been processed!' }
