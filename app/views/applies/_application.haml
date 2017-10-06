@@ -62,7 +62,7 @@
       = check_box_tag "confirmed", application.id, true, disabled: true
     -else
       = check_box_tag "confirmed", application.id, false, disabled: true
-  %td.centered
+  %td.centered{class: application.job.present? ? "assigned" : ""}
     - case state
       - when "accepted"
         = check_box_tag "application_ids_assign[]", application.id, false, disabled: true
@@ -72,3 +72,5 @@
         = check_box_tag "application_ids_assign[]", application.id, false, disabled: true
       - when "confirmed"
         = check_box_tag "application_ids_assign[]", application.id, false, disabled: false
+        - if application.job.present?
+          = application.job.title.truncate(10)

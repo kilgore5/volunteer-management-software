@@ -18,12 +18,7 @@ $(document).on 'turbolinks:load', ->
     Rails.fire form, 'submit'
     return
 
-  $('#job_slug').change ->
-    form = $(this).closest('form')[0]
-    form.submit()
-    return
-
-  $('#status_selector').change ->
+  $('#job_slug, #assign_slug, #status_selector').change ->
     form = $(this).closest('form')[0]
     form.submit()
     return
@@ -31,32 +26,50 @@ $(document).on 'turbolinks:load', ->
   $('#select_all_accept').change ->
     if $(this).is(':checked')
       $('input[name="application_ids_accept[]"]:not([disabled])').prop('checked', true);
+      $('input[name="application_ids_assign[]"]:not([disabled])').prop('checked', false);
       $('input[name="application_ids_deny[]"]:not([disabled])').prop('checked', false);
       $('input[name="application_ids_waitlist[]"]:not([disabled])').prop('checked', false);
       $('input[name="select_all_waitlist"]').prop('checked', false);
       $('input[name="select_all_deny"]').prop('checked', false);
+      $('input[name="select_all_assign"]').prop('checked', false);
     else
       $('input[name="application_ids_accept[]"]:not([disabled])').prop('checked', false);
 
   $('#select_all_waitlist').change ->
     if $(this).is(':checked')
       $('input[name="application_ids_waitlist[]"]:not([disabled])').prop('checked', true);
+      $('input[name="application_ids_assign[]"]:not([disabled])').prop('checked', false);
       $('input[name="application_ids_accept[]"]:not([disabled])').prop('checked', false);
       $('input[name="application_ids_deny[]"]:not([disabled])').prop('checked', false);
       $('input[name="select_all_accept"]').prop('checked', false);
       $('input[name="select_all_deny"]').prop('checked', false);
+      $('input[name="select_all_assign"]').prop('checked', false);
     else
       $('input[name="application_ids_waitlist[]"]:not([disabled])').prop('checked', false);
 
   $('#select_all_deny').change ->
     if $(this).is(':checked')
       $('input[name="application_ids_deny[]"]:not([disabled])').prop('checked', true);
+      $('input[name="application_ids_assign[]"]:not([disabled])').prop('checked', false);
       $('input[name="application_ids_accept[]"]:not([disabled])').prop('checked', false);
       $('input[name="application_ids_waitlist[]"]:not([disabled])').prop('checked', false);
       $('input[name="select_all_accept"]').prop('checked', false);
       $('input[name="select_all_waitlist"]').prop('checked', false);
+      $('input[name="select_all_assign"]').prop('checked', false);
     else
       $('input[name="application_ids_deny[]"]:not([disabled])').prop('checked', false);
+
+  $('#select_all_assign').change ->
+    if $(this).is(':checked')
+      $('input[name="application_ids_assign[]"]:not([disabled])').prop('checked', true);
+      $('input[name="application_ids_accept[]"]:not([disabled])').prop('checked', false);
+      $('input[name="application_ids_deny[]"]:not([disabled])').prop('checked', false);
+      $('input[name="application_ids_waitlist[]"]:not([disabled])').prop('checked', false);
+      $('input[name="select_all_accept"]').prop('checked', false);
+      $('input[name="select_all_waitlist"]').prop('checked', false);
+      $('input[name="select_all_deny"]').prop('checked', false);
+    else
+      $('input[name="application_ids_assign[]"]:not([disabled])').prop('checked', false);
 
   $('input[name="application_ids_accept[]"]:not([disabled])').change ->
     if $(this).is(':checked')

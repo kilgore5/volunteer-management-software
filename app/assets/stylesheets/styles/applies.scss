@@ -8,4 +8,8 @@
 
 td.centered {
   text-align: center;
+
+  &.assigned {
+    background-color: #c5f9bf;
+  }
 }

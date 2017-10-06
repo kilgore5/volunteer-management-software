@@ -15,6 +15,7 @@
 #  rating               :integer          default(0)
 #  deleted_at           :datetime
 #  state                :string           default("submitted")
+#  job_id               :uuid
 #
 # Indexes
 #
@@ -31,12 +32,15 @@ class Apply < ApplicationRecord
 
   # Includes State Machine Concern
   include ApplyStateMachine
+  # Includes Job Assignment Concern
+  include ApplyJobAssignment
 
   # Doesn't allow real deletion
   acts_as_paranoid
 
   belongs_to  :event
   belongs_to  :user
+  belongs_to  :job
   has_many    :application_preferred_jobs
   has_many    :preferred_jobs, through: :application_preferred_jobs, source: :job
   accepts_nested_attributes_for :user, :reject_if => :all_blank, :allow_destroy => false

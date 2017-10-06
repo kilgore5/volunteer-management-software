@@ -15,6 +15,7 @@
 #  rating               :integer          default(0)
 #  deleted_at           :datetime
 #  state                :string           default("submitted")
+#  job_id               :uuid
 #
 # Indexes
 #

@@ -7,7 +7,7 @@
   .panel.default
     .top-key-factor
       .event_day__inner.row.filters
-        .col-md-3.text-left
+        .col-md-4.text-left
           = form_tag applies_path(@event), method: 'get' do
             .input-group
               = text_field_tag "q", params[:q] ? params[:q] : nil, class: "form-control", placeholder: "Name or Email"
@@ -15,20 +15,29 @@
                 = submit_tag("Search", class: "btn btn-default")
         .col-md-2.text-right
           %label{for: "job[:slug]"}
-            Prefered Roles
-        .col-md-2.text-right
+            Job Preference
           = form_tag applies_path(@event), method: 'get' do
             = hidden_field_tag "view", @view_type == "paged" ? "" : "all"
             = hidden_field_tag "status", params[:status] ? params[:status] : nil
             = hidden_field_tag "q", params[:q] ? params[:q] : nil
+            = hidden_field_tag "assign[slug]", params[:assign] ? params[:assign][:slug] : nil
             = collection_select(:job, :slug, @event.jobs, :slug, :title, {selected: params[:job] ? params[:job][:slug] : nil, include_blank: "All roles"}, class: "form-control")
-        .col-md-1.text-right
-          %label{for: "job[:slug]"}
-            Status
         .col-md-2.text-right
+          %label{for: "job[:slug]"}
+            Job Assignment
+          = form_tag applies_path(@event), method: 'get' do
+            = hidden_field_tag "view", @view_type == "paged" ? "" : "all"
+            = hidden_field_tag "status", params[:status] ? params[:status] : nil
+            = hidden_field_tag "job[slug]", params[:job] ? params[:job][:slug] : nil
+            = hidden_field_tag "q", params[:q] ? params[:q] : nil
+            = collection_select(:assign, :slug, @event.jobs, :slug, :title, {selected: params[:assign] ? params[:assign][:slug] : nil, include_blank: "All roles"}, class: "form-control")
+        .col-md-2.text-right
+          %label{for: "job[:slug]"}
+            Application Status
           = form_tag applies_path(@event), method: 'get' do
             = hidden_field_tag "view", @view_type == "paged" ? "" : "all"
             = hidden_field_tag "job[slug]", params[:job] ? params[:job][:slug] : nil
+            = hidden_field_tag "assign[slug]", params[:assign] ? params[:assign][:slug] : nil
             = hidden_field_tag "q", params[:q] ? params[:q] : nil
             %select{name: 'status', class: 'form-control', id: 'status_selector'}
               %option{value: 'all_states'}
@@ -39,9 +48,9 @@
                 }
         .col-md-2.text-right
           - if @view_type == "paged"
-            = link_to "View all applications ->", event_applies_path(@event, view: "all")
+            = link_to "View all ->", event_applies_path(@event, view: "all")
           - else
-            = link_to "View paged applications ->", event_applies_path(@event)
+            = link_to "View paged ->", event_applies_path(@event)
   .panel.default
     .top-key-factor
       .event_day__inner.row.filters
@@ -86,7 +95,6 @@
                 %td
                 %td
                 %td
-                %td
                 %td.centered
                   = "All "
                   = check_box_tag "select_all_accept"
@@ -96,6 +104,7 @@
                 %td.centered
                   = "All "
                   = check_box_tag "select_all_deny"
+                %td
                 %td
                 %td.centered
                   = "All "

@@ -180,6 +180,11 @@ class AppliesController < ApplicationController
       if params[:commit] == "Assign"
         # We are assigning a role here
         role = Job.friendly.find(params[:assignment])
+        if Apply.where(id: params[:application_ids_assign]).update_all(job_id: role.id)
+          format.html { redirect_to request.referrer, notice: 'The applications have been assigned roles!' }
+        else
+          format.html { redirect_to request.referrer, flash: { "alert-warning": "Oops, something went wrong; please try again." } }
+        end
       else
         # We are accepting / declining the applications
         if Apply.where(id: params[:application_ids_accept]).where().not(state: "denied").each { |a| a.accept! } &&
@@ -222,6 +227,12 @@ class AppliesController < ApplicationController
       # Filters by the selected preferred jobs
       if params[:job] and !params[:job][:slug].empty?
         @applications = @applications.joins(:preferred_jobs).where(jobs: {slug: params[:job][:slug]})
+      end
+
+      # Filters by the selected assigned jobs
+      if params[:assign] and !params[:assign][:slug].empty?
+        job = Job.friendly.find(params[:assign][:slug])
+        @applications = @applications.where(job_id: job.id)
       end
 
       # Filters by the status
