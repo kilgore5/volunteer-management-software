@@ -72,6 +72,10 @@ class Apply < ApplicationRecord
   def submitted
     "#{created_at.strftime("%Y-%m-%d")}"
   end
+
+  def before_deadline?
+    event.deadline_to_decline > Time.now
+  end
   # validates   :user, presence: true
   # validates_presence_of :first_name
   # validates_presence_of :last_name

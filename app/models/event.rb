@@ -16,6 +16,8 @@
 #  initial_charge_description :string
 #  initial_charge_cents       :integer
 #  deleted_at                 :datetime
+#  deadline_to_decline        :datetime
+#  primary_contact_email      :string
 #
 # Indexes
 #
@@ -50,9 +52,17 @@ class Event < ApplicationRecord
   accepts_nested_attributes_for :jobs, :reject_if => :all_blank, :allow_destroy => true
   validates_presence_of   :name, :start_time, :end_time, :ticket_price_cents
   before_create             :set_event_length
+  before_create             :set_deadline_to_decline
   after_create              :create_event_days
 
+
   private
+
+  # Sets a default deadline to decline applications, after which
+  # the user is charged for not showing up
+  def set_deadline_to_decline
+    self.deadline_to_decline = ( Time.now + 6.months ) unless self.deadline_to_decline.present?
+  end
 
   # Sets the length of the event based on the start and end times
   def set_event_length

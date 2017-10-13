@@ -7,4 +7,4 @@
   - if !user_signed_in?
     = link_to('Login', new_user_session_path, class: "btn btn-info btn-lg centered")
   - else
-    = link_to 'My Details', edit_user_path(current_user)
+    = link_to('My Details / Applications', edit_user_path(current_user), class: "btn btn-info btn-lg centered")

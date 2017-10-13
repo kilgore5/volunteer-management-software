@@ -45,13 +45,13 @@ module ApplyStateMachine
         transitions :from => :accepted, :to => :confirmed
       end
 
-      event :second_chance do
-        success do
-        end
-        error do |e|
-        end
-        transitions :from => :denied, :to => :accepted
-      end
+      # event :second_chance do
+      #   success do
+      #   end
+      #   error do |e|
+      #   end
+      #   transitions :from => :denied, :to => :accepted
+      # end
 
     end
 

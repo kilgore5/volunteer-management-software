@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171006132814) do
+ActiveRecord::Schema.define(version: 20171012233459) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -114,6 +114,8 @@ ActiveRecord::Schema.define(version: 20171006132814) do
     t.string "initial_charge_description"
     t.integer "initial_charge_cents"
     t.datetime "deleted_at"
+    t.datetime "deadline_to_decline"
+    t.string "primary_contact_email"
     t.index ["client_owner_id"], name: "index_events_on_client_owner_id"
     t.index ["deleted_at"], name: "index_events_on_deleted_at"
     t.index ["slug"], name: "index_events_on_slug"

@@ -16,6 +16,8 @@
 #  initial_charge_description :string
 #  initial_charge_cents       :integer
 #  deleted_at                 :datetime
+#  deadline_to_decline        :datetime
+#  primary_contact_email      :string
 #
 # Indexes
 #

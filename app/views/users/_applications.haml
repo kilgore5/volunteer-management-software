@@ -84,6 +84,39 @@
           %div
             %span.small.form-text.text-muted
               Welcome to the team.  Watch your email for important announcements about your shift schedule or upcoming meetings.
+            %br
+            %a.small.form-text{ data: { target: '#myModal', toggle: 'modal'} }
+              Want to cancel your shift?
+            - deadline = app.event.deadline_to_decline
+            #myModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", :role => "dialog", :tabindex => "-1"}
+              .modal-dialog.modal-lg{:role => "document"}
+                .modal-content
+                  .modal-header
+                    %h5#exampleModalLabel.modal-title I'm unable to make my shift, what are my options?
+                    %hr
+                    %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+                      %span{"aria-hidden" => "true"} ×
+                  .modal-body
+                    - if app.before_deadline?
+                      %h5
+                        = " The deadline to decline you spot is: #{deadline.strftime("%A")}, #{deadline.strftime("%d/%m/%Y")}"
+                      %br
+                      %h6
+                        You are still able to decline your volunteer position below; after the cutoff cancellations are subject to the fee stated in your application terms.
+                      %i.small
+                        Unfortunately we are unable to refund application fees.
+                      %br
+                      %br
+                      = link_to "Confirm Cancellation", decline_invitation_apply_path(app), class: "btn btn-info", data: { confirm: "Are you sure? Your event ticket will no longer be valid and your application will be deleted" }
+                    - else
+                      %h5
+                        = " The deadline to decline your spot was: #{deadline.strftime("%A")}, #{deadline.strftime("%d/%m/%Y")}"
+                      %br
+                      %h6
+                        You are now unable to decline your volunteer position.  Please contact our team at #{app.event.primary_contact_email} to discuss your options.
+
+                  .modal-footer
+                    %button.btn.btn-info{"data-dismiss" => "modal", :type => "button"} Keep my spot
 
       - elsif app.waitlisted?
         /
