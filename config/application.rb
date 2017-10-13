@@ -22,7 +22,11 @@ module VolunteerManagementPlatform
 
     config.generators do |g|
       g.orm :active_record, primary_key_type: :uuid
-    end  
-      
+    end
+
+
+    config.time_zone = 'Melbourne'
+    config.active_record.default_timezone = :local
+
   end
 end
