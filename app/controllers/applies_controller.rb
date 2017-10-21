@@ -282,7 +282,7 @@ class AppliesController < ApplicationController
 
     def set_event
       @event = params[:event_id] ? Event.friendly.find(params[:event_id]) : @current_event
-      @description = @event.initial_charge_description ? @event.initial_charge_description : "T Shirt for volunteer shift"
+      @description = @event.initial_charge_description ? @event.initial_charge_description : "Strawberry Fields Volunteer Fee"
       @amount = @event.initial_charge_cents ? @event.initial_charge_cents : 1500
     end
 
