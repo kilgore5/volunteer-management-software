@@ -208,6 +208,7 @@ class AppliesController < ApplicationController
       @applications = Apply
         .where(event_id: @event.id)
         .includes(:event, :user, :preferred_jobs)
+        .where.not(users: {email: nil})
       if use_references?
         @applications = @applications.references(:users)
       end
