@@ -19,13 +19,19 @@ class EventDaysController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event_day
-      @event_day = EventDay.includes(event: :jobs).includes(:rotations).friendly.find(params[:id])
+      @event_day = EventDay.includes(event: :jobs).includes(:rotations, :shifts).friendly.find(params[:id])
+      @rotations = @event_day.rotations
+      @shifts = @event_day.shifts
       @event = @event_day.event
-      # @rotations = @event_day.rotations.where()
-    end  
+      @volunteers = []
+      @covered_shifts = @shifts.where.not(volunteer_id: nil).includes(:volunteer)
+      @shifts.where.not(volunteer_id: nil).each do |shift|
+        @volunteers << shift.volunteer
+      end
+    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_day_params
       params.require(:event_day).permit(:date, :event_id, {:job_ids => []})
-    end    
+    end
 end

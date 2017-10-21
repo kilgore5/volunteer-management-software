@@ -8,7 +8,7 @@
         %span.icon
           / %img{:alt => "icon", "ng-src" => "images/icons/payment-history.svg", :src => "images/icons/payment-history.svg"}/
       .event_day__title
-        = day.date.strftime("%A")
+        = day.date.strftime("%A, %d/%m/%Y")
         %hr
       .event_day__inner
         = "Jobs assigned: #{day.jobs.count}"
@@ -17,6 +17,7 @@
       Add jobs
     %hr
     = link_to "View full day", event_event_day_path(@event, day), class: "btn btn-info"
+
 .modal.fade{:id =>  day.date }
   .modal-dialog{:role => "document"}
     .modal-content
@@ -32,7 +33,4 @@
 
         .modal-footer
           = f.button :submit
-          %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close    
-
-/ :javascript
-/   $('#myModal').modal('toggle')        
+          %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close

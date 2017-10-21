@@ -1,13 +1,15 @@
 - day = @event_day
+- date = @event_day.date.strftime("%A, %d/%m/%Y")
+- show_percent = ( (@covered_shifts.count.to_f / @shifts.count) * 100 )
 
 - content_for :hero_title do
-  = "#{@event_day.event.name}: #{@event_day.date.strftime("%A")}, #{@event_day.date.strftime("%d/%m/%Y")}"
+  = "#{@event_day.event.name}: #{date}"
 - content_for :cta do
   %button.btn.btn-lg.btn-info{"data-target" => "##{@event_day.date}", "data-toggle" => "modal", :type => "button"}
     Add jobs +
 
 .row 
-  .col-sm-6.col-xs-12.event_day.event_day
+  .col-sm-8.col-xs-12.event_day.event_day
     .panel.default
       .top-key-factor
         .badge-container
@@ -16,8 +18,12 @@
           %span.icon
         .event_day__title
           %h5
-            Jobs Assigned [#{day.jobs.count}]
-        %hr    
+            Jobs Assigned for #{date} [#{day.jobs.count}]
+          %span.coverage{style: "background: linear-gradient(to right, #89fba2 #{show_percent - 2.5}%, #e5e6e5 #{show_percent}%, #e2e2e2 #{show_percent}%)"}
+            = "#{@covered_shifts.count}/#{@shifts.count}"
+            = "#{number_to_percentage((show_percent), precision: 0)}"
+
+        %hr
         .event_day__inner
           %br
           %table{class: "table table-sm table-bordered"}
@@ -28,44 +34,72 @@
                 %th
                   Rotations
                 %th
-                  Shifts                  
+                  Shifts
+                %th
+                  Shifts Filled
+                %th
+                  Actions
             %tbody
               - day.jobs.each do |job|
+                - shifts = @shifts.where(job_id: job.id)
+                - rotations = @rotations.where(job_id: job.id)
                 %tr
                   %td
                     = job.title
                   %td
-                    = link_to job.rotations_required_per_day, event_day_rotations_path(day.id, job_id: job.id) 
+                    = link_to rotations.count, event_day_rotations_path(day.id, job_id: job.id)
                   %td
-                    / # TODO get this logic out of view
-                    = job.rotations_required_per_day * job.workers_per_rotation
+                    = link_to shifts.count, event_day_rotations_path(day.id, job_id: job.id)
+                  %td
+                    = shifts.where.not(volunteer_id: nil).count
+                  %td
+                    = link_to("Assign Volunteers", event_day_rotations_path(day.id, job_id: job.id), class: "btn btn-sm btn-primary")
               %tr.table-info
                 %td
                   Daily Totals
                 %td
-                  = day.total_rotations
+                  = @rotations.count
                 %td
-                  = day.total_workers_needed                    
+                  = @shifts.count
+                %td
+                  = @covered_shifts.count
+                %td
+                  %button.btn.btn-sm.btn-secondary{"data-target" => "##{@event_day.date}", "data-toggle" => "modal", :type => "button"}
+                    Add jobs +
 
           %br
-  .col-sm-6.col-xs-12.event_day.event_day
+  .col-sm-4.col-xs-12.event_day.event_day
     .panel.default
       .top-key-factor
         .badge-container
           %span.badge.excellent EXCELLENT
         .centerify-icon
-          %span.icon       
+          %span.icon
         .event_day__title
           %h5
             Volunteers
-        %hr    
+        %hr
         .event_day__inner
-          = "Volunteers needed: #{day.total_workers_needed}"
-          %br 
+          = "Total Rotations: #{day.rotations.count}"
+          %br
         .event_day__inner
-          = "Total Rotations: #{day.total_rotations}"
-          %br                       
-                                                                     
+          = "Volunteers needed: #{day.shifts.count}"
+          %br
+        .event_day__inner
+          = "Shifts assigned: #{day.shifts.where.not(volunteer_id: nil).count}"
+          %br
+        .event_day__inner
+          = "Vols:"
+          %br
+          %ul
+            - @covered_shifts.each do |shift|
+              %li
+                %span
+                  = link_to shift.volunteer.full_name, shift.volunteer
+                %span
+                  = shift.job.title
+                %span
+                  = shift.start_time.strftime("%A %l:%M%p")
 
 .modal.fade{:id =>  day.date }
   .modal-dialog{:role => "document"}

@@ -19,33 +19,33 @@ class EventDay < ApplicationRecord
   belongs_to                  :event
   has_and_belongs_to_many     :jobs
   has_many                    :rotations, through: :jobs
-  has_many                    :shifts
+  has_many                    :shifts, dependent: :destroy
   # Actions when saving
   after_save                  :create_rotations
 
   # Allows 'friendly' slugs
   extend FriendlyId
-  friendly_id :slug_candidates, use: :slugged  
+  friendly_id :slug_candidates, use: :slugged
   # Try building a slug based on the following fields in
   # increasing order of specificity.
   def slug_candidates
     [
       [:date, self.event.slug]
     ]
-  end 
+  end
 
   # Calculates the total shifts to be filled for the day
-  def total_rotations
+  # def total_rotations
 
-    shifts = 0
+  #   shifts = 0
 
-    self.jobs.each do |job|
-      shifts += job.rotations_required_per_day
-    end
+  #   self.jobs.each do |job|
+  #     shifts += job.rotations_required_per_day
+  #   end
 
-    return shifts
+  #   return shifts
 
-  end  
+  # end
 
   # Calculates the workers needed per day
   def total_workers_needed
@@ -92,19 +92,19 @@ class EventDay < ApplicationRecord
           hours_calc = ( i - 1 ) * job.hours_per_rotation
 
           Rotation.where(
-            job_id:           job.id, 
-            day_id:           self.id, 
-            count:            i, 
+            job_id:           job.id,
+            day_id:           self.id,
+            count:            i,
             length:           job.hours_per_rotation,
             start_time:       self.date.to_datetime + hours_calc.hours
-          ).first_or_create   
+          ).first_or_create
 
           i += 1
-        end    
+        end
 
       end
 
-    end  
+    end
 
 
 end

@@ -24,7 +24,7 @@ class Rotation < ApplicationRecord
   belongs_to                    :shift_manager, class_name: "User", optional: true
   belongs_to                    :day, class_name: "EventDay"
   belongs_to                    :job
-  has_many                      :shifts
+  has_many                      :shifts, dependent: :destroy
   accepts_nested_attributes_for :shifts, :shift_manager, :reject_if => :all_blank, :allow_destroy => true
 
   # Actions when saving
@@ -42,13 +42,13 @@ class Rotation < ApplicationRecord
 
   # Calculate precentage of shits covered for a given rotation
   def covered_percent
-    ( self.covered_shifts / self.total_shifts ) * 100
+    self.covered_shifts.to_f / self.total_shifts
   end
 
   # calculate the shifts remaining to be covered in this rotation instance
   def remaining_shifts
     self.total_shifts - self.covered_shifts
-  end  
+  end
 
   private
 
@@ -61,7 +61,12 @@ class Rotation < ApplicationRecord
       # create one rotation for each count
       i = 1
       shift_count.times do |rotation|
-        Shift.where(rotation_id: @rotation.id, count: i).first_or_create do |shift|
+        Shift.where(rotation_id: @rotation.id,
+                    count: i,
+                    event_day_id: @rotation.day.id,
+                    job_id: @rotation.job.id,
+                    start_time: @rotation.start_time
+        ).first_or_create do |shift|
           shift.length = @rotation.job.hours_per_rotation
         end
         i += 1
@@ -74,6 +79,6 @@ class Rotation < ApplicationRecord
       #   i += 1
       # end      
 
-    end    
+    end
 
 end

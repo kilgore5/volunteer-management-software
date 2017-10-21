@@ -12,7 +12,10 @@ class RotationsController < ApplicationController
       @rotations = Rotation.where(:job_id => params[:job_id]).where(:day_id => params[:event_day_id]).includes(:job, :day)
       @job = @rotations.first.job
       @day = @rotations.first.day
+
+      @assigned_ids = assigned_vols
       flash[:notice] = "There are <b>#{@rotations.count}</b> rotations for this job".html_safe
+      @vols = User.joins(:apps).where(applies: {job_id: @job.id}).where.not(id: @assigned_ids)
     else
       @rotations = Rotation.all
     end
@@ -21,6 +24,7 @@ class RotationsController < ApplicationController
   # GET /rotations/1
   # GET /rotations/1.json
   def show
+
   end
 
   # GET /rotations/new
@@ -80,13 +84,21 @@ class RotationsController < ApplicationController
       @day = @rotation.day
     end
 
+    def assigned_vols
+      vols = []
+      @day.shifts.where.not(volunteer_id: nil).each do |shift|
+        vols << shift.volunteer.id
+      end
+      return vols
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def rotation_params
       params.require(:rotation).permit( :id,
-                                   :length, 
-                                   :start_time, 
+                                   :length,
+                                   :start_time,
                                    :count,
-                                   :shift_manager_id, 
+                                   :shift_manager_id,
                                    shifts_attributes: [:id, :volunteer_id, :length, :start_time, :count, :_destroy])
     end
 end

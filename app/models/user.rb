@@ -67,10 +67,13 @@ class User < ApplicationRecord
 
   # Allows 'friendly' slugs
   extend FriendlyId
-  friendly_id :full_name, use: :slugged  
+  friendly_id :full_name, use: :slugged
 
   # Allows a shift_manager role to be in charge of a specific rotation
-  has_many :rotations
+  has_many :rotations, class_name: "Rotation", foreign_key: 'shift_manager_id'
+
+  # Allows a shift to be assigned to a volunteer
+  has_many :shifts, class_name: "Shift", foreign_key: 'volunteer_id'
 
   has_many :skills
 

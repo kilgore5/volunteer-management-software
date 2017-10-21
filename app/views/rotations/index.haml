@@ -2,7 +2,7 @@
   = "#{@day.date.strftime("%A")}, #{@day.date.strftime("%d/%m/%Y")}"
   %br
   %h3= "Rotations for: #{@job.title}"
-  
+
 %table.table
   %thead
     %tr
@@ -11,17 +11,18 @@
       %td
         Duration
       %td
-        Shift Manager        
+        Shift Manager
       %td
         Shifts
       %td
-        Cover      
+        Cover
   %tbody
     - @rotations.each do |rotation|
       - classes = rotation.covered_percent >= 100 ? "table-success" : "table-warning"
-      %tr{class: classes}
+      - show_percent = rotation.covered_percent * 100
+      %tr{class: classes, style: "background-color: rgba(141,202,255,#{rotation.covered_percent})"}
         %td
-          = rotation.start_time
+          = rotation.start_time.strftime("%A %l:%M%p")
         %td
           = "#{rotation.length} hrs"
         %td
@@ -31,14 +32,14 @@
               %span{"aria-hidden" => "true"} ×
           - else
             %button.btn.btn-md.btn-info{"data-target" => "#manager-#{rotation.id}", "data-toggle" => "modal", :type => "button"}
-              Assign manager +            
+              Assign manager +
         %td
           %button.btn.btn-md.btn-info{"data-target" => "#shifts-#{rotation.id}", "data-toggle" => "modal", :type => "button"}
             Assign volunteers +
         %td
-          = "#{rotation.covered_shifts}/#{rotation.total_shifts}"
-          = "#{number_to_percentage(rotation.covered_percent, precision: 3)}"
-          = "#{rotation.covered_percent}"
+          %span.coverage{style: "background: linear-gradient(to right, #89fba2 #{show_percent - 2.5}%, #e5e6e5 #{show_percent}%, #e2e2e2 #{show_percent}%)"}
+            = "#{rotation.covered_shifts}/#{rotation.total_shifts}"
+            = "#{number_to_percentage((show_percent), precision: 0)}"
 
       / Adds a modal for each rotation, to add shift managers to
       .modal.fade{:id =>  "manager-" + rotation.id }
@@ -59,7 +60,7 @@
 
               .modal-footer
                 = f.button :submit
-                %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close             
+                %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
 
       / Adds a modal for each rotation, to add shifts to
       .modal.fade{:id =>  "shifts-" + rotation.id }

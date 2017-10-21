@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171012233459) do
+ActiveRecord::Schema.define(version: 20171020222022) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -181,10 +181,14 @@ ActiveRecord::Schema.define(version: 20171012233459) do
     t.uuid "rotation_id"
     t.uuid "volunteer_id"
     t.integer "length", default: 1
-    t.integer "start_time"
     t.integer "count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "event_day_id"
+    t.uuid "job_id"
+    t.datetime "start_time"
+    t.index ["event_day_id"], name: "index_shifts_on_event_day_id"
+    t.index ["job_id"], name: "index_shifts_on_job_id"
     t.index ["rotation_id"], name: "index_shifts_on_rotation_id"
     t.index ["volunteer_id"], name: "index_shifts_on_volunteer_id"
   end

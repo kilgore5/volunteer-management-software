@@ -2,7 +2,7 @@
   / .small
   /   = f.count
   = f.association :volunteer,
-    collection: User.with_role(:volunteer),
+    collection: @vols,
     label_method: :select_label
 
   = link_to_remove_association "- remove shift", f

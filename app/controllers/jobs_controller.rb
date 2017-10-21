@@ -1,6 +1,6 @@
 class JobsController < ApplicationController
 
-  before_action :set_job, only: [:update]  
+  before_action :set_job, only: [:update]
 
   def index
     @event = Event.friendly.find(params[:event_id])

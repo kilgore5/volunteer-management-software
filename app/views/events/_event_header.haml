@@ -6,9 +6,9 @@
           %thead
             %tr
               %td
-                Start date 
+                Start date
               %td
-                Owner 
+                Owner
               %td
                 Jobs (#{event.jobs.count})
               %td
@@ -18,7 +18,7 @@
           %tbody 
             %tr
               %td
-                = "#{event.start_time.strftime("%A")}, #{event.start_time.strftime("%d/%m/%Y")}"
+                = "#{event.start_time.strftime("%A, %d/%m/%Y")}"
               %td
                 = link_to(event.client_owner.full_name, user_path(event.client_owner))
               %td   
@@ -26,7 +26,7 @@
               %td
                 = link_to("Review / Aprove", event_applies_path(event), class: "btn btn-sm btn-default") 
               %td   
-                TODO                 
+                TODO
 
 /     %button.btn.btn-info{"data-target" => "##{event.name.downcase.delete(' ')}", "data-toggle" => "modal", :type => "button"}
 /       Apply to event

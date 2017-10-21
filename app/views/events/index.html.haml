@@ -15,8 +15,8 @@
   %tbody
     - @events.each do |event|
       %tr
-        %td= event.start_time
-        %td= event.end_time
+        %td= event.start_time.strftime("%A %l:%M%p")
+        %td= event.end_time.strftime("%A %l:%M%p")
         %td= event.event_length
         %td= event.ticket_price_cents
         %td= event.client_owner
