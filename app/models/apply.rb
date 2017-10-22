@@ -32,6 +32,7 @@ class Apply < ApplicationRecord
 
   # Includes State Machine Concern
   include ApplyStateMachine
+  include ApplyCsvExport
   # Includes Job Assignment Concern
   # include ApplyJobAssignment
 
@@ -46,32 +47,6 @@ class Apply < ApplicationRecord
   accepts_nested_attributes_for :user, :reject_if => :all_blank, :allow_destroy => false
 
   validates   :terms_accepted, acceptance: true
-
-  def self.to_csv
-    attributes = %w{name email state submitted rating}
-    # attributes << column_names
-    CSV.generate(headers: true) do |csv|
-      csv << attributes.map{ |attr| attr.titleize }
-      all.each do |app|
-        if app.user
-          csv << attributes.map{ |attr| app.send(attr) }
-        else
-        end
-      end
-    end
-  end
-
-  def name
-    "#{user.last_name.titleize}, #{user.first_name.titleize}"
-  end
-
-  def email
-    "#{user.email}"
-  end
-
-  def submitted
-    "#{created_at.strftime("%Y-%m-%d")}"
-  end
 
   def before_deadline?
     event.deadline_to_decline > Time.now
