@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   before_action :client_and_up, only: [:index, :show]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :stripe_customer, only: [:show, :edit]
+  before_action :get_apps, only: [:show, :edit]
   layout "account", only: [:show, :edit, :update]
 
   # GET /users
@@ -26,7 +27,6 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    @apps = @user.applications.includes(:event)
     @recently_accepted = @apps.accepted.where('updated_at >= ?', 2.months.ago).count
     if @recently_accepted > 0 && flash.empty?
       flash[:notice] = "You have an accepted application pending your confirmation! Your spot is not secure until you confirm your intent to attend your shifts."
@@ -107,6 +107,10 @@ class UsersController < ApplicationController
 
     def stripe_customer
       @customer = @user.stripe_customer_id ? StripeTool.find_customer(@user.stripe_customer_id) : nil
+    end
+
+    def get_apps
+      @apps = @user.applications.includes(:event)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

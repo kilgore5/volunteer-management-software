@@ -9,33 +9,38 @@
 - content_for :profile do
   = render "user_details"
 
-%table.table
-  %thead
-    %tr
-      %td
-        Shifts made:
-      %td
-        Shifts missed:
-      %td
-        Apps accepted:
-      %td
-        Hours worked:      
-      %td
-        Rating:
-  %tbody
-    %tr
-      %td
-        = @user.shifts_made
-      %td
-        = @user.shifts_missed         
-      %td
-        = @user.apps_accepted
-      %td
-        = @user.hours_worked
-      %td
-        = @user.rating        
+%h5
+  User Stats
+.user-details.panel.default
+  %table.table
+    %thead
+      %tr
+        %td
+          Shifts made:
+        %td
+          Shifts missed:
+        %td
+          Apps accepted:
+        %td
+          Hours worked:      
+        %td
+          Rating:
+    %tbody
+      %tr
+        %td
+          = @user.shifts_made
+        %td
+          = @user.shifts_missed         
+        %td
+          = @user.apps_accepted
+        %td
+          = @user.hours_worked
+        %td
+          = @user.rating        
 
 %hr
+
+= render 'applications'
 
 
 = link_to 'Edit details', edit_user_path(@user)
