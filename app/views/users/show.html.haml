@@ -22,7 +22,7 @@
         %td
           Apps accepted:
         %td
-          Hours worked:      
+          Hours worked:
         %td
           Rating:
     %tbody
@@ -30,17 +30,25 @@
         %td
           = @user.shifts_made
         %td
-          = @user.shifts_missed         
+          = @user.shifts_missed
         %td
           = @user.apps_accepted
         %td
           = @user.hours_worked
         %td
-          = @user.rating        
+          = @user.rating
 
 %hr
 
+%h5
+  Applications
 = render 'applications'
+
+%hr
+
+%h5
+  Shifts
+= render 'shifts'
 
 
 = link_to 'Edit details', edit_user_path(@user)

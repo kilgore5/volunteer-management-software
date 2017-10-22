@@ -12,6 +12,7 @@
 #  hours_per_rotation         :integer          default(0)
 #  rotations_required_per_day :integer          default(0)
 #  slug                       :string
+#  meeting_place              :string           default("The Volunteer Tent")
 #
 # Indexes
 #

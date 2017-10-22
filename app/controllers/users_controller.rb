@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :stripe_customer, only: [:show, :edit]
   before_action :get_apps, only: [:show, :edit]
+  before_action :get_shifts, only: [:show, :edit]
   layout "account", only: [:show, :edit, :update]
 
   # GET /users
@@ -111,6 +112,10 @@ class UsersController < ApplicationController
 
     def get_apps
       @apps = @user.applications.includes(:event)
+    end
+
+    def get_shifts
+      @shifts = @user.shifts.includes(:event_day, :job)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

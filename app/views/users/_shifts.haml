@@ -1,0 +1,46 @@
+- if @shifts.empty?
+  .user-details.panel.default
+    .row
+      .col-md-12
+        %small.form-text.text-muted You don't have any current shifts. You'll be notified by email when you are assigned a shift.
+
+- @shifts.each do |shift|
+  - event = shift.event_day.event
+
+  .user-details.panel.default
+    .row
+      .col-md-3
+        %h6
+          = "#{shift.job.title} @ #{event.name}"
+      .col-md-6.pad-me
+        = shift.start_time.strftime("%l:%M %p %A %Y-%m-%d")
+      .col-md-3.pad-me
+        = "#{shift.length}hrs"
+      %br
+      %hr
+
+      .col-xs-12
+        %div
+          Your shift has been assigned.
+
+      %br
+      %hr
+
+      .col-xs-2
+        %div
+          = "#{shift.job.title}"
+      .col-xs-10
+        %div
+          = "#{shift.job.description}"
+
+      %br
+      %hr
+      .col-xs-2
+        = "Actions:"
+      .col-xs-10
+        %div
+          %span.small.form-text.text-muted
+            = "- If you have questions about your shift, please contact #{event.primary_contact_email}."
+        %div
+          %span.small.form-text.text-muted
+            = "- You must report to your shift by #{shift.start_time.strftime("%l:%M %p")} at #{shift.job.meeting_place} and work the entire #{shift.length} hours in order to qualify for your festival ticket."

@@ -10,11 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171020222022) do
+ActiveRecord::Schema.define(version: 20171022215114) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
   enable_extension "pgcrypto"
+  enable_extension "plpgsql"
+
+  create_table "application_for_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "event_id"
+    t.boolean "accepted", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "info"
+    t.uuid "user_id"
+    t.boolean "volunteered_before", default: false, null: false
+    t.boolean "been_before", default: false, null: false
+    t.text "friends_or_referrals"
+    t.boolean "terms_accepted"
+    t.integer "rating", default: 0
+    t.boolean "invitation_accepted"
+    t.index ["been_before"], name: "index_application_for_events_on_been_before"
+    t.index ["event_id"], name: "index_application_for_events_on_event_id"
+    t.index ["user_id"], name: "index_application_for_events_on_user_id"
+    t.index ["volunteered_before"], name: "index_application_for_events_on_volunteered_before"
+  end
 
   create_table "application_preferred_jobs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "job_id"
@@ -25,7 +44,8 @@ ActiveRecord::Schema.define(version: 20171020222022) do
     t.index ["job_id"], name: "index_application_preferred_jobs_on_job_id"
   end
 
-  create_table "applies", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "applies", id: false, force: :cascade do |t|
+    t.uuid "id", default: -> { "gen_random_uuid()" }, null: false
     t.uuid "event_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -149,6 +169,7 @@ ActiveRecord::Schema.define(version: 20171020222022) do
     t.integer "hours_per_rotation", default: 0
     t.integer "rotations_required_per_day", default: 0
     t.string "slug"
+    t.string "meeting_place", default: "The Volunteer Tent"
     t.index ["event_id"], name: "index_jobs_on_event_id"
     t.index ["slug"], name: "index_jobs_on_slug"
   end

@@ -1,29 +1,16 @@
-%h5
-  My Applications
-.user-details.panel.default
-  - if @apps.empty?
+- if @apps.empty?
+  .user-details.panel.default
     .row
       .col-md-12
         %small.form-text.text-muted You don't have any current applications. Check back soon for new events to apply for.
-  - @apps.each do |app|
-    - case app.state
-    - when "submitted"
-      - status_label = "default"
-    - when "accepted"
-      - status_label = "primary"
-    - when "waitlisted"
-      - status_label = "warning"
-    - when "denied"
-      - status_label = "danger"
-    - when "confirmed"
-      - status_label = "success"
-
+- @apps.each do |app|
+  .user-details.panel.default
     .row
       .col-md-4
         %h6= app.event.name
       .col-md-5.pad-me
         Your Application Status:
-        %span.label{ class: "label-#{status_label}" }
+        %span.label{ class: "label-#{app.status_label}" }
           = app.state.titleize
       .col-md-3.pad-me
         / # = link_to 'Edit my application', edit_apply_path(app)

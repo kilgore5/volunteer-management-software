@@ -51,6 +51,21 @@ class Apply < ApplicationRecord
   def before_deadline?
     event.deadline_to_decline > Time.now
   end
+
+  def status_label
+    case self.state
+    when "submitted"
+      status_label = "default"
+    when "accepted"
+      status_label = "primary"
+    when "waitlisted"
+      status_label = "warning"
+    when "denied"
+      status_label = "danger"
+    when "confirmed"
+      status_label = "success"
+    end
+  end
   # validates   :user, presence: true
   # validates_presence_of :first_name
   # validates_presence_of :last_name
