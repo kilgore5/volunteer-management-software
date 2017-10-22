@@ -1,0 +1,4 @@
+- content_for :hero_title do
+  = "#{@event.name}: Event Days"
+
+= render partial: "day_full", collection: @event_days

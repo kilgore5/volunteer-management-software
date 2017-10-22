@@ -47,6 +47,18 @@ class EventDay < ApplicationRecord
 
   # end
 
+  def volunteers
+    volunteer_team = []
+    self.shifts.where.not(volunteer_id: nil).each do |shift|
+      volunteer_team << shift.volunteer
+    end
+    volunteer_team
+  end
+
+  def covered_shifts
+    self.shifts.where.not(volunteer_id: nil).includes(:volunteer)
+  end
+
   # Calculates the workers needed per day
   def total_workers_needed
 

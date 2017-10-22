@@ -1,7 +1,12 @@
 class EventDaysController < ApplicationController
   before_action :set_event_day, only: [:show, :update]
+  before_action :set_event, only: [:index, :show]
   
   def show
+  end
+
+  def index
+    @event_days = @event.event_days
   end
 
   def update
@@ -20,18 +25,15 @@ class EventDaysController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_event_day
       @event_day = EventDay.includes(event: :jobs).includes(:rotations, :shifts).friendly.find(params[:id])
-      @rotations = @event_day.rotations
-      @shifts = @event_day.shifts
-      @event = @event_day.event
-      @volunteers = []
-      @covered_shifts = @shifts.where.not(volunteer_id: nil).includes(:volunteer)
-      @shifts.where.not(volunteer_id: nil).each do |shift|
-        @volunteers << shift.volunteer
-      end
+    end
+
+    def set_event
+      @event = Event.friendly.find(params[:event_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_day_params
       params.require(:event_day).permit(:date, :event_id, {:job_ids => []})
     end
+
 end
