@@ -28,7 +28,11 @@ class EventDaysController < ApplicationController
     end
 
     def set_event
-      @event = Event.friendly.find(params[:event_id])
+      if !params[:event_id].nil?  
+        @event = Event.friendly.find(params[:event_id])
+      else
+        @event = @event_day.event
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

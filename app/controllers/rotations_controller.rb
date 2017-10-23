@@ -9,7 +9,7 @@ class RotationsController < ApplicationController
 
   def index
     if params[:job_id]
-      @rotations = Rotation.where(:job_id => params[:job_id]).where(:day_id => params[:event_day_id]).includes(:job, :day)
+      @rotations = Rotation.where(:job_id => params[:job_id]).where(:day_id => params[:event_day_id]).includes(:job, :day).order('start_time')
       @job = @rotations.first.job
       @day = @rotations.first.day
 
