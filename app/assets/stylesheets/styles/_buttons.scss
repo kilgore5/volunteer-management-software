@@ -5,3 +5,23 @@
     border-color: $brand-info;
   }
 }
+
+.btn.loading:after {
+  content: '';
+  /* Spinner size and color */
+  width: 1.5rem;
+  height: 1.5rem;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 50%;
+  border-top-color: white;
+  border-left-color: white;
+  opacity: .6;
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: text-top;
+  margin-left: 5px;
+  animation: spinner 400ms linear infinite;
+}

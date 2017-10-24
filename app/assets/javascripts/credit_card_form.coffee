@@ -1,9 +1,10 @@
 jQuery ($) ->
   $('.application_form').submit (event) ->
+    debugger
     $form = $(this)
     console.log("____SUBMITTED_____")
     # Disable the submit button to prevent repeated clicks
-    $form.find('button').prop 'disabled', true
+    $form.find('button').prop('disabled', true).addClass('loading')
     Stripe.card.createToken $form, stripeResponseHandler
     # Prevent the form from submitting with the default action
     false
@@ -14,7 +15,7 @@ stripeResponseHandler = (status, response) ->
   if response.error
     # Show the errors on the form
     $form.find('.payment-errors').text response.error.message
-    $form.find('button').prop 'disabled', false
+    $form.find('button').prop('disabled', false).removeClass('loading')
   else
     # response contains id and card, which contains additional card details
     token = response.id

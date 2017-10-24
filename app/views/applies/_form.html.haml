@@ -114,12 +114,10 @@
     %hr
     %small.form-text.text-muted All volunteers must contribute $15 towards their volunteer t-shirt. You will only be charged if you are sent an official offer which you can accept via your volunteer profile.
     %br
-    .inputs.row          
+    .inputs.row
       .col-md-12
-        = javascript_include_tag "https://js.stripe.com/v2/"
         :javascript
           Stripe.setPublishableKey('#{ENV['STRIPE_PUBLISHABLE_KEY']}');
-          console.log(Stripe);
 
         %span.payment-errors
 
