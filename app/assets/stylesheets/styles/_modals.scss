@@ -1,8 +1,12 @@
-.modal-content{
-  box-shadow: none !important;
-  color: $brand-info;
-}
+// .modal-content{
+//   box-shadow: none !important;
+//   color: $brand-info;
+// }
 
 .close {
-  opacity: 1;
+  color: black;
+}
+
+.modal-header, .modal-body, .modal-footer {
+  border-color: #ececec;
 }

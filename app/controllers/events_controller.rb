@@ -16,6 +16,7 @@ class EventsController < ApplicationController
   # GET /events/1.json
   def show
     @event_days = @event.event_days
+    @days_by_date = @event_days.group_by(&:date)
   end
 
   # GET /events/new
