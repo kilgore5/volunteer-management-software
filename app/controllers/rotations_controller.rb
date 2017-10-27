@@ -16,6 +16,7 @@ class RotationsController < ApplicationController
       @assigned_ids = assigned_vols
       flash[:notice] = "There are <b>#{@rotations.count}</b> rotations for this job".html_safe
       @vols = User.joins(:apps).where(applies: {job_id: @job.id}).where.not(id: @assigned_ids)
+      # @vols = User.joins(:apps).where(applies: {job_id: @job.id})
     else
       @rotations = Rotation.all
     end

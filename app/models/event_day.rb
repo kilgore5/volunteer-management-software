@@ -21,7 +21,8 @@ class EventDay < ApplicationRecord
   has_many                    :rotations, through: :jobs
   has_many                    :shifts, dependent: :destroy
   # Actions when saving
-  after_save                  :create_rotations
+  after_create                :create_rotations
+  before_destroy              :destroy_rotations
 
   # Allows 'friendly' slugs
   extend FriendlyId
@@ -33,19 +34,6 @@ class EventDay < ApplicationRecord
       [:date, self.event.slug]
     ]
   end
-
-  # Calculates the total shifts to be filled for the day
-  # def total_rotations
-
-  #   shifts = 0
-
-  #   self.jobs.each do |job|
-  #     shifts += job.rotations_required_per_day
-  #   end
-
-  #   return shifts
-
-  # end
 
   def volunteers
     volunteer_team = []
@@ -118,5 +106,8 @@ class EventDay < ApplicationRecord
 
     end
 
+    def destroy_rotations
+      self.rotations.each {|r|r.destroy}
+    end
 
 end

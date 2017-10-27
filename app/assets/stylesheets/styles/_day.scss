@@ -49,3 +49,22 @@
     }
   }
 }
+
+.assigned_shift {
+  padding: 5px;
+  border: 1px solid lightgrey;
+  border-radius: 2px;
+  margin: 5px 0;
+  position: relative;
+  * {
+    display: inline-block;
+  }
+  &.unassigned {
+    padding-bottom: 0;
+  }
+  .remove {
+    position: absolute;
+    right: 10px;
+    top: 15px;
+  }
+}

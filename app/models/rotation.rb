@@ -28,7 +28,7 @@ class Rotation < ApplicationRecord
   accepts_nested_attributes_for :shifts, :shift_manager, :reject_if => :all_blank, :allow_destroy => true
 
   # Actions when saving
-  after_save                  :create_shifts
+  after_create                  :create_shifts
 
   # calculate the shifts in this rotation instance
   def total_shifts

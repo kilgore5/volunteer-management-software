@@ -1,8 +1,20 @@
 .nested-fields
   / .small
   /   = f.count
-  = f.association :volunteer,
-    collection: @vols,
-    label_method: :select_label
+  - unless f.object.volunteer.nil?
+    %div.assigned_shift
+      %span
+        Shift Assigned to:
+      %h5
+        - user = f.object.volunteer
+        = link_to user.full_name.capitalize, user
+      %span.remove
+        = link_to_remove_association "x", f
+  - else
+    %div.assigned_shift.unassigned
+      = f.association :volunteer,
+      collection: @vols,
+      label_method: :select_label
 
-  = link_to_remove_association "- remove shift", f
+      %span.remove
+        = link_to_remove_association "x", f
