@@ -21,7 +21,7 @@ class EventDay < ApplicationRecord
   has_many                    :rotations, through: :jobs
   has_many                    :shifts, dependent: :destroy
   # Actions when saving
-  after_create                :create_rotations
+  after_save                  :create_rotations
   before_destroy              :destroy_rotations
 
   # Allows 'friendly' slugs
@@ -76,6 +76,10 @@ class EventDay < ApplicationRecord
   private
 
     def create_rotations
+
+      # if self.rotations.any?
+      #   return
+      # end
 
       @jobs = self.jobs
 
