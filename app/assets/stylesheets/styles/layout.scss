@@ -59,7 +59,7 @@ main{
 }
 
 // Overrides bootstrap default
-.nav {
+.nav:not(.nav-tabs) {
   display: flex;
   li a{
     color: $brand-info;

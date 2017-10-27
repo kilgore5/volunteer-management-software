@@ -8,8 +8,8 @@
         - if current_user && current_user.has_role?(:admin || :event_client)
           %li.nav-item
             = link_to("Applications", event_applies_path(@current_event), class: "nav-link #{active_class(event_applies_path(@current_event))}")
-          %li.nav-item
-            = link_to("Volunteers", users_path, class: "nav-link #{active_class(users_path)}")
+          / %li.nav-item
+          /   = link_to("Volunteers", users_path, class: "nav-link #{active_class(users_path)}")
           %li.nav-item
             = link_to("Shifts", event_event_days_path(@current_event), class: "nav-link #{event_event_days_path(@current_event)}")
         %li.nav-item
