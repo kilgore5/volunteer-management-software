@@ -53,7 +53,7 @@ class Event < ApplicationRecord
   validates_presence_of   :name, :start_time, :end_time, :ticket_price_cents
   before_create             :set_event_length
   before_create             :set_deadline_to_decline
-  after_create              :create_event_days
+  after_save                :create_event_days
 
 
   private
@@ -72,23 +72,28 @@ class Event < ApplicationRecord
 
   # Creates days for each event, that can be used for scheduling
   def create_event_days
-    @days = []
-    first = self.start_time.to_date
-    last = self.end_time.to_date
-    duration = (last-first).to_i
+    unless self.start_time.nil? && self.end_time.nil?
+      @days = []
+      first = self.start_time.to_date
+      last = self.end_time.to_date
+      duration = (last-first).to_i
 
-    i = 0
+      i = 0
 
-    # Adds each day of event into the days array
-    until i >= duration do
-      @days << (first + i.days)
-      i += 1
+      # Adds each day of event into the days array
+      until i > duration do
+        @days << (first + i.days)
+        i += 1
+      end
+
+      @days.each do |day|
+        props = {
+          event_id: self.id,
+          date: day
+        }
+        EventDay.where(props).first_or_create
+      end
     end
-
-    @days.each do |day|
-      EventDay.create!(event_id: self.id, date: day)
-    end
-
   end
 
 end

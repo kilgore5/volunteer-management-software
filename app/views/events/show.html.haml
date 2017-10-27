@@ -10,9 +10,10 @@
 
 .row#event
   .col-md-12.event_body
-    %h4
-      = @days_by_date.values.first[0][:date].strftime("%B, %Y")
-    = calendar(@days_by_date.keys.first, @days_by_date.keys.last) do |date|
-      = date.day
-      - if @days_by_date[date]
-        = render partial: "event_days/day", collection: @days_by_date[date]
+    - unless @days_by_date.empty?
+      %h4
+        = @days_by_date.values.first[0][:date].strftime("%B, %Y")
+      = calendar(@days_by_date.keys.first, @days_by_date.keys.last) do |date|
+        = date.day
+        - if @days_by_date[date]
+          = render partial: "event_days/day", collection: @days_by_date[date]
