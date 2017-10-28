@@ -67,6 +67,10 @@ gem 'paperclip'
 gem 'delayed_paperclip' # think that's the name
 gem 'aws-sdk', '~> 2.3'
 
+# Emails
+gem 'premailer-rails'
+gem 'nokogiri'
+
 # Content Editing
 # gem 'ckeditor' # Make sure to use a sanitizer
 
@@ -81,7 +85,7 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'autoprefixer-rails'
 gem 'haml-rails'
 
-#Pagination
+# Pagination
 gem 'will_paginate', '~> 3.1.0'
 
 # Routes / URLs
@@ -91,18 +95,18 @@ gem 'friendly_id'
 gem 'figaro'
 
 # Job Worker
-gem 'whenever'
+gem 'sidekiq'
 
 # Documentation
 gem 'yard'
 
-#Helpful
+# Helpful
 gem 'awesome_print'
 
-#State Machine
+# State Machine
 gem 'aasm'
 
-#Errors
+# Errors
 gem 'airbrake', '~> 6.2'
 
 group :production do

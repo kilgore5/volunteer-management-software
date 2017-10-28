@@ -45,6 +45,7 @@
               - day.jobs.each do |job|
                 - shifts = shifts.where(job_id: job.id)
                 - rotations = rotations.where(job_id: job.id)
+                - assigned = shifts.where.not(volunteer_id: nil)
                 %tr
                   %td
                     = job.title
@@ -53,7 +54,7 @@
                   %td
                     = link_to shifts.count, event_day_rotations_path(day.id, job_id: job.id)
                   %td
-                    = shifts.where.not(volunteer_id: nil).count
+                    = assigned.count
                   %td
                     = link_to("Assign Volunteers", event_day_rotations_path(day.id, job_id: job.id), class: "btn btn-sm btn-primary")
               %tr.table-info
@@ -68,6 +69,8 @@
                 %td
                   %button.btn.btn-sm.btn-secondary{"data-target" => "##{day_full.date}", "data-toggle" => "modal", :type => "button"}
                     Add jobs +
+                  - if covered_shifts.any?
+                    = link_to("Notify Vols", notify_multiple_path(shift_ids: covered_shifts.pluck(:id)), method: :patch, confirm: "Are you sure? This will notify volunteers via email of their shift assignments", class: "btn btn-sm btn-primary")
 
           %br
   .col-sm-4.col-xs-12.event_day.event_day
@@ -77,9 +80,11 @@
           %span.badge.excellent EXCELLENT
         .centerify-icon
           %span.icon
-        .event_day__title
-          %h5
+        .event_day__title.clearfix
+          %h5.inline-block.float-left
             Volunteers
+          - if covered_shifts.any?
+            = link_to("Send Shift Notifications", notify_multiple_path(shift_ids: covered_shifts.pluck(:id)), method: :patch, confirm: "Are you sure? This will notify volunteers via email of their shift assignments", class: "btn btn-sm btn-primary float-right")
         %hr
         .event_day__inner
           = "Total Rotations: #{day.rotations.count}"

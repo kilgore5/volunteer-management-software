@@ -12,6 +12,7 @@
 #  event_day_id :uuid
 #  job_id       :uuid
 #  start_time   :datetime
+#  state        :string
 #
 # Indexes
 #
@@ -23,6 +24,8 @@
 
 class Shift < ApplicationRecord
 
+  # Includes State Machine Concern
+  include ShiftStateMachine
   belongs_to :rotation
   belongs_to :event_day
   belongs_to :job

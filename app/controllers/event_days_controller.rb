@@ -21,6 +21,17 @@ class EventDaysController < ApplicationController
     end
   end
 
+  def notify_multiple
+    @shifts = Shift.where(id: params[:shift_ids]).where(state: 'created')
+    respond_to do |format|
+      if @shifts.each { |a| a.assign_vol! }
+        format.html { redirect_to request.referrer, notice: 'The volunteers have been notified!' }
+      else
+        format.html { redirect_to request.referrer, flash: { "alert-warning": "Oops, something went wrong; please try again." } }
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event_day

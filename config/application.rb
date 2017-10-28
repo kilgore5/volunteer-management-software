@@ -28,5 +28,8 @@ module VolunteerManagementPlatform
     config.time_zone = 'Melbourne'
     config.active_record.default_timezone = :local
 
+    # Job Worker SidekiQ
+    config.active_job.queue_adapter = :sidekiq
+
   end
 end

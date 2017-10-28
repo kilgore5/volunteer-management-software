@@ -12,6 +12,7 @@
 #  event_day_id :uuid
 #  job_id       :uuid
 #  start_time   :datetime
+#  state        :string
 #
 # Indexes
 #

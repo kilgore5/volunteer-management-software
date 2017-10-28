@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171022215114) do
+ActiveRecord::Schema.define(version: 20171028174542) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -208,6 +208,7 @@ ActiveRecord::Schema.define(version: 20171022215114) do
     t.uuid "event_day_id"
     t.uuid "job_id"
     t.datetime "start_time"
+    t.string "state"
     t.index ["event_day_id"], name: "index_shifts_on_event_day_id"
     t.index ["job_id"], name: "index_shifts_on_job_id"
     t.index ["rotation_id"], name: "index_shifts_on_rotation_id"

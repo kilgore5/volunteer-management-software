@@ -156,7 +156,7 @@ class AppliesController < ApplicationController
       if @application.destroy
         format.html { redirect_to edit_user_path(@user), notice: 'Your volunteer application has been removed.' }
         # TODO - Mailer
-        # ApplicationResponseMailer.accepted_invitation_confirmation_email(@user, @application, @event).deliver_later
+        # ApplyMailer.accepted_invitation_confirmation_email(@user, @application, @event).deliver_later
       else
         format.html { redirect_to edit_user_path(@user), flash: { "alert-warning": "Oops, something went wrong; please try again." } }
       end

@@ -64,16 +64,16 @@ module ApplyStateMachine
       case aasm.to_state
         when :accepted
           if aasm.from_state == :denied
-            ApplicationResponseMailer.second_chance(self.user, self, self.event).deliver_later
+            ApplyMailer.second_chance(self.user, self, self.event).deliver_later
           else
-            ApplicationResponseMailer.accepted(self.user, self, self.event).deliver_later
+            ApplyMailer.accepted(self.user, self, self.event).deliver_later
           end
         when :waitlisted
-          ApplicationResponseMailer.waitlisted(self.user, self, self.event).deliver_later
+          ApplyMailer.waitlisted(self.user, self, self.event).deliver_later
         when :denied
-          ApplicationResponseMailer.denied(self.user, self, self.event).deliver_later
+          ApplyMailer.denied(self.user, self, self.event).deliver_later
         when :confirmed
-          ApplicationResponseMailer.confirmed(self.user, self, self.event).deliver_later
+          ApplyMailer.confirmed(self.user, self, self.event).deliver_later
       end
     end
 

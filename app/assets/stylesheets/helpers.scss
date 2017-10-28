@@ -4,6 +4,14 @@
 .float-right{
   float: right;
 }
+.float-left{
+  float: left;
+}
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
 .pad-bottom {
   padding-bottom: 10px;
 }
@@ -18,4 +26,7 @@
 }
 .align-center {
   text-align: center;
+}
+.inline-block {
+  display: inline-block;
 }

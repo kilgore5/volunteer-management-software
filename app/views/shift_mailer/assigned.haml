@@ -1,0 +1,35 @@
+%tr
+  %td.wrapper
+    %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+      %tr
+        %td
+          %p Hi there,
+          %br
+            = "We are very happy to offer you a volunteer position at #{@event.name} 2017."
+          %br
+          Please follow the link to log into the volunteer portal and accept your position, or decline if you can no longer attend.
+          %br
+          %p
+            When you click accept, your nominated credit card will be charged $15 to cover the cost of your official t-shirt and to confirm your place.
+          %br
+            You can update your card details in your profile if need be. Please ensure you have the correct details and sufficient funds before clicking accept to avoid any errors with accepting your place.
+          %br
+          %p
+            If you have not accepted your position by 3 October, we will assume you don't want it, and will offer it to the next person on the waiting list.
+          %table.btn.btn-primary{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+            %tbody
+              %tr
+                %td{:align => "left"}
+                  %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+                    %tbody
+                      %tr
+                        %td
+                          = link_to @url, target: "_blank" do
+                            Login to accept / decline your spot
+          %p Please get in touch if you have any questions or concerns.
+          %p For any issues with using the volunteer portal you can email our developers at info@builtincode.com
+          %p Please remember that, as stated in the volunteer agreement, if you do not show up to your shift, do not complete your shift or if you pull out within 21 days of the event (without a reasonable excuse such as a medical issue) you will be charged the non attendance fee of $360.
+          %p We hope to hear from you soon!
+          %br
+          %p Much Love,
+          %p Strawberry Fields

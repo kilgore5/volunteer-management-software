@@ -49,6 +49,8 @@ Rails.application.routes.draw do
 
   patch 'accept_multiple', to: 'applies#accept_multiple', as: :accept_multiple
 
+  patch 'notify_multiple', to: 'event_days#notify_multiple', as: :notify_multiple
+
   root to: "pages#home"
   # root to: "events#show", :id => Event.last.id
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

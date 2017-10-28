@@ -1,5 +1,5 @@
 require "rails_helper"
 
-RSpec.describe ApplicationResponseMailer, type: :mailer do
+RSpec.describe ApplyMailer, type: :mailer do
   pending "add some examples to (or delete) #{__FILE__}"
 end
