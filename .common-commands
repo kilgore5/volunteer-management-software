@@ -1,0 +1,1 @@
+u = User.find_by email: 'jarviscjohnson@gmail.com'

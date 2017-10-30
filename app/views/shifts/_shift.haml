@@ -1,0 +1,12 @@
+%tr
+  %td
+    - if shift.volunteer
+      = link_to shift.volunteer.full_name, shift.volunteer
+    - else
+      None Assigned
+  %td
+    = shift.job.title
+  %td
+    = shift.start_time.strftime("%A %l:%M%p")
+  %td
+    = "#{shift.length} hrs"

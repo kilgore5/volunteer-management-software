@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :jobs
     resources :event_days
     resources :applies
+    resources :shifts
   end
 
 
@@ -50,6 +51,8 @@ Rails.application.routes.draw do
   patch 'accept_multiple', to: 'applies#accept_multiple', as: :accept_multiple
 
   patch 'notify_multiple', to: 'event_days#notify_multiple', as: :notify_multiple
+
+  patch 'notify_all', to: 'shifts#notify_all', as: :notify_all
 
   root to: "pages#home"
   # root to: "events#show", :id => Event.last.id

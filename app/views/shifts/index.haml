@@ -1,0 +1,94 @@
+- content_for :hero_title do
+  = "Volunteer Shifts (Paged)"
+  %br
+  %h3= "for: #{@event.name}"
+
+.col-md-12.upper_header
+  .panel.default
+    .top-key-factor
+      .event_day__inner.row.filters
+        .col-md-4.text-left
+          / = form_tag applies_path(@event), method: 'get' do
+          /   .input-group
+          /     = text_field_tag "q", params[:q] ? params[:q] : nil, class: "form-control", placeholder: "Name or Email"
+          /     %span.input-group-btn
+          /       = submit_tag("Search", class: "btn btn-default")
+        .col-md-2.text-right
+          / %label{for: "job[:slug]"}
+          /   Job Preference
+          / = form_tag applies_path(@event), method: 'get' do
+          /   = hidden_field_tag "view", @view_type == "paged" ? "" : "all"
+          /   = hidden_field_tag "status", params[:status] ? params[:status] : nil
+          /   = hidden_field_tag "q", params[:q] ? params[:q] : nil
+          /   = hidden_field_tag "assign[slug]", params[:assign] ? params[:assign][:slug] : nil
+          /   = collection_select(:job, :slug, @event.jobs, :slug, :title, {selected: params[:job] ? params[:job][:slug] : nil, include_blank: "All roles"}, class: "form-control")
+        .col-md-2.text-right
+          / %label{for: "job[:slug]"}
+          /   Job Assignment
+          / = form_tag applies_path(@event), method: 'get' do
+          /   = hidden_field_tag "view", @view_type == "paged" ? "" : "all"
+          /   = hidden_field_tag "status", params[:status] ? params[:status] : nil
+          /   = hidden_field_tag "job[slug]", params[:job] ? params[:job][:slug] : nil
+          /   = hidden_field_tag "q", params[:q] ? params[:q] : nil
+          /   = collection_select(:assign, :slug, @event.jobs, :slug, :title, {selected: params[:assign] ? params[:assign][:slug] : nil, include_blank: "All roles"}, class: "form-control")
+        .col-md-2.text-right
+          / %label{for: "job[:slug]"}
+          /   Application Status
+          / = form_tag applies_path(@event), method: 'get' do
+          /   = hidden_field_tag "view", @view_type == "paged" ? "" : "all"
+          /   = hidden_field_tag "job[slug]", params[:job] ? params[:job][:slug] : nil
+          /   = hidden_field_tag "assign[slug]", params[:assign] ? params[:assign][:slug] : nil
+          /   = hidden_field_tag "q", params[:q] ? params[:q] : nil
+          /   %select{name: 'status', class: 'form-control', id: 'status_selector'}
+          /     %option{value: 'all_states'}
+          /       = "All States"
+          /     - @statuses.each do |status|
+          /       %option{ value: status, selected: params[:status] && params[:status] == status ? 'selecte' : nil }
+          /         = status.titleize
+          /       }
+        .col-md-2.text-right
+          / - if @view_type == "paged"
+          /   = link_to "View all ->", event_applies_path(@event, view: "all")
+          / - else
+          /   = link_to "View paged ->", event_applies_path(@event)
+  .panel.default
+    .top-key-factor
+      .event_day__inner.row.filters
+        .col-md-3.text-left
+          = "Total shifts: #{@count}"
+        .col-md-3.text-left
+          = "Assigned shifts: #{@assigned}"
+        .col-md-3.text-right
+          = "Completed Shifts: #{@completed}"
+        .col-md-3.text-right
+          = "Missed shifts: #{@missed}"
+.col-md-12.event_header
+  .panel.default
+    .top-key-factor
+      .event_day__inner
+        / = form_tag(assign_multiple_path, method: :patch) do
+        %table.table.table-hover
+          %thead
+            %tr.sortable
+              %td
+                Volunteer
+              %td
+                Job Title
+              %td
+                Start Time
+              %td
+                Duration
+          %tbody
+            = render partial: "shift", collection: @shifts
+
+.col-md-12.lower_footer
+  / -if @view_type == "paged"
+  .panel.default.with-pagination
+    .top-key-factor
+      .event_day__inner
+        = will_paginate @shifts
+  .panel.default
+    .top-key-factor
+      .event_day__inner
+        / = link_to "Download All", applies_path(@event, format: :csv), class: "btn btn-default"
+        = link_to("Notify Vols", notify_all_path, method: :patch, data: { confirm: "Are you sure? This will notify volunteers via email of their shift assignments" }, class: "btn btn-sm btn-primary")
