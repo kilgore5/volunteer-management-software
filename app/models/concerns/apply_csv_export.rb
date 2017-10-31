@@ -4,7 +4,8 @@ module ApplyCsvExport
   included do
     def self.to_csv
       attributes = %w{
-        name
+        first_name
+        last_name
         email
         state
         submitted
@@ -33,8 +34,12 @@ module ApplyCsvExport
   end
 
   # Attributes for CSV download - converts user attributes into methods
-  def name
-    "#{user.last_name.titleize}, #{user.first_name.titleize}"
+  def first_name
+    "#{user.first_name.titleize}"
+  end
+
+  def last_name
+    "#{user.last_name.titleize}"
   end
 
   def email
