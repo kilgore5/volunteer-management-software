@@ -10,6 +10,12 @@
     - else
       No Job Title
   %td
-    = shift.start_time.strftime("%A %l:%M%p")
+    - if shift.start_time
+      = shift.start_time.strftime("%A %l:%M%p")
+    - else
+      No Start Time Set
   %td
-    = "#{shift.length} hrs"
+    - if shift.length
+      = "#{shift.length} hrs"
+    - else
+      No length set
