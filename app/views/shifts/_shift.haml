@@ -5,7 +5,10 @@
     - else
       None Assigned
   %td
-    = shift.job.title
+    - if shift.job
+      = shift.job.title
+    - else
+      No Job Title
   %td
     = shift.start_time.strftime("%A %l:%M%p")
   %td
