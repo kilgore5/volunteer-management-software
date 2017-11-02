@@ -28,7 +28,7 @@ class Rotation < ApplicationRecord
   accepts_nested_attributes_for :shifts, :shift_manager, :reject_if => :all_blank, :allow_destroy => true
 
   # Actions when saving
-  after_save                    :create_shifts
+  after_save                    :update_shift_times, :create_shifts
 
   # calculate the shifts in this rotation instance
   def total_shifts
@@ -51,6 +51,13 @@ class Rotation < ApplicationRecord
   end
 
   private
+
+    def update_shift_times
+      if self.shifts.any?
+        start_time = self.start_time
+        self.shifts.update_all(start_time: start_time)
+      end
+    end
 
     def create_shifts
 
@@ -75,13 +82,6 @@ class Rotation < ApplicationRecord
         end
         i += 1
       end
-
-      # For pry testing ONLY
-      # i = 1
-      # rotation_count.times do |rotation|
-      #   Rotation.where(job_id: job.id, day_id: e.id, count: i).first_or_create 
-      #   i += 1
-      # end      
 
     end
 
