@@ -28,7 +28,6 @@ class Job < ApplicationRecord
   accepts_nested_attributes_for :skill_requirements, :reject_if => :all_blank, :allow_destroy => true
   has_many                      :application_preferred_jobs
   has_many                      :applications, through: :application_preferred_jobs, source: :apply
-
   # Allows 'friendly' slugs
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged  
@@ -63,7 +62,7 @@ class Job < ApplicationRecord
 
     return total
 
-  end  
+  end
 
 
 end

@@ -1,14 +1,14 @@
-- day = day_full
-- date = day.date.strftime("%A, %d/%m/%Y")
-- rotations = day.rotations
-- shifts = day.shifts
-- volunteers = day.volunteers
-- covered_shifts = day.covered_shifts
-- show_percent = ( (covered_shifts.count.to_f / shifts.count) * 100 )
+- @day = day_full
+- @date = @day.date.strftime("%A, %d/%m/%Y")
+- @rotations = @day.rotations
+- @shifts = @day.shifts
+- @volunteers = @day.volunteers
+- @covered_shifts = @day.covered_shifts
+- @show_percent = ( (@covered_shifts.count.to_f / @shifts.count) * 100 )
 
 - content_for :cta do
-  %button.btn.btn-lg.btn-info{"data-target" => "##{day.date}", "data-toggle" => "modal", :type => "button"}
-    = "#{day.date.strftime("%A")} Jobs +"
+  %button.btn.btn-lg.btn-info{"data-target" => "##{@day.date}", "data-toggle" => "modal", :type => "button"}
+    = "#{@day.date.strftime("%A")} Jobs +"
 
 .row 
   .col-sm-8.col-xs-12.event_day
@@ -20,10 +20,10 @@
           %span.icon
         .event_day__title
           %h5
-            Jobs Assigned for #{date} [#{day.jobs.count}]
-          %span.coverage{style: "background: linear-gradient(to right, #89fba2 #{show_percent - 2.5}%, #e5e6e5 #{show_percent}%, #e2e2e2 #{show_percent}%)"}
-            = "#{covered_shifts.count}/#{shifts.count}"
-            = "#{number_to_percentage((show_percent), precision: 0)}"
+            Jobs Assigned for #{@date} [#{@day.jobs.count}]
+          %span.coverage{style: "background: linear-gradient(to right, #89fba2 #{@show_percent - 2.5}%, #e5e6e5 #{@show_percent}%, #e2e2e2 #{@show_percent}%)"}
+            = "#{@covered_shifts.count}/#{@shifts.count}"
+            = "#{number_to_percentage((@show_percent), precision: 0)}"
 
         %hr
         .event_day__inner
@@ -42,35 +42,35 @@
                 %th
                   Actions
             %tbody
-              - day.jobs.each do |job|
-                - shifts = shifts.where(job_id: job.id)
-                - rotations = rotations.where(job_id: job.id)
+              - @day.jobs.each do |job|
+                - shifts = @shifts.where(job_id: job.id)
+                - rotations = @rotations.where(job_id: job.id)
                 - assigned = shifts.where.not(volunteer_id: nil)
                 %tr
                   %td
                     = job.title
                   %td
-                    = link_to rotations.count, event_day_rotations_path(day.id, job_id: job.id)
+                    = link_to rotations.count, event_day_rotations_path(@day.id, job_id: job.id)
                   %td
-                    = link_to shifts.count, event_day_rotations_path(day.id, job_id: job.id)
+                    = link_to shifts.count, event_day_rotations_path(@day.id, job_id: job.id)
                   %td
                     = assigned.count
                   %td
-                    = link_to("Assign Volunteers", event_day_rotations_path(day.id, job_id: job.id), class: "btn btn-sm btn-primary")
+                    = link_to("Assign Volunteers", event_day_rotations_path(@day.id, job_id: job.id), class: "btn btn-sm btn-primary")
               %tr.table-info
                 %td
                   Daily Totals
                 %td
-                  = rotations.count
+                  = @rotations.count
                 %td
-                  = shifts.count
+                  = @shifts.count
                 %td
-                  = covered_shifts.count
+                  = @covered_shifts.count
                 %td
-                  %button.btn.btn-sm.btn-secondary{"data-target" => "##{day_full.date}", "data-toggle" => "modal", :type => "button"}
+                  %button.btn.btn-sm.btn-secondary{"data-target" => "##{@day.date}", "data-toggle" => "modal", :type => "button"}
                     Add jobs +
-                  - if covered_shifts.any?
-                    = link_to("Notify Vols", notify_multiple_path(shift_ids: covered_shifts.pluck(:id)), method: :patch, confirm: "Are you sure? This will notify volunteers via email of their shift assignments", class: "btn btn-sm btn-primary")
+                  - if @covered_shifts.any?
+                    = link_to("Notify Vols", notify_multiple_path(shift_ids: @covered_shifts.pluck(:id)), method: :patch, confirm: "Are you sure? This will notify volunteers via email of their shift assignments", class: "btn btn-sm btn-primary")
 
           %br
   .col-sm-4.col-xs-12.event_day.event_day
@@ -83,23 +83,23 @@
         .event_day__title.clearfix
           %h5.inline-block.float-left
             Volunteers
-          - if covered_shifts.any?
-            = link_to("Send Shift Notifications", notify_multiple_path(shift_ids: covered_shifts.pluck(:id)), method: :patch, confirm: "Are you sure? This will notify volunteers via email of their shift assignments", class: "btn btn-sm btn-primary float-right")
+          - if @covered_shifts.any?
+            = link_to("Send Shift Notifications", notify_multiple_path(shift_ids: @covered_shifts.pluck(:id)), method: :patch, confirm: "Are you sure? This will notify volunteers via email of their shift assignments", class: "btn btn-sm btn-primary float-right")
         %hr
         .event_day__inner
-          = "Total Rotations: #{day.rotations.count}"
+          = "Total Rotations: #{@day.rotations.count}"
           %br
         .event_day__inner
-          = "Volunteers needed: #{day.shifts.count}"
+          = "Volunteers needed: #{@day.shifts.count}"
           %br
         .event_day__inner
-          = "Shifts assigned: #{day.shifts.where.not(volunteer_id: nil).count}"
+          = "Shifts assigned: #{@day.shifts.where.not(volunteer_id: nil).count}"
           %br
         .event_day__inner
           = "Vols:"
           %br
           %ul
-            - covered_shifts.each do |shift|
+            - @covered_shifts.each do |shift|
               %li
                 %span
                   = link_to shift.volunteer.full_name, shift.volunteer
@@ -108,14 +108,14 @@
                 %span
                   = shift.start_time.strftime("%A %l:%M%p")
 
-.modal.fade{:id =>  day.date }
+.modal.fade{:id =>  @day.date }
   .modal-dialog{:role => "document"}
     .modal-content
       .modal-header
-        %h5.modal-title Add jobs for #{day.date.strftime("%A")}
+        %h5.modal-title Add jobs for #{@day.date.strftime("%A")}
         %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
           %span{"aria-hidden" => "true"} ×
-      = simple_form_for day, url: event_event_day_path(@event, day) do |f|
+      = simple_form_for @day, url: event_event_day_path(@event, @day) do |f|
         .modal-body
 
           = f.association :jobs

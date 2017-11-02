@@ -21,7 +21,7 @@ class EventDay < ApplicationRecord
   has_many                    :rotations, through: :jobs
   has_many                    :shifts, dependent: :destroy
   # Actions when saving
-  after_save                  :create_rotations
+  after_save                  :create_rotations, :update_rotations 
   before_destroy              :destroy_rotations
 
   # Allows 'friendly' slugs
@@ -77,33 +77,38 @@ class EventDay < ApplicationRecord
 
     def create_rotations
 
-      # if self.rotations.any?
-      #   return
-      # end
-
       @jobs = self.jobs
 
       # Loop through jobs assigned to that day
       @jobs.each do |job|
-        # Set count based on rotations
-        rotation_count = job.rotations_required_per_day
 
-        # create one rotation for each count
-        i = 1
-        rotation_count.times do |rotation|
+        if job.rotations.where(day_id: self.id).any?
+          # Return if rotations already set for this job on this day
+          return
+        else
+          # Create the rotations
 
-          # Calculates the hours the rotation should start after the start of the day
-          hours_calc = ( i - 1 ) * job.hours_per_rotation
+          # Set count based on rotations
+          rotation_count = job.rotations_required_per_day
 
-          Rotation.where(
-            job_id:           job.id,
-            day_id:           self.id,
-            count:            i,
-            length:           job.hours_per_rotation,
-            start_time:       self.date.to_datetime + hours_calc.hours
-          ).first_or_create
+          # create one rotation for each count
+          i = 1
+          rotation_count.times do |rotation|
 
-          i += 1
+            # Calculates the hours the rotation should start after the start of the day
+            hours_calc = ( i - 1 ) * job.hours_per_rotation
+
+            Rotation.where(
+              job_id:           job.id,
+              day_id:           self.id,
+              count:            i,
+              length:           job.hours_per_rotation,
+              start_time:       self.date.to_datetime + hours_calc.hours
+            ).first_or_create
+
+            i += 1
+          end
+
         end
 
       end
@@ -112,6 +117,13 @@ class EventDay < ApplicationRecord
 
     def destroy_rotations
       self.rotations.each {|r|r.destroy}
+    end
+
+    def update_rotations
+      # Remove rotations if a job has been removed from the day
+      @actual_jobs = self.jobs.map {|j| j.id}
+      to_destroy = self.rotations.where(job_id: @actual_jobs)
+      to_destroy.each {|t|t.destroy!}
     end
 
 end
