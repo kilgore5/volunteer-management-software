@@ -21,8 +21,9 @@ class EventDay < ApplicationRecord
   has_many                    :rotations, through: :jobs
   has_many                    :shifts, dependent: :destroy
   # Actions when saving
-  after_save                  :create_rotations, :update_rotations 
+  after_save                  :create_rotations
   before_destroy              :destroy_rotations
+  after_commit                :update_rotations
 
   # Allows 'friendly' slugs
   extend FriendlyId
@@ -84,10 +85,8 @@ class EventDay < ApplicationRecord
 
         if job.rotations.where(day_id: self.id).any?
           # Return if rotations already set for this job on this day
-          return
         else
           # Create the rotations
-
           # Set count based on rotations
           rotation_count = job.rotations_required_per_day
 
@@ -122,8 +121,15 @@ class EventDay < ApplicationRecord
     def update_rotations
       # Remove rotations if a job has been removed from the day
       @actual_jobs = self.jobs.map {|j| j.id}
-      to_destroy = self.rotations.where(job_id: @actual_jobs)
-      to_destroy.each {|t|t.destroy!}
+      if @actual_jobs.empty?
+        to_destroy = self.rotations
+        to_destroy.each {|t|t.destroy!}
+      else
+        destroy_shifts = self.shifts.where.not(job_id: @actual_jobs)
+        destroy_shifts.each {|s| s.rotation.destroy unless s.rotation.nil?}
+        destroy_shifts.destroy_all
+      end
+      
     end
 
 end

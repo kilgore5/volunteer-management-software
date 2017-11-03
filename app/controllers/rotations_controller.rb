@@ -10,8 +10,10 @@ class RotationsController < ApplicationController
   def index
     if params[:job_id]
       @rotations = Rotation.where(:job_id => params[:job_id]).where(:day_id => params[:event_day_id]).includes(:job, :day).order('start_time')
-      @job = @rotations.first.job
-      @day = @rotations.first.day
+      unless @rotations.empty?
+        @job = @rotations.first.job
+        @day = @rotations.first.day
+      end
 
       @assigned_ids = assigned_vols
       flash[:notice] = "There are <b>#{@rotations.count}</b> rotations for this job".html_safe
