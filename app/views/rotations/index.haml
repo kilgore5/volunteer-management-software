@@ -32,11 +32,12 @@
                   Cover
                 %td
                   Actions
+                %td
             %tbody
               - @rotations.each do |rotation|
                 - classes = rotation.covered_percent >= 100 ? "table-success" : "table-warning"
                 - show_percent = rotation.covered_percent * 100
-                %tr{class: classes, style: "background-color: rgba(141,202,255,#{rotation.covered_percent})"}
+                %tr{id: rotation.id, class: classes, style: "background-color: rgba(141,202,255,#{rotation.covered_percent})"}
                   %td
                     = rotation.start_time.strftime("%A %l:%M%p")
                   %td
@@ -59,6 +60,8 @@
                   %td
                     %button.btn.btn-md.btn-secondary{"data-target" => "#edit-#{rotation.id}", "data-toggle" => "modal", :type => "button"}
                       Edit Times
+                  %td
+                    = link_to "x", event_day_rotation_path(@day, rotation), remote: true, method: :delete, data: { rotation: rotation.id, dismiss: "alert" }
 
 - @rotations.each do |rotation|
   / These modals need to be moved out of the table
