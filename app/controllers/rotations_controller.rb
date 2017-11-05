@@ -17,8 +17,8 @@ class RotationsController < ApplicationController
 
       @assigned_ids = assigned_vols
       flash[:notice] = "There are <b>#{@rotations.count}</b> rotations for this job".html_safe
-      @vols = User.joins(:apps).where(applies: {job_id: @job.id}).where.not(id: @assigned_ids)
-      # @vols = User.joins(:apps).where(applies: {job_id: @job.id})
+      # @vols = User.joins(:apps).where(applies: {job_id: @job.id}).where.not(id: @assigned_ids)
+      @vols = User.joins(:apps).where(applies: {job_id: @job.id})
     else
       @rotations = Rotation.all
     end
@@ -58,6 +58,7 @@ class RotationsController < ApplicationController
   # PATCH/PUT /rotations/1
   # PATCH/PUT /rotations/1.json
   def update
+    # raise
     respond_to do |format|
       if @rotation.update(rotation_params)
         format.html { redirect_to event_day_path(@day), notice: 'Rotation was successfully updated.' }
@@ -103,6 +104,6 @@ class RotationsController < ApplicationController
                                    :start_time,
                                    :count,
                                    :shift_manager_id,
-                                   shifts_attributes: [:id, :volunteer_id, :length, :start_time, :count, :_destroy])
+                                   shifts_attributes: [:id, :volunteer_id, :job_id, :event_day_id, :length, :start_time, :count, :_destroy])
     end
 end

@@ -5,31 +5,67 @@
         %td
           %p Hi there,
           %br
-            = "You have been assigned you volunteer shifts for #{@event.name} 2017."
-          / %br
-          / Please follow the link to log into the volunteer portal and accept your position, or decline if you can no longer attend.
-          / %br
-          / %p
-          /   When you click accept, your nominated credit card will be charged $15 to cover the cost of your official t-shirt and to confirm your place.
-          / %br
-          /   You can update your card details in your profile if need be. Please ensure you have the correct details and sufficient funds before clicking accept to avoid any errors with accepting your place.
-          / %br
-          / %p
-          /   If you have not accepted your position by 3 October, we will assume you don't want it, and will offer it to the next person on the waiting list.
+            = "Your shift times for #{@event.name} are now available in the portal!"
+          %br
+          %p
+            Please check your shift times below and be prepared to arrive on time.
+
+          %hr
+          %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+            %tbody
+              - @shifts.each do |shift|
+                %tr
+                  %td{:align => "left"}
+                    = "#{shift.job.title} @ #{@event.name}"
+                  %td{:align => "left"}
+                    = shift.start_time.strftime("%l:%M %p %A %Y-%m-%d")
+                  %td{:align => "left"}
+                    = "#{shift.length}hrs"
+                %tr
+                  %td{:align => "left", colspan: 3}
+                    = "#{shift.job.description}"
+                %tr
+                  %td{:align => "left", style: "border-bottom: 1px solid #f6f6f6"}
+                  %td{:align => "left", style: "border-bottom: 1px solid #f6f6f6"}
+                  %td{:align => "left", style: "border-bottom: 1px solid #f6f6f6"}
+
+          %br
           %table.btn.btn-primary{:border => "0", :cellpadding => "0", :cellspacing => "0"}
             %tbody
               %tr
-                %td{:align => "left"}
+                %td{:align => "center"}
                   %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
                     %tbody
                       %tr
                         %td
                           = link_to @url, target: "_blank" do
-                            Login to view your shifts
-          %p Please get in touch if you have any questions or concerns.
-          %p For any issues with using the volunteer portal you can email our developers at info@builtincode.com
-          %p Please remember that, as stated in the volunteer agreement, if you do not show up to your shift, do not complete your shift or if you pull out within 21 days of the event (without a reasonable excuse such as a medical issue) you will be charged the non attendance fee of $360.
-          %p See you in the fields!
+                            Login to view more details
+          %br
+
+          %p
+            Your shift may be in a different department than we originally notified you. We are a sorry this couldn't be helped in some cases.
+
+          %b
+            Some important points about completing your shifts:
+          %br
+          %br
+
+          %ul
+            %li
+              Sign IN and OUT of your shift at the Volunteer Sign in area next to the Info Tent.
+            %li
+              You must bring a photo ID to sign in and out.
+            %li
+              You must wear your volunteer t-shirt during your shift - please sign in early if you need to collect it from the Volunteer area.
+            %li
+              You will not be able to complete your shift if you are not wearing shoes with an enclosed toe.
+            %li
+              If your shift is with the Gate or Treecreds team, you'll need to be at the Volunteer sign in area half an hour before it starts to ensure we can transport you to the gate area - this is a long walk from the festival campgrounds. For all other departments, please arrive 15 mins before your shift.
+            %li
+              All of these requirements are for your own safety and for the smooth running of the event. Failure to comply with the above points risks the penalty charge for breaching the volunteer agreement.
+          %br
+          %p
+            If you have any questions please get in touch! We'll be happy to help.
           %br
           %p Much Love,
           %p Strawberry Fields

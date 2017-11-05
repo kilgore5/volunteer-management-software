@@ -120,7 +120,7 @@
               = f.simple_fields_for :shifts do |shift|
                 = render 'shift_fields', f: shift
               .links
-                / = link_to_add_association '+ Add a Shift', f, :shifts, class: "btn btn-success btn-sm"
+                = link_to_add_association '+ Add a Shift', f, :shifts, class: "btn btn-success btn-sm"
 
             / = f.association :shifts
 

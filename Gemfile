@@ -37,14 +37,12 @@ gem 'jbuilder', '~> 2.5'
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
+# Annotate the models with their own schema
 gem 'annotate'
-
 # Allows records to be soft deleted
 gem "paranoia", "~> 2.2"
-
 # Deal with $$
 gem 'money-rails', '~>1'
-
 # USERS // USER MANAGEMENT
   # Authentication
 gem 'devise', git: 'https://github.com/plataformatec/devise.git', branch: 'master'
@@ -52,60 +50,44 @@ gem 'devise', git: 'https://github.com/plataformatec/devise.git', branch: 'maste
 gem 'cancancan', '~> 1.10'
 gem 'rolify'
 gem 'omniauth-facebook'
-
 # ADMIN SECTION
 # gem 'administrate' # (maybe)
-
 # Nested Models Help
-gem "cocoon"
-
+gem 'cocoon'
 # Payments
 gem 'stripe'
-
 # Images
 gem 'paperclip'
 gem 'delayed_paperclip' # think that's the name
 gem 'aws-sdk', '~> 2.3'
-
 # Emails
 gem 'premailer-rails'
 gem 'nokogiri'
-
 # Content Editing
 # gem 'ckeditor' # Make sure to use a sanitizer
-
 # Forms
 # TODO - look for newer official version that doesn't break with Rails 5.1
   # https://github.com/plataformatec/simple_form/issues/1485
 gem 'simple_form', github: 'elsurudo/simple_form', branch: 'rails-5.1.0'
-
 # Styling
 gem 'bootstrap-sass', '~> 3.3.6'
 # gem 'rails-assets-tether', '>= 1.3.3', source: 'https://rails-assets.org'
 gem 'autoprefixer-rails'
 gem 'haml-rails'
-
 # Pagination
 gem 'will_paginate', '~> 3.1.0'
-
 # Routes / URLs
 gem 'friendly_id'
-
 # Secrets
 gem 'figaro'
-
 # Job Worker
 gem 'sidekiq'
-
 # Documentation
 gem 'yard'
-
 # Helpful
 gem 'awesome_print'
-
 # State Machine
 gem 'aasm'
-
 # Errors
 gem 'airbrake', '~> 6.2'
 
@@ -131,9 +113,11 @@ end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'binding_of_caller'
   gem 'web-console', '>= 3.3.0'
+  gem 'binding_of_caller'
   gem 'better_errors'
+  # Allows the Rails Panel chrome extension
+  gem 'meta_request'
   gem 'listen', '>= 3.0.5', '< 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
